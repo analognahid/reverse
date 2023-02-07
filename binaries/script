@@ -1,0 +1,12 @@
+gcc -Wall -c test.c
+
+Will produce an object file from test.c (test.o).
+
+
+gcc -Wall -o test test.c
+Will produce an executable file named 'test' from test.c
+
+
+
+gcc -Wall -S test.c
+Will produce an assembly file from test.c (test.s)
