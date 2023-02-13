@@ -1,4 +1,4 @@
-CC = gcc -gdwarf
+CC = gcc -gdwarf -gpubnames
 CFLAGS = -Wall
 LDFLAGS =
 OBJFILES = stack.o main.o calculate.o
