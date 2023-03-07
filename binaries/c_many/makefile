@@ -1,5 +1,5 @@
-CC = gcc -gdwarf -gpubnames
-CFLAGS = -Wall
+CC = gcc -gdwarf -gpubnames 
+CFLAGS = -c -Wa,-a,-ad -g -S -Os  -Wall 
 LDFLAGS =
 OBJFILES = stack.o main.o calculate.o
 TARGET = stacktest

@@ -1,0 +1,419 @@
+GAS LISTING /tmp/ccJTWxOK.s 			page 1
+
+
+   1              		.file	"pass.c"
+   2              		.text
+   3              	.Ltext0:
+   4              		.file 0 "/home/nahid/reverse/binaries" "pass.c"
+   5              		.globl	sneaky
+   6              		.section	.rodata
+   7              	.LC0:
+   8 0000 534F534E 		.string	"SOSNEAKY"
+   8      45414B59 
+   8      00
+   9              		.section	.data.rel.local,"aw"
+  10              		.align 8
+  13              	sneaky:
+  14 0000 00000000 		.quad	.LC0
+  14      00000000 
+  15              		.text
+  16              		.globl	authenticate
+  18              	authenticate:
+  19              	.LFB6:
+  20              		.file 1 "pass.c"
+   1:pass.c        **** #include <stdio.h>
+   2:pass.c        **** #include <string.h>
+   3:pass.c        **** #include <unistd.h>
+   4:pass.c        **** #include <fcntl.h>
+   5:pass.c        **** #include <stdlib.h>
+   6:pass.c        **** 
+   7:pass.c        **** char *sneaky = "SOSNEAKY";
+   8:pass.c        **** 
+   9:pass.c        **** int authenticate(char *username, char *password)
+  10:pass.c        **** {
+  21              		.loc 1 10 1
+  22              		.cfi_startproc
+  23 0000 F30F1EFA 		endbr64
+  24 0004 55       		pushq	%rbp
+  25              		.cfi_def_cfa_offset 16
+  26              		.cfi_offset 6, -16
+  27 0005 4889E5   		movq	%rsp, %rbp
+  28              		.cfi_def_cfa_register 6
+  29 0008 4883EC30 		subq	$48, %rsp
+  30 000c 48897DD8 		movq	%rdi, -40(%rbp)
+  31 0010 488975D0 		movq	%rsi, -48(%rbp)
+  32              		.loc 1 10 1
+  33 0014 64488B04 		movq	%fs:40, %rax
+  33      25280000 
+  33      00
+  34 001d 488945F8 		movq	%rax, -8(%rbp)
+  35 0021 31C0     		xorl	%eax, %eax
+  11:pass.c        **** 	char stored_pw[9];
+  12:pass.c        **** 	stored_pw[8] = 0;
+  36              		.loc 1 12 15
+  37 0023 C645F700 		movb	$0, -9(%rbp)
+  13:pass.c        **** 	int pwfile;
+  14:pass.c        **** 
+  15:pass.c        **** 	// evil back d00r
+  16:pass.c        **** 	if (strcmp(password, sneaky) == 0) return 1;
+  38              		.loc 1 16 6
+  39 0027 488B1500 		movq	sneaky(%rip), %rdx
+GAS LISTING /tmp/ccJTWxOK.s 			page 2
+
+
+  39      000000
+  40 002e 488B45D0 		movq	-48(%rbp), %rax
+  41 0032 4889D6   		movq	%rdx, %rsi
+  42 0035 4889C7   		movq	%rax, %rdi
+  43 0038 E8000000 		call	strcmp@PLT
+  43      00
+  44              		.loc 1 16 5
+  45 003d 85C0     		testl	%eax, %eax
+  46 003f 7507     		jne	.L2
+  47              		.loc 1 16 44 discriminator 1
+  48 0041 B8010000 		movl	$1, %eax
+  48      00
+  49 0046 EB52     		jmp	.L5
+  50              	.L2:
+  17:pass.c        **** 
+  18:pass.c        **** 	pwfile = open(username, O_RDONLY);
+  51              		.loc 1 18 11
+  52 0048 488B45D8 		movq	-40(%rbp), %rax
+  53 004c BE000000 		movl	$0, %esi
+  53      00
+  54 0051 4889C7   		movq	%rax, %rdi
+  55 0054 B8000000 		movl	$0, %eax
+  55      00
+  56 0059 E8000000 		call	open@PLT
+  56      00
+  57 005e 8945E8   		movl	%eax, -24(%rbp)
+  19:pass.c        **** 	read(pwfile, stored_pw, 8);
+  58              		.loc 1 19 2
+  59 0061 488D4DEF 		leaq	-17(%rbp), %rcx
+  60 0065 8B45E8   		movl	-24(%rbp), %eax
+  61 0068 BA080000 		movl	$8, %edx
+  61      00
+  62 006d 4889CE   		movq	%rcx, %rsi
+  63 0070 89C7     		movl	%eax, %edi
+  64 0072 E8000000 		call	read@PLT
+  64      00
+  20:pass.c        **** 
+  21:pass.c        **** 	if (strcmp(password, stored_pw) == 0) return 1;
+  65              		.loc 1 21 6
+  66 0077 488D55EF 		leaq	-17(%rbp), %rdx
+  67 007b 488B45D0 		movq	-48(%rbp), %rax
+  68 007f 4889D6   		movq	%rdx, %rsi
+  69 0082 4889C7   		movq	%rax, %rdi
+  70 0085 E8000000 		call	strcmp@PLT
+  70      00
+  71              		.loc 1 21 5
+  72 008a 85C0     		testl	%eax, %eax
+  73 008c 7507     		jne	.L4
+  74              		.loc 1 21 47 discriminator 1
+  75 008e B8010000 		movl	$1, %eax
+  75      00
+  76 0093 EB05     		jmp	.L5
+  77              	.L4:
+  22:pass.c        **** 	return 0;
+  78              		.loc 1 22 9
+  79 0095 B8000000 		movl	$0, %eax
+  79      00
+GAS LISTING /tmp/ccJTWxOK.s 			page 3
+
+
+  80              	.L5:
+  23:pass.c        **** 
+  24:pass.c        **** }
+  81              		.loc 1 24 1 discriminator 1
+  82 009a 488B55F8 		movq	-8(%rbp), %rdx
+  83 009e 64482B14 		subq	%fs:40, %rdx
+  83      25280000 
+  83      00
+  84 00a7 7405     		je	.L6
+  85              		.loc 1 24 1 is_stmt 0
+  86 00a9 E8000000 		call	__stack_chk_fail@PLT
+  86      00
+  87              	.L6:
+  88 00ae C9       		leave
+  89              		.cfi_def_cfa 7, 8
+  90 00af C3       		ret
+  91              		.cfi_endproc
+  92              	.LFE6:
+  94              		.section	.rodata
+  95 0009 00000000 		.align 8
+  95      000000
+  96              	.LC1:
+  97 0010 57656C63 		.string	"Welcome to the admin console, trusted user!"
+  97      6F6D6520 
+  97      746F2074 
+  97      68652061 
+  97      646D696E 
+  98              		.text
+  99              		.globl	accepted
+ 101              	accepted:
+ 102              	.LFB7:
+  25:pass.c        **** 
+  26:pass.c        **** int accepted()
+  27:pass.c        **** {
+ 103              		.loc 1 27 1 is_stmt 1
+ 104              		.cfi_startproc
+ 105 00b0 F30F1EFA 		endbr64
+ 106 00b4 55       		pushq	%rbp
+ 107              		.cfi_def_cfa_offset 16
+ 108              		.cfi_offset 6, -16
+ 109 00b5 4889E5   		movq	%rsp, %rbp
+ 110              		.cfi_def_cfa_register 6
+  28:pass.c        **** 	printf("Welcome to the admin console, trusted user!\n");
+ 111              		.loc 1 28 2
+ 112 00b8 488D0500 		leaq	.LC1(%rip), %rax
+ 112      000000
+ 113 00bf 4889C7   		movq	%rax, %rdi
+ 114 00c2 E8000000 		call	puts@PLT
+ 114      00
+  29:pass.c        **** }
+ 115              		.loc 1 29 1
+ 116 00c7 90       		nop
+ 117 00c8 5D       		popq	%rbp
+ 118              		.cfi_def_cfa 7, 8
+ 119 00c9 C3       		ret
+ 120              		.cfi_endproc
+ 121              	.LFE7:
+GAS LISTING /tmp/ccJTWxOK.s 			page 4
+
+
+ 123              		.section	.rodata
+ 124              	.LC2:
+ 125 003c 476F2061 		.string	"Go away!"
+ 125      77617921 
+ 125      00
+ 126              		.text
+ 127              		.globl	rejected
+ 129              	rejected:
+ 130              	.LFB8:
+  30:pass.c        **** 
+  31:pass.c        **** int rejected()
+  32:pass.c        **** {
+ 131              		.loc 1 32 1
+ 132              		.cfi_startproc
+ 133 00ca F30F1EFA 		endbr64
+ 134 00ce 55       		pushq	%rbp
+ 135              		.cfi_def_cfa_offset 16
+ 136              		.cfi_offset 6, -16
+ 137 00cf 4889E5   		movq	%rsp, %rbp
+ 138              		.cfi_def_cfa_register 6
+  33:pass.c        **** 	printf("Go away!");
+ 139              		.loc 1 33 2
+ 140 00d2 488D0500 		leaq	.LC2(%rip), %rax
+ 140      000000
+ 141 00d9 4889C7   		movq	%rax, %rdi
+ 142 00dc B8000000 		movl	$0, %eax
+ 142      00
+ 143 00e1 E8000000 		call	printf@PLT
+ 143      00
+  34:pass.c        **** 	exit(1);
+ 144              		.loc 1 34 2
+ 145 00e6 BF010000 		movl	$1, %edi
+ 145      00
+ 146 00eb E8000000 		call	exit@PLT
+ 146      00
+ 147              		.cfi_endproc
+ 148              	.LFE8:
+ 150              		.section	.rodata
+ 151              	.LC3:
+ 152 0045 55736572 		.string	"Username: "
+ 152      6E616D65 
+ 152      3A2000
+ 153              	.LC4:
+ 154 0050 50617373 		.string	"Password: "
+ 154      776F7264 
+ 154      3A2000
+ 155              		.text
+ 156              		.globl	main
+ 158              	main:
+ 159              	.LFB9:
+  35:pass.c        **** }
+  36:pass.c        **** 
+  37:pass.c        **** int main(int argc, char **argv)
+  38:pass.c        **** {
+ 160              		.loc 1 38 1
+ 161              		.cfi_startproc
+ 162 00f0 F30F1EFA 		endbr64
+GAS LISTING /tmp/ccJTWxOK.s 			page 5
+
+
+ 163 00f4 55       		pushq	%rbp
+ 164              		.cfi_def_cfa_offset 16
+ 165              		.cfi_offset 6, -16
+ 166 00f5 4889E5   		movq	%rsp, %rbp
+ 167              		.cfi_def_cfa_register 6
+ 168 00f8 4883EC30 		subq	$48, %rsp
+ 169 00fc 897DDC   		movl	%edi, -36(%rbp)
+ 170 00ff 488975D0 		movq	%rsi, -48(%rbp)
+ 171              		.loc 1 38 1
+ 172 0103 64488B04 		movq	%fs:40, %rax
+ 172      25280000 
+ 172      00
+ 173 010c 488945F8 		movq	%rax, -8(%rbp)
+ 174 0110 31C0     		xorl	%eax, %eax
+  39:pass.c        **** 	char username[9];
+  40:pass.c        **** 	char password[9];
+  41:pass.c        **** 	int authed;
+  42:pass.c        **** 
+  43:pass.c        **** 	username[8] = 0;
+ 175              		.loc 1 43 14
+ 176 0112 C645EE00 		movb	$0, -18(%rbp)
+  44:pass.c        **** 	password[8] = 0;
+ 177              		.loc 1 44 14
+ 178 0116 C645F700 		movb	$0, -9(%rbp)
+  45:pass.c        **** 
+  46:pass.c        **** 	printf("Username: \n");
+ 179              		.loc 1 46 2
+ 180 011a 488D0500 		leaq	.LC3(%rip), %rax
+ 180      000000
+ 181 0121 4889C7   		movq	%rax, %rdi
+ 182 0124 E8000000 		call	puts@PLT
+ 182      00
+  47:pass.c        **** 	read(0, username, 8);
+ 183              		.loc 1 47 2
+ 184 0129 488D45E6 		leaq	-26(%rbp), %rax
+ 185 012d BA080000 		movl	$8, %edx
+ 185      00
+ 186 0132 4889C6   		movq	%rax, %rsi
+ 187 0135 BF000000 		movl	$0, %edi
+ 187      00
+ 188 013a E8000000 		call	read@PLT
+ 188      00
+  48:pass.c        **** 	read(0, &authed, 1);
+ 189              		.loc 1 48 2
+ 190 013f 488D45E0 		leaq	-32(%rbp), %rax
+ 191 0143 BA010000 		movl	$1, %edx
+ 191      00
+ 192 0148 4889C6   		movq	%rax, %rsi
+ 193 014b BF000000 		movl	$0, %edi
+ 193      00
+ 194 0150 E8000000 		call	read@PLT
+ 194      00
+  49:pass.c        **** 	printf("Password: \n");
+ 195              		.loc 1 49 2
+ 196 0155 488D0500 		leaq	.LC4(%rip), %rax
+ 196      000000
+ 197 015c 4889C7   		movq	%rax, %rdi
+GAS LISTING /tmp/ccJTWxOK.s 			page 6
+
+
+ 198 015f E8000000 		call	puts@PLT
+ 198      00
+  50:pass.c        **** 	read(0, password, 8);
+ 199              		.loc 1 50 2
+ 200 0164 488D45EF 		leaq	-17(%rbp), %rax
+ 201 0168 BA080000 		movl	$8, %edx
+ 201      00
+ 202 016d 4889C6   		movq	%rax, %rsi
+ 203 0170 BF000000 		movl	$0, %edi
+ 203      00
+ 204 0175 E8000000 		call	read@PLT
+ 204      00
+  51:pass.c        **** 	read(0, &authed, 1);
+ 205              		.loc 1 51 2
+ 206 017a 488D45E0 		leaq	-32(%rbp), %rax
+ 207 017e BA010000 		movl	$1, %edx
+ 207      00
+ 208 0183 4889C6   		movq	%rax, %rsi
+ 209 0186 BF000000 		movl	$0, %edi
+ 209      00
+ 210 018b E8000000 		call	read@PLT
+ 210      00
+  52:pass.c        **** 
+  53:pass.c        **** 	authed = authenticate(username, password);
+ 211              		.loc 1 53 11
+ 212 0190 488D55EF 		leaq	-17(%rbp), %rdx
+ 213 0194 488D45E6 		leaq	-26(%rbp), %rax
+ 214 0198 4889D6   		movq	%rdx, %rsi
+ 215 019b 4889C7   		movq	%rax, %rdi
+ 216 019e E8000000 		call	authenticate
+ 216      00
+ 217              		.loc 1 53 9
+ 218 01a3 8945E0   		movl	%eax, -32(%rbp)
+  54:pass.c        **** 	if (authed) accepted();
+ 219              		.loc 1 54 6
+ 220 01a6 8B45E0   		movl	-32(%rbp), %eax
+ 221              		.loc 1 54 5
+ 222 01a9 85C0     		testl	%eax, %eax
+ 223 01ab 740C     		je	.L10
+ 224              		.loc 1 54 14 discriminator 1
+ 225 01ad B8000000 		movl	$0, %eax
+ 225      00
+ 226 01b2 E8000000 		call	accepted
+ 226      00
+ 227 01b7 EB0A     		jmp	.L11
+ 228              	.L10:
+  55:pass.c        **** 	else rejected();
+ 229              		.loc 1 55 7
+ 230 01b9 B8000000 		movl	$0, %eax
+ 230      00
+ 231 01be E8000000 		call	rejected
+ 231      00
+ 232              	.L11:
+ 233 01c3 B8000000 		movl	$0, %eax
+ 233      00
+  56:pass.c        **** }...
+ 234              		.loc 1 56 1
+GAS LISTING /tmp/ccJTWxOK.s 			page 7
+
+
+ 235 01c8 488B55F8 		movq	-8(%rbp), %rdx
+ 236 01cc 64482B14 		subq	%fs:40, %rdx
+ 236      25280000 
+ 236      00
+ 237 01d5 7405     		je	.L13
+ 238 01d7 E8000000 		call	__stack_chk_fail@PLT
+ 238      00
+ 239              	.L13:
+ 240 01dc C9       		leave
+ 241              		.cfi_def_cfa 7, 8
+ 242 01dd C3       		ret
+ 243              		.cfi_endproc
+ 244              	.LFE9:
+ 246              	.Letext0:
+ 247              		.file 2 "/usr/lib/gcc/x86_64-linux-gnu/11/include/stddef.h"
+ 248              		.file 3 "/usr/include/x86_64-linux-gnu/bits/types.h"
+ 249              		.file 4 "/usr/include/stdio.h"
+ 250              		.file 5 "/usr/include/stdlib.h"
+ 251              		.file 6 "/usr/include/unistd.h"
+ 252              		.file 7 "/usr/include/fcntl.h"
+ 253              		.file 8 "/usr/include/string.h"
+ 931              		.section	.note.gnu.property,"a"
+ 932              		.align 8
+ 933 0000 04000000 		.long	1f - 0f
+ 934 0004 10000000 		.long	4f - 1f
+ 935 0008 05000000 		.long	5
+ 936              	0:
+ 937 000c 474E5500 		.string	"GNU"
+ 938              	1:
+ 939              		.align 8
+ 940 0010 020000C0 		.long	0xc0000002
+ 941 0014 04000000 		.long	3f - 2f
+ 942              	2:
+ 943 0018 03000000 		.long	0x3
+ 944              	3:
+ 945 001c 00000000 		.align 8
+ 946              	4:
+GAS LISTING /tmp/ccJTWxOK.s 			page 8
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 pass.c
+     /tmp/ccJTWxOK.s:13     .data.rel.local:0000000000000000 sneaky
+     /tmp/ccJTWxOK.s:18     .text:0000000000000000 authenticate
+     /tmp/ccJTWxOK.s:101    .text:00000000000000b0 accepted
+     /tmp/ccJTWxOK.s:129    .text:00000000000000ca rejected
+     /tmp/ccJTWxOK.s:158    .text:00000000000000f0 main
+
+UNDEFINED SYMBOLS
+strcmp
+open
+read
+__stack_chk_fail
+puts
+printf
+exit
