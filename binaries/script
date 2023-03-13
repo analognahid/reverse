@@ -3,8 +3,9 @@ gcc -Wall -c test.c
 Will produce an object file from test.c (test.o).
 
 
-gcc -Wall -o test test.c
+gcc -Wall -o  -gdwarf test test.c
 Will produce an executable file named 'test' from test.c
+also generate the dwarf
 
 
 
