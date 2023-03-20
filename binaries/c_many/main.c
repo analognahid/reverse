@@ -12,7 +12,7 @@ int main() {
 
     int fake_param1 = 0;
     int fake_param2 = 1;
-    int fake_result = fake(fake_param1 , fake_param2);
+    int fake_result = fake(fake_param1 , fake_param2, 10);
 
 
     //call dummy

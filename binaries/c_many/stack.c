@@ -50,7 +50,7 @@ int pop(stack **stk_ptr) {
     return number;
 }
 
-int fake(int a , int b){
+int fake(int a , int b, int x){
 
     int d =10;
     int e =11;
