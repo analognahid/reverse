@@ -1,0 +1,26 @@
+SUBPROGRAM:  dummy
+a_int
+(DW_OP_fbreg: -148)
+b_float
+(DW_OP_fbreg: -152)
+c_double
+(DW_OP_fbreg: -160)
+char_pointer
+(DW_OP_fbreg: -168)
+e_int
+(DW_OP_fbreg: -132)
+f_float
+(DW_OP_fbreg: -128)
+g_double
+(DW_OP_fbreg: -120)
+x1
+x2
+x3
+x4
+x5
+x6
+(DW_OP_fbreg: -124)
+int_arr
+(DW_OP_fbreg: -112)
+k
+(DW_OP_fbreg: -136)
