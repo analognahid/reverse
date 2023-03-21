@@ -63,37 +63,37 @@ MEMORY OFFSET:     -0x98     -152
 0x1296:	mov eax, 0                           
 0x129b:	call 0x10a0                          
 0x12a0:	mov dword ptr [rbp - 0x6c], 0        #        int x1,x2,x3,x4,x5,|x|6 = 0;
-MEMORY OFFSET:     -0x6c     -108
+MEMORY OFFSET:     -0x6c     -108     ->12
 
 0x12a7:	mov dword ptr [rbp - 0x78], 0        #        for (int |k|=0; k<20;k++){
 MEMORY OFFSET:     -0x78     -120
 
 0x12ae:	jmp 0x12c4                           #        |f|or (int k=0; k<20;k++){
 0x12b0:	mov eax, dword ptr [rbp - 0x74]      #            int_arr[k] = e_int|%|k;
-MEMORY OFFSET:     -0x74     -116
+MEMORY OFFSET:     -0x74     -116         ->20
 
 0x12b3:	cdq                                  
 0x12b4:	idiv dword ptr [rbp - 0x78]          
-MEMORY OFFSET:     -0x78     -120
+MEMORY OFFSET:     -0x78     -120         -24
 
 0x12b7:	mov eax, dword ptr [rbp - 0x78]      #            int_arr[k] |=| e_int%k;
-MEMORY OFFSET:     -0x78     -120
+MEMORY OFFSET:     -0x78     -120         ->24
 
 0x12ba:	cdqe                                 
 0x12bc:	mov dword ptr [rbp + rax*4 - 0x60], edx
-MEMORY OFFSET:     -0x60     -96        -> 0
+MEMORY OFFSET:     -0x60     -96        -> 0           ###########   BASE!
 
 0x12c0:	add dword ptr [rbp - 0x78], 1        #        for (int k=0; k<20;k|+|+){
 MEMORY OFFSET:     -0x78     -120      ->24
 
 0x12c4:	cmp dword ptr [rbp - 0x78], 0x13     #        for (int k=0; k|<|20;k++){
-MEMORY OFFSET:     -0x78     -120
+MEMORY OFFSET:     -0x78     -120      ->24
 
 0x12c8:	jle 0x12b0                           
 0x12ca:	mov eax, dword ptr [rbp - 0x74]      #        return e_int|*|a_int;
-MEMORY OFFSET:     -0x74     -116
+MEMORY OFFSET:     -0x74     -116      ->20
 
 0x12cd:	imul eax, dword ptr [rbp - 0x84]     
-MEMORY OFFSET:     -0x84     -132
+MEMORY OFFSET:     -0x84     -132      ->36
 
 0x12d4:	mov rdx, qword ptr [rbp - 8]         # |}|
