@@ -11,11 +11,11 @@
 # 	rm -f $(OBJFILES) $(TARGET) *~
 
 
-CC = clang -gdwarf -gpubnames
+CC = clang -gdwarf-4
 CFLAGS = -Wall
 LDFLAGS =
 OBJFILES = stack.o main.o calculate.o
-TARGET = stacktest
+TARGET = stacktest_dwarf4
 
 all: $(TARGET)
 $(TARGET): $(OBJFILES)
