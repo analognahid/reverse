@@ -1,0 +1,25 @@
+#!/bin/sh
+
+if [ $# -lt 1 ]
+then
+    echo "usage: gitdpkgname file|package..."
+    echo " see gitdpkgname(1)."
+    exit 1
+fi
+
+while [ $# -gt 0 ]
+do
+  file="$1"
+  shift
+  if [ "`echo "$file"|sed -e 's/.*\(\..*\)/\L\1/'`" = ".deb" ]
+  then
+      pkg="`dpkg-deb -f "$file" Package`"
+  else
+      pkg="`basename "$file"`"
+  fi
+  echo -n "$pkg "
+done
+
+echo
+
+

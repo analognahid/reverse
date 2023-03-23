@@ -1,10 +1,2 @@
-IDEL:/stacktest
-IDEL:/gitfm
-IADD:0000000a:/stacktest
-IDSET:/stacktest:7f011832f45910905757784
-IADD:0000000b:/stacktest_dwarf4
-IDSET:/stacktest_dwarf4:7f0119eef47315139817050
-IDEL:/stacktest_dwarf4
-IDEL:/stacktest
-IADD:0000000c:/stacktest_dwarf4
-IDSET:/stacktest_dwarf4:7f011a3a747477784591155
+IADD:0000000e:/main_d4.out
+IDSET:/main_d4.out:7f011b06b20947521092450

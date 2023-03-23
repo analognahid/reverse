@@ -11,3 +11,11 @@ also generate the dwarf
 
 gcc -Wall -S test.c
 Will produce an assembly file from test.c (test.s)
+
+
+# break code sections
+CFLAGS = -g -ffunction-sections -fdata-sections -gdwarf
+
+
+#Clang doesn't emit aranges by default either, but it does have the
+ -gdwarf-aranges

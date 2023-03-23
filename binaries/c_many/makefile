@@ -11,11 +11,12 @@
 # 	rm -f $(OBJFILES) $(TARGET) *~
 
 
-CC = clang -gdwarf-4
+CC = gcc -gdwarf  -ffunction-sections -fdata-sections
+# CC = gcc   -gdwarf
 CFLAGS = -Wall
 LDFLAGS =
 OBJFILES = stack.o main.o calculate.o
-TARGET = stacktest_dwarf4
+TARGET = stacktest
 
 all: $(TARGET)
 $(TARGET): $(OBJFILES)
