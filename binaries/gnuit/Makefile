@@ -127,7 +127,7 @@ BITSIZEOF_WCHAR_T =
 BITSIZEOF_WINT_T = 
 CC = gcc
 CCDEPMODE = depmode=gcc3
-CFLAGS = -g -O3 -gdwarf
+CFLAGS = -g -gdwarf
 CLEANFILES = core tutu gogu *.out t tt mwatch.log mtrace.log autoscan.log autom4te.cache/*
 CPP = gcc -E
 CPPFLAGS = 
