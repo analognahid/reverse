@@ -1,32 +1,18 @@
-SUBPROGRAM:  dummy
+SUBPROGRAM:  pop
+stk_ptr (DW_OP_fbreg: -56) 32
+int1 (DW_OP_fbreg: -44) 20
+int2 (DW_OP_fbreg: -40) 16
+number (DW_OP_fbreg: -36) 12
+stk (DW_OP_fbreg: -32) 8
+tmp (DW_OP_fbreg: -24) 0
 
 
-PARAMS: 
-a_int  (DW_OP_fbreg: -148)       ->36
-
-b_float (DW_OP_fbreg: -152)      ->40
-
-c_double (DW_OP_fbreg: -160)     ->48
-
-char_pointer (DW_OP_fbreg: -168) ->56
 
 
-LOCAL VARS:
-
-e_int  (DW_OP_fbreg: -132)       ->20
-
-f_float  (DW_OP_fbreg: -128)     ->16
-
-g_double (DW_OP_fbreg: -120)     ->8
-x1
-x2
-x3
-x4
-x5
-
-x6 (DW_OP_fbreg: -124)           ->12
-
-int_arr (DW_OP_fbreg: -112)      ->0
-
-k (DW_OP_fbreg: -136)            ->24
-
+SUBPROGRAM:  push
+number (DW_OP_fbreg: -52) 28
+stk_ptr (DW_OP_fbreg: -64) 40
+pop (DW_OP_fbreg: -40) 16
+ming (DW_OP_fbreg: -36) 12
+stk (DW_OP_fbreg: -32) 8
+tmp (DW_OP_fbreg: -24) 0
