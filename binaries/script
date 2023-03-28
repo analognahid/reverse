@@ -19,3 +19,6 @@ CFLAGS = -g -ffunction-sections -fdata-sections -gdwarf
 
 #Clang doesn't emit aranges by default either, but it does have the
  -gdwarf-aranges
+
+ #clang include line number table
+ CC = clang -gdwarf-4 -g1 -O3 -ffunction-sections -fdata-sections 
