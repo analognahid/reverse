@@ -14968,28 +14968,28 @@ MEMORY OFFSET:     -0x8     -8  >>-4
 0xe31e:	mov rbp, rsp                         
 0xe321:	sub rsp, 0x20                        
 0xe325:	mov qword ptr [rbp - 0x18], rdi      
-MEMORY OFFSET:     -0x18     -24  >>-20
+MEMORY OFFSET:     -0x18     -24  >>-16
 
 0xe329:	mov rax, qword ptr [rip + 0x230e0]   #    size_t columns = il|-|>columns;
-MEMORY OFFSET:     0x230e0     143584  >>143588
+MEMORY OFFSET:     0x230e0     143584  >>
 
 0xe330:	mov rax, qword ptr [rax + 0x28]      #    size_t |c|olumns = il->columns;
-MEMORY OFFSET:     0x28     40  >>44
+MEMORY OFFSET:     0x28     40  >>32
 
 0xe334:	mov qword ptr [rbp - 0x10], rax      
-MEMORY OFFSET:     -0x10     -16  >>-12
+MEMORY OFFSET:     -0x10     -16  >>-8
 
 0xe338:	mov rax, qword ptr [rip + 0x230d1]   #    size_t line = il|-|>line;
-MEMORY OFFSET:     0x230d1     143569  >>143573
+MEMORY OFFSET:     0x230d1     143569  >>
 
 0xe33f:	mov rax, qword ptr [rax + 0x30]      #    size_t |l|ine = il->line;
-MEMORY OFFSET:     0x30     48  >>52
+MEMORY OFFSET:     0x30     48  >> ?40
 
 0xe343:	mov qword ptr [rbp - 8], rax         
-MEMORY OFFSET:     -0x8     -8  >>-4
+MEMORY OFFSET:     -0x8     -8  >> 0
 
 0xe347:	cmp qword ptr [rbp - 0x18], 0        #    if |(|saved_il == NULL)
-MEMORY OFFSET:     -0x18     -24  >>-20
+MEMORY OFFSET:     -0x18     -24  >>16
 
 0xe34c:	je 0xe37d                            
 0xe34e:	mov rax, qword ptr [rip + 0x230bb]   #    |i|l_free(il);
@@ -14998,17 +14998,24 @@ MEMORY OFFSET:     0x230bb     143547  >>143551
 0xe355:	mov rdi, rax                         
 0xe358:	call 0xdf09                          
 0xe35d:	mov rax, qword ptr [rbp - 0x18]      #    il |=| saved_il;
-MEMORY OFFSET:     -0x18     -24  >>-20
+MEMORY OFFSET:     -0x18     -24  >>16
 
 0xe361:	mov qword ptr [rip + 0x230a8], rax   
 MEMORY OFFSET:     0x230a8     143528  >>143532
 
 0xe368:	mov rax, qword ptr [rbp - 8]         #    |i|l_resize(columns, line);
-MEMORY OFFSET:     -0x8     -8  >>-4
+MEMORY OFFSET:     -0x8     -8  >>0
 
 0xe36c:	mov edx, eax                         
 0xe36e:	mov rax, qword ptr [rbp - 0x10]      
-MEMORY OFFSET:     -0x10     -16  >>-12
+MEMORY OFFSET:     -0x10     -16  >>8
+
+
+
+
+
+
+
 
 0xe372:	mov esi, edx                         
 0xe374:	mov edi, eax                         
@@ -43298,6 +43305,15 @@ MEMORY OFFSET:     -0x8     -8  >>-4
 0x1dd57:	sub rdx, qword ptr fs:[0x28]        
 MEMORY OFFSET:     0x28     40  >>44
 
+
+
+
+
+
+
+
+
+
 0x1dd60:	je 0x1dd67                          
 0x1dd62:	call 0x4980                         
 0x1dd67:	leave                               
@@ -43307,55 +43323,55 @@ MEMORY OFFSET:     0x28     40  >>44
 0x1dd6e:	mov rbp, rsp                        
 0x1dd71:	sub rsp, 0x40                       
 0x1dd75:	mov qword ptr [rbp - 0x28], rdi     
-MEMORY OFFSET:     -0x28     -40  >>-36
+MEMORY OFFSET:     -0x28     -40  >>-   32
 
 0x1dd79:	mov qword ptr [rbp - 0x30], rsi     
-MEMORY OFFSET:     -0x30     -48  >>-44
+MEMORY OFFSET:     -0x30     -48  >>-   40
 
 0x1dd7d:	mov dword ptr [rbp - 0x34], edx     
-MEMORY OFFSET:     -0x34     -52  >>-48
+MEMORY OFFSET:     -0x34     -52  >>-   44
 
 0x1dd80:	mov dword ptr [rbp - 0x38], ecx     
-MEMORY OFFSET:     -0x38     -56  >>-52
+MEMORY OFFSET:     -0x38     -56  >>-   48
 
 0x1dd83:	mov rax, qword ptr fs:[0x28]        #|{|
-MEMORY OFFSET:     0x28     40  >>44
+MEMORY OFFSET:     0x28     40  >>          32
 
 0x1dd8c:	mov qword ptr [rbp - 8], rax        
-MEMORY OFFSET:     -0x8     -8  >>-4
+MEMORY OFFSET:     -0x8     -8  >>-        0
 
 0x1dd90:	xor eax, eax                        
 0x1dd92:	lea rsi, [rbp - 0x10]               #    |c|onfiguration_getvarinfo(var_name, &data, 1, DO_SEEK);
-MEMORY OFFSET:     -0x10     -16  >>-12
+MEMORY OFFSET:     -0x10     -16  >>-       8
 
 0x1dd96:	mov rax, qword ptr [rbp - 0x28]     
-MEMORY OFFSET:     -0x28     -40  >>-36
+MEMORY OFFSET:     -0x28     -40  >>-       32
 
 0x1dd9a:	mov ecx, 1                          
 0x1dd9f:	mov edx, 1                          
 0x1dda4:	mov rdi, rax                        
 0x1dda7:	call 0x1cf27                        
 0x1ddac:	mov rax, qword ptr [rbp - 0x10]     #    if (|d|ata)
-MEMORY OFFSET:     -0x10     -16  >>-12
+MEMORY OFFSET:     -0x10     -16  >>        8
 
 0x1ddb0:	test rax, rax                       #    if |(|data)
 0x1ddb3:	je 0x1de33                          
 0x1ddb5:	mov dword ptr [rbp - 0x14], 0       #	for (i |=| 0; i < options_no; i++)
-MEMORY OFFSET:     -0x14     -20  >>-16
+MEMORY OFFSET:     -0x14     -20  >>-       12
 
 0x1ddbc:	jmp 0x1ddec                         #	|f|or (i = 0; i < options_no; i++)
 0x1ddbe:	mov eax, dword ptr [rbp - 0x14]     #	    if (strcmp(data, options|[|i]) == 0)
-MEMORY OFFSET:     -0x14     -20  >>-16
+MEMORY OFFSET:     -0x14     -20  >>-1  12
 
 0x1ddc1:	cdqe                                
 0x1ddc3:	lea rdx, [rax*8]                    
 0x1ddcb:	mov rax, qword ptr [rbp - 0x30]     
-MEMORY OFFSET:     -0x30     -48  >>-44
+MEMORY OFFSET:     -0x30     -48  >>-           40
 
 0x1ddcf:	add rax, rdx                        
 0x1ddd2:	mov rdx, qword ptr [rax]            #	    if (|s|trcmp(data, options[i]) == 0)
 0x1ddd5:	mov rax, qword ptr [rbp - 0x10]     
-MEMORY OFFSET:     -0x10     -16  >>-12
+MEMORY OFFSET:     -0x10     -16  >>-   8
 
 0x1ddd9:	mov rsi, rdx                        
 0x1dddc:	mov rdi, rax                        
@@ -43369,20 +43385,20 @@ MEMORY OFFSET:     -0x14     -20  >>-16
 MEMORY OFFSET:     -0x14     -20  >>-16
 
 0x1ddef:	cmp eax, dword ptr [rbp - 0x34]     
-MEMORY OFFSET:     -0x34     -52  >>-48
+MEMORY OFFSET:     -0x34     -52  >>-   44
 
 0x1ddf2:	jl 0x1ddbe                          
 0x1ddf4:	jmp 0x1ddf7                         
 0x1ddf6:	nop                                 #		|b|reak;
 0x1ddf7:	mov eax, dword ptr [rbp - 0x14]     #	if |(|i == options_no)
-MEMORY OFFSET:     -0x14     -20  >>-16
+MEMORY OFFSET:     -0x14     -20  >>-   8
 
 0x1ddfa:	cmp eax, dword ptr [rbp - 0x34]     
-MEMORY OFFSET:     -0x34     -52  >>-48
+MEMORY OFFSET:     -0x34     -52  >>-   44
 
 0x1ddfd:	jne 0x1de2e                         
 0x1ddff:	mov rsi, qword ptr [rbp - 0x10]     #	    |f|printf(stderr, "%s: invalid %s (%s).\n", g_program, var_name, data);
-MEMORY OFFSET:     -0x10     -16  >>-12
+MEMORY OFFSET:     -0x10     -16  >>        8
 
 0x1de03:	mov rdx, qword ptr [rip + 0x12ace]  
 MEMORY OFFSET:     0x12ace     76494  >>76498
@@ -43391,7 +43407,7 @@ MEMORY OFFSET:     0x12ace     76494  >>76498
 MEMORY OFFSET:     0x12aaf     76463  >>76467
 
 0x1de11:	mov rcx, qword ptr [rbp - 0x28]     
-MEMORY OFFSET:     -0x28     -40  >>-36
+MEMORY OFFSET:     -0x28     -40  >>    -32
 
 0x1de15:	mov r8, rsi                         
 0x1de18:	lea rsi, [rip + 0xb577]             
@@ -43402,17 +43418,32 @@ MEMORY OFFSET:     0xb577     46455  >>46459
 0x1de27:	call 0x4b40                         
 0x1de2c:	jmp 0x1de33                         
 0x1de2e:	mov eax, dword ptr [rbp - 0x14]     #	    return |i|;
-MEMORY OFFSET:     -0x14     -20  >>-16
+MEMORY OFFSET:     -0x14     -20  >>    -12
 
 0x1de31:	jmp 0x1de36                         
 0x1de33:	mov eax, dword ptr [rbp - 0x38]     #    return |d|efault_value;
-MEMORY OFFSET:     -0x38     -56  >>-52
+MEMORY OFFSET:     -0x38     -56  >>    48
+
+
+
+
+
+
+
+
+
 
 0x1de36:	mov rdx, qword ptr [rbp - 8]        #|}|
-MEMORY OFFSET:     -0x8     -8  >>-4
+MEMORY OFFSET:     -0x8     -8  >>      0
 
 0x1de3a:	sub rdx, qword ptr fs:[0x28]        
-MEMORY OFFSET:     0x28     40  >>44
+MEMORY OFFSET:     0x28     40  >>      32
+
+
+
+
+
+
 
 0x1de43:	je 0x1de4a                          
 0x1de45:	call 0x4980                         #|}|
