@@ -1,0 +1,5 @@
+#define PRODUCT "GNU Interactive Tools"
+#define PACKAGE "gnuit"
+#define VERSION "4.9.2"
+#define HOST "x86_64-unknown-linux-gnu"
+#define PREFIX "/usr/local"
