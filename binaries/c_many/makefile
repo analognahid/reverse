@@ -12,7 +12,7 @@
 
 
 #CC = clang -gdwarf-5 -g1 -O3 -ffunction-sections -fdata-sections 
-CC = clang -gdwarf-aranges -gdwarf-4 
+CC = gcc -gdwarf-2 -g3
 CFLAGS = -Wall
 LDFLAGS =
 OBJFILES = stack.o main.o calculate.o
