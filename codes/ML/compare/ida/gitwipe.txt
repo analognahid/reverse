@@ -1,0 +1,321 @@
+1000:	endbr64; _init
+1004:	sub     rsp, 8
+1008:	mov     rax, cs:__gmon_start___ptr
+100F:	test    rax, rax
+1012:	jz      short loc_1016
+1014:	call    rax ; __gmon_start__
+1016:	add     rsp, 8
+101A:	retn
+1020:	push    cs:qword_3F70
+1026:	bnd jmp cs:qword_3F78
+1030:	endbr64
+1034:	push    0
+1039:	bnd jmp sub_1020
+1040:	endbr64
+1044:	push    1
+1049:	bnd jmp sub_1020
+1050:	endbr64
+1054:	push    2
+1059:	bnd jmp sub_1020
+1060:	endbr64
+1064:	push    3
+1069:	bnd jmp sub_1020
+1070:	endbr64
+1074:	push    4
+1079:	bnd jmp sub_1020
+1080:	endbr64
+1084:	push    5
+1089:	bnd jmp sub_1020
+1090:	endbr64
+1094:	push    6
+1099:	bnd jmp sub_1020
+10A0:	endbr64
+10A4:	push    7
+10A9:	bnd jmp sub_1020
+10B0:	endbr64
+10B4:	push    8
+10B9:	bnd jmp sub_1020
+10C0:	endbr64
+10C4:	push    9
+10C9:	bnd jmp sub_1020
+10D0:	endbr64
+10D4:	push    0Ah
+10D9:	bnd jmp sub_1020
+10E0:	endbr64
+10E4:	bnd jmp cs:__cxa_finalize_ptr
+10F0:	endbr64
+10F4:	bnd jmp cs:write_ptr
+1100:	endbr64
+1104:	bnd jmp cs:close_ptr
+1110:	endbr64
+1114:	bnd jmp cs:srand_ptr
+1120:	endbr64
+1124:	bnd jmp cs:fprintf_ptr
+1130:	endbr64
+1134:	bnd jmp cs:time_ptr
+1140:	endbr64
+1144:	bnd jmp cs:sync_ptr
+1150:	endbr64
+1154:	bnd jmp cs:malloc_ptr
+1160:	endbr64
+1164:	bnd jmp cs:open64_ptr
+1170:	endbr64
+1174:	bnd jmp cs:exit_ptr
+1180:	endbr64
+1184:	bnd jmp cs:lseek64_ptr
+1190:	endbr64
+1194:	bnd jmp cs:rand_ptr
+11A0:	endbr64
+11A4:	xor     ebp, ebp
+11A6:	mov     r9, rdx; rtld_fini
+11A9:	pop     rsi; argc
+11AA:	mov     rdx, rsp; ubp_av
+11AD:	and     rsp, 0FFFFFFFFFFFFFFF0h
+11B1:	push    rax
+11B2:	push    rsp; stack_end
+11B3:	xor     r8d, r8d; fini
+11B6:	xor     ecx, ecx; init
+11B8:	lea     rdi, main; main
+11BF:	call    cs:__libc_start_main_ptr
+11C5:	hlt
+11D0:	lea     rdi, __bss_start
+11D7:	lea     rax, __bss_start
+11DE:	cmp     rax, rdi
+11E1:	jz      short locret_11F8
+11E3:	mov     rax, cs:_ITM_deregisterTMCloneTable_ptr
+11EA:	test    rax, rax
+11ED:	jz      short locret_11F8
+11EF:	jmp     rax
+11F8:	retn
+1200:	lea     rdi, __bss_start
+1207:	lea     rsi, __bss_start
+120E:	sub     rsi, rdi
+1211:	mov     rax, rsi
+1214:	shr     rsi, 3Fh
+1218:	sar     rax, 3
+121C:	add     rsi, rax
+121F:	sar     rsi, 1
+1222:	jz      short locret_1238
+1224:	mov     rax, cs:_ITM_registerTMCloneTable_ptr
+122B:	test    rax, rax
+122E:	jz      short locret_1238
+1230:	jmp     rax
+1238:	retn
+1240:	endbr64
+1244:	cmp     cs:completed_0, 0
+124B:	jnz     short locret_1278
+124D:	push    rbp
+124E:	cmp     cs:__cxa_finalize_ptr, 0
+1256:	mov     rbp, rsp
+1259:	jz      short loc_1267
+125B:	mov     rdi, cs:__dso_handle; void *
+1262:	call    __cxa_finalize
+1267:	call    deregister_tm_clones
+126C:	mov     cs:completed_0, 1
+1273:	pop     rbp
+1274:	retn
+1278:	retn
+1280:	endbr64
+1284:	jmp     register_tm_clones
+1289:	endbr64
+128D:	push    rbp
+128E:	mov     rbp, rsp
+1291:	mov     rdx, cs:g_program
+1298:	mov     rax, cs:stderr@GLIBC_2_2_5
+129F:	lea     rcx, format; '%s file1 [file2 [...]]n'
+12A6:	mov     rsi, rcx; format
+12A9:	mov     rdi, rax; stream
+12AC:	mov     eax, 0
+12B1:	call    _fprintf
+12B6:	mov     edi, 1; status
+12BB:	call    _exit
+12C0:	endbr64
+12C4:	push    rbp
+12C5:	mov     rbp, rsp
+12C8:	sub     rsp, 20h
+12CC:	mov     [rbp+fd], edi
+12CF:	mov     eax, [rbp+fd]
+12D2:	mov     edx, 1; whence
+12D7:	mov     esi, 0; offset
+12DC:	mov     edi, eax; fd
+12DE:	call    _lseek64
+12E3:	mov     [rbp+current], rax
+12E7:	mov     eax, [rbp+fd]
+12EA:	mov     edx, 2; whence
+12EF:	mov     esi, 0; offset
+12F4:	mov     edi, eax; fd
+12F6:	call    _lseek64
+12FB:	mov     [rbp+length], rax
+12FF:	mov     rcx, [rbp+current]
+1303:	mov     eax, [rbp+fd]
+1306:	mov     edx, 0; whence
+130B:	mov     rsi, rcx; offset
+130E:	mov     edi, eax; fd
+1310:	call    _lseek64
+1315:	mov     rax, [rbp+length]
+1319:	leave
+131A:	retn
+131B:	endbr64
+131F:	push    rbp
+1320:	mov     rbp, rsp
+1323:	sub     rsp, 40h
+1327:	mov     [rbp+file], rdi
+132B:	mov     rax, [rbp+file]
+132F:	mov     esi, 2; oflag
+1334:	mov     rdi, rax; file
+1337:	mov     eax, 0
+133C:	call    _open64
+1341:	mov     [rbp+fd], eax
+1344:	cmp     [rbp+fd], 0FFFFFFFFh
+1348:	jnz     short loc_137A
+134A:	mov     rdx, cs:g_program
+1351:	mov     rax, cs:stderr@GLIBC_2_2_5
+1358:	mov     rcx, [rbp+file]
+135C:	lea     rsi, aSCanTOpenFileS; '%s: can't open file '%s'.n'
+1363:	mov     rdi, rax; stream
+1366:	mov     eax, 0
+136B:	call    _fprintf
+1370:	mov     eax, 1
+1375:	jmp     locret_14CD
+137A:	mov     eax, [rbp+fd]
+137D:	mov     edi, eax; fd
+137F:	mov     eax, 0
+1384:	call    file_length
+1389:	mov     [rbp+len], rax
+138D:	cmp     [rbp+len], 0
+1392:	jnz     short loc_139E
+1394:	mov     eax, 0
+1399:	jmp     locret_14CD
+139E:	mov     edi, 10000h; size
+13A3:	call    _malloc
+13A8:	mov     [rbp+buf], rax
+13AC:	cmp     [rbp+buf], 0
+13B1:	jnz     short loc_13E2
+13B3:	mov     rdx, cs:g_program
+13BA:	mov     rax, cs:stderr@GLIBC_2_2_5
+13C1:	lea     rcx, aSVirtualMemory; '%s: virtual memory exhausted.n'
+13C8:	mov     rsi, rcx; format
+13CB:	mov     rdi, rax; stream
+13CE:	mov     eax, 0
+13D3:	call    _fprintf
+13D8:	mov     eax, 1
+13DD:	jmp     locret_14CD
+13E2:	mov     [rbp+i], 0
+13EA:	jmp     loc_14AB
+13EF:	mov     rax, [rbp+len]
+13F3:	sub     rax, [rbp+i]
+13F7:	mov     edx, 10000h
+13FC:	cmp     rax, rdx
+13FF:	cmovg   rax, rdx
+1403:	mov     [rbp+bytes_to_write], rax
+1407:	mov     [rbp+j], 0
+140F:	jmp     short loc_1451
+1411:	call    _rand
+1416:	movsxd  rdx, eax
+1419:	imul    rdx, 0FFFFFFFF80808081h
+1420:	shr     rdx, 20h
+1424:	add     edx, eax
+1426:	sar     edx, 7
+1429:	mov     esi, eax
+142B:	sar     esi, 1Fh
+142E:	mov     ecx, edx
+1430:	sub     ecx, esi
+1432:	mov     edx, ecx
+1434:	shl     edx, 8
+1437:	sub     edx, ecx
+1439:	sub     eax, edx
+143B:	mov     ecx, eax
+143D:	mov     rdx, [rbp+j]
+1441:	mov     rax, [rbp+buf]
+1445:	add     rax, rdx
+1448:	mov     edx, ecx
+144A:	mov     [rax], dl
+144C:	add     [rbp+j], 1
+1451:	mov     rax, [rbp+j]
+1455:	cmp     rax, [rbp+bytes_to_write]
+1459:	jl      short loc_1411
+145B:	mov     rdx, [rbp+bytes_to_write]; n
+145F:	mov     rcx, [rbp+buf]
+1463:	mov     eax, [rbp+fd]
+1466:	mov     rsi, rcx; buf
+1469:	mov     edi, eax; fd
+146B:	call    _write
+1470:	cmp     [rbp+bytes_to_write], rax
+1474:	jz      short loc_14A3
+1476:	mov     rdx, cs:g_program
+147D:	mov     rax, cs:stderr@GLIBC_2_2_5
+1484:	mov     rcx, [rbp+file]
+1488:	lea     rsi, aSCanTWriteToFi; '%s: can't write to file %s.n'
+148F:	mov     rdi, rax; stream
+1492:	mov     eax, 0
+1497:	call    _fprintf
+149C:	mov     eax, 1
+14A1:	jmp     short locret_14CD
+14A3:	add     [rbp+i], 10000h
+14AB:	mov     rax, [rbp+i]
+14AF:	cmp     rax, [rbp+len]
+14B3:	jl      loc_13EF
+14B9:	mov     eax, [rbp+fd]
+14BC:	mov     edi, eax; fd
+14BE:	call    _close
+14C3:	call    _sync
+14C8:	mov     eax, 0
+14CD:	leave
+14CE:	retn
+14CF:	endbr64
+14D3:	push    rbp
+14D4:	mov     rbp, rsp
+14D7:	sub     rsp, 20h
+14DB:	mov     [rbp+argc], edi
+14DE:	mov     [rbp+argv], rsi
+14E2:	mov     [rbp+errors], 0
+14E9:	mov     rax, [rbp+argv]
+14ED:	mov     rax, [rax]
+14F0:	mov     cs:g_program, rax
+14F7:	cmp     [rbp+argc], 1
+14FB:	jg      short loc_1507
+14FD:	mov     eax, 0
+1502:	call    usage
+1507:	mov     edi, 0; timer
+150C:	call    _time
+1511:	mov     edi, eax; seed
+1513:	call    _srand
+1518:	mov     [rbp+i], 1
+151F:	jmp     short loc_154C
+1521:	mov     eax, [rbp+i]
+1524:	cdqe
+1526:	lea     rdx, ds:0[rax*8]
+152E:	mov     rax, [rbp+argv]
+1532:	add     rax, rdx
+1535:	mov     rax, [rax]
+1538:	mov     rdi, rax; file
+153B:	mov     eax, 0
+1540:	call    wipe
+1545:	add     [rbp+errors], eax
+1548:	add     [rbp+i], 1
+154C:	mov     eax, [rbp+i]
+154F:	cmp     eax, [rbp+argc]
+1552:	jl      short loc_1521
+1554:	cmp     [rbp+errors], 0
+1558:	setnz   al
+155B:	movzx   eax, al
+155E:	leave
+155F:	retn
+1560:	endbr64; _fini
+1564:	sub     rsp, 8
+1568:	add     rsp, 8
+156C:	retn
+4040:	extrn __libc_start_main:near
+4048:	extrn write:near
+4050:	extrn close:near
+4058:	extrn srand:near
+4060:	extrn fprintf:near
+4068:	extrn time:near
+4070:	extrn sync:near
+4078:	extrn malloc:near
+4080:	extrn open64:near
+4088:	extrn exit:near
+4090:	extrn lseek64:near
+4098:	extrn rand:near
+40A0:	extrn __imp___cxa_finalize:near ; weak
+40B0:	extrn __gmon_start__:near ; weak

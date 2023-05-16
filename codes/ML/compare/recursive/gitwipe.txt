@@ -1,0 +1,197 @@
+4512:	endbr64 
+4516:	xor ebp, ebp
+4518:	mov r9, rdx
+4521:	pop rsi
+4522:	mov rdx, rsp
+4525:	and rsp, 0xfffffffffffffff0
+4529:	push rax
+4530:	push rsp
+4531:	xor r8d, r8d
+4534:	xor ecx, ecx
+4536:	lea rdi, [rip + 0x310]
+4543:	call qword ptr [rip + 0x2e13]
+4745:	endbr64 
+4749:	push rbp
+4750:	mov rbp, rsp
+4753:	mov rdx, qword ptr [rip + 0x2d98]
+4760:	mov rax, qword ptr [rip + 0x2d81]
+4767:	lea rcx, [rip + 0xd62]
+4774:	mov rsi, rcx
+4777:	mov rdi, rax
+4780:	mov eax, 0
+4785:	call 0x1120
+4790:	mov edi, 1
+4795:	call 0x1170
+4800:	endbr64 
+4804:	push rbp
+4805:	mov rbp, rsp
+4808:	sub rsp, 0x20
+4812:	mov dword ptr [rbp - 0x14], edi
+4815:	mov eax, dword ptr [rbp - 0x14]
+4818:	mov edx, 1
+4823:	mov esi, 0
+4828:	mov edi, eax
+4830:	call 0x1180
+4835:	mov qword ptr [rbp - 0x10], rax
+4839:	mov eax, dword ptr [rbp - 0x14]
+4842:	mov edx, 2
+4847:	mov esi, 0
+4852:	mov edi, eax
+4854:	call 0x1180
+4859:	mov qword ptr [rbp - 8], rax
+4863:	mov rcx, qword ptr [rbp - 0x10]
+4867:	mov eax, dword ptr [rbp - 0x14]
+4870:	mov edx, 0
+4875:	mov rsi, rcx
+4878:	mov edi, eax
+4880:	call 0x1180
+4885:	mov rax, qword ptr [rbp - 8]
+4889:	leave 
+4891:	endbr64 
+4895:	push rbp
+4896:	mov rbp, rsp
+4899:	sub rsp, 0x40
+4903:	mov qword ptr [rbp - 0x38], rdi
+4907:	mov rax, qword ptr [rbp - 0x38]
+4911:	mov esi, 2
+4916:	mov rdi, rax
+4919:	mov eax, 0
+4924:	call 0x1160
+4929:	mov dword ptr [rbp - 0x2c], eax
+4932:	cmp dword ptr [rbp - 0x2c], -1
+4936:	jne 0x137a
+4938:	mov rdx, qword ptr [rip + 0x2cdf]
+4945:	mov rax, qword ptr [rip + 0x2cc8]
+4952:	mov rcx, qword ptr [rbp - 0x38]
+4956:	lea rsi, [rip + 0xcbd]
+4963:	mov rdi, rax
+4966:	mov eax, 0
+4971:	call 0x1120
+4976:	mov eax, 1
+4981:	jmp 0x14cd
+4986:	mov eax, dword ptr [rbp - 0x2c]
+4989:	mov edi, eax
+4991:	mov eax, 0
+4996:	call 0x12c0
+5001:	mov qword ptr [rbp - 0x18], rax
+5005:	cmp qword ptr [rbp - 0x18], 0
+5010:	jne 0x139e
+5012:	mov eax, 0
+5017:	jmp 0x14cd
+5022:	mov edi, 0x10000
+5027:	call 0x1150
+5032:	mov qword ptr [rbp - 0x10], rax
+5036:	cmp qword ptr [rbp - 0x10], 0
+5041:	jne 0x13e2
+5043:	mov rdx, qword ptr [rip + 0x2c76]
+5050:	mov rax, qword ptr [rip + 0x2c5f]
+5057:	lea rcx, [rip + 0xc78]
+5064:	mov rsi, rcx
+5067:	mov rdi, rax
+5070:	mov eax, 0
+5075:	call 0x1120
+5080:	mov eax, 1
+5085:	jmp 0x14cd
+5090:	mov qword ptr [rbp - 0x28], 0
+5098:	jmp 0x14ab
+5103:	mov rax, qword ptr [rbp - 0x18]
+5107:	sub rax, qword ptr [rbp - 0x28]
+5111:	mov edx, 0x10000
+5116:	cmp rax, rdx
+5119:	cmovg rax, rdx
+5123:	mov qword ptr [rbp - 8], rax
+5127:	mov qword ptr [rbp - 0x20], 0
+5135:	jmp 0x1451
+5137:	call 0x1190
+5142:	movsxd rdx, eax
+5145:	imul rdx, rdx, -0x7f7f7f7f
+5152:	shr rdx, 0x20
+5156:	add edx, eax
+5158:	sar edx, 7
+5161:	mov esi, eax
+5163:	sar esi, 0x1f
+5166:	mov ecx, edx
+5168:	sub ecx, esi
+5170:	mov edx, ecx
+5172:	shl edx, 8
+5175:	sub edx, ecx
+5177:	sub eax, edx
+5179:	mov ecx, eax
+5181:	mov rdx, qword ptr [rbp - 0x20]
+5185:	mov rax, qword ptr [rbp - 0x10]
+5189:	add rax, rdx
+5192:	mov edx, ecx
+5194:	mov byte ptr [rax], dl
+5196:	add qword ptr [rbp - 0x20], 1
+5201:	mov rax, qword ptr [rbp - 0x20]
+5205:	cmp rax, qword ptr [rbp - 8]
+5209:	jl 0x1411
+5211:	mov rdx, qword ptr [rbp - 8]
+5215:	mov rcx, qword ptr [rbp - 0x10]
+5219:	mov eax, dword ptr [rbp - 0x2c]
+5222:	mov rsi, rcx
+5225:	mov edi, eax
+5227:	call 0x10f0
+5232:	cmp qword ptr [rbp - 8], rax
+5236:	je 0x14a3
+5238:	mov rdx, qword ptr [rip + 0x2bb3]
+5245:	mov rax, qword ptr [rip + 0x2b9c]
+5252:	mov rcx, qword ptr [rbp - 0x38]
+5256:	lea rsi, [rip + 0xbd0]
+5263:	mov rdi, rax
+5266:	mov eax, 0
+5271:	call 0x1120
+5276:	mov eax, 1
+5281:	jmp 0x14cd
+5283:	add qword ptr [rbp - 0x28], 0x10000
+5291:	mov rax, qword ptr [rbp - 0x28]
+5295:	cmp rax, qword ptr [rbp - 0x18]
+5299:	jl 0x13ef
+5305:	mov eax, dword ptr [rbp - 0x2c]
+5308:	mov edi, eax
+5310:	call 0x1100
+5315:	call 0x1140
+5320:	mov eax, 0
+5325:	leave 
+5327:	endbr64 
+5331:	push rbp
+5332:	mov rbp, rsp
+5335:	sub rsp, 0x20
+5339:	mov dword ptr [rbp - 0x14], edi
+5342:	mov qword ptr [rbp - 0x20], rsi
+5346:	mov dword ptr [rbp - 4], 0
+5353:	mov rax, qword ptr [rbp - 0x20]
+5357:	mov rax, qword ptr [rax]
+5360:	mov qword ptr [rip + 0x2b39], rax
+5367:	cmp dword ptr [rbp - 0x14], 1
+5371:	jg 0x1507
+5373:	mov eax, 0
+5378:	call 0x1289
+5383:	mov edi, 0
+5388:	call 0x1130
+5393:	mov edi, eax
+5395:	call 0x1110
+5400:	mov dword ptr [rbp - 8], 1
+5407:	jmp 0x154c
+5409:	mov eax, dword ptr [rbp - 8]
+5412:	cdqe 
+5414:	lea rdx, [rax*8]
+5422:	mov rax, qword ptr [rbp - 0x20]
+5426:	add rax, rdx
+5429:	mov rax, qword ptr [rax]
+5432:	mov rdi, rax
+5435:	mov eax, 0
+5440:	call 0x131b
+5445:	add dword ptr [rbp - 4], eax
+5448:	add dword ptr [rbp - 8], 1
+5452:	mov eax, dword ptr [rbp - 8]
+5455:	cmp eax, dword ptr [rbp - 0x14]
+5458:	jl 0x1521
+5460:	cmp dword ptr [rbp - 4], 0
+5464:	setne al
+5467:	movzx eax, al
+5470:	leave 
+5472:	endbr64 
+5476:	sub rsp, 8
+5480:	add rsp, 8
+5484:	ret 

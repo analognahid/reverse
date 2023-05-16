@@ -1,0 +1,295 @@
+1000:	endbr64; _init
+1004:	sub     rsp, 8
+1008:	mov     rax, cs:__gmon_start___ptr
+100F:	test    rax, rax
+1012:	jz      short loc_1016
+1014:	call    rax ; __gmon_start__
+1016:	add     rsp, 8
+101A:	retn
+1020:	push    cs:qword_3F68
+1026:	bnd jmp cs:qword_3F70
+1030:	endbr64
+1034:	push    0
+1039:	bnd jmp sub_1020
+1040:	endbr64
+1044:	push    1
+1049:	bnd jmp sub_1020
+1050:	endbr64
+1054:	push    2
+1059:	bnd jmp sub_1020
+1060:	endbr64
+1064:	push    3
+1069:	bnd jmp sub_1020
+1070:	endbr64
+1074:	push    4
+1079:	bnd jmp sub_1020
+1080:	endbr64
+1084:	push    5
+1089:	bnd jmp sub_1020
+1090:	endbr64
+1094:	push    6
+1099:	bnd jmp sub_1020
+10A0:	endbr64
+10A4:	push    7
+10A9:	bnd jmp sub_1020
+10B0:	endbr64
+10B4:	push    8
+10B9:	bnd jmp sub_1020
+10C0:	endbr64
+10C4:	push    9
+10C9:	bnd jmp sub_1020
+10D0:	endbr64
+10D4:	push    0Ah
+10D9:	bnd jmp sub_1020
+10E0:	endbr64
+10E4:	push    0Bh
+10E9:	bnd jmp sub_1020
+10F0:	endbr64
+10F4:	bnd jmp cs:__cxa_finalize_ptr
+1100:	endbr64
+1104:	bnd jmp cs:putchar_ptr
+1110:	endbr64
+1114:	bnd jmp cs:__stack_chk_fail_ptr
+1120:	endbr64
+1124:	bnd jmp cs:printf_ptr
+1130:	endbr64
+1134:	bnd jmp cs:ioctl_ptr
+1140:	endbr64
+1144:	bnd jmp cs:read_ptr
+1150:	endbr64
+1154:	bnd jmp cs:signal_ptr
+1160:	endbr64
+1164:	bnd jmp cs:fflush_ptr
+1170:	endbr64
+1174:	bnd jmp cs:cfgetospeed_ptr
+1180:	endbr64
+1184:	bnd jmp cs:tcgetattr_ptr
+1190:	endbr64
+1194:	bnd jmp cs:tcsetattr_ptr
+11A0:	endbr64
+11A4:	bnd jmp cs:tcflow_ptr
+11B0:	endbr64
+11B4:	bnd jmp cs:exit_ptr
+11C0:	endbr64
+11C4:	xor     ebp, ebp
+11C6:	mov     r9, rdx; rtld_fini
+11C9:	pop     rsi; argc
+11CA:	mov     rdx, rsp; ubp_av
+11CD:	and     rsp, 0FFFFFFFFFFFFFFF0h
+11D1:	push    rax
+11D2:	push    rsp; stack_end
+11D3:	xor     r8d, r8d; fini
+11D6:	xor     ecx, ecx; init
+11D8:	lea     rdi, main; main
+11DF:	call    cs:__libc_start_main_ptr
+11E5:	hlt
+11F0:	lea     rdi, __bss_start
+11F7:	lea     rax, __bss_start
+11FE:	cmp     rax, rdi
+1201:	jz      short locret_1218
+1203:	mov     rax, cs:_ITM_deregisterTMCloneTable_ptr
+120A:	test    rax, rax
+120D:	jz      short locret_1218
+120F:	jmp     rax
+1218:	retn
+1220:	lea     rdi, __bss_start
+1227:	lea     rsi, __bss_start
+122E:	sub     rsi, rdi
+1231:	mov     rax, rsi
+1234:	shr     rsi, 3Fh
+1238:	sar     rax, 3
+123C:	add     rsi, rax
+123F:	sar     rsi, 1
+1242:	jz      short locret_1258
+1244:	mov     rax, cs:_ITM_registerTMCloneTable_ptr
+124B:	test    rax, rax
+124E:	jz      short locret_1258
+1250:	jmp     rax
+1258:	retn
+1260:	endbr64
+1264:	cmp     cs:completed_0, 0
+126B:	jnz     short locret_1298
+126D:	push    rbp
+126E:	cmp     cs:__cxa_finalize_ptr, 0
+1276:	mov     rbp, rsp
+1279:	jz      short loc_1287
+127B:	mov     rdi, cs:__dso_handle; void *
+1282:	call    __cxa_finalize
+1287:	call    deregister_tm_clones
+128C:	mov     cs:completed_0, 1
+1293:	pop     rbp
+1294:	retn
+1298:	retn
+12A0:	endbr64
+12A4:	jmp     register_tm_clones
+12A9:	endbr64
+12AD:	push    rbp
+12AE:	mov     rbp, rsp
+12B1:	lea     rax, old_term
+12B8:	mov     rsi, rax; termios_p
+12BB:	mov     edi, 1; fd
+12C0:	call    _tcgetattr
+12C5:	mov     rax, qword ptr cs:old_term.c_iflag
+12CC:	mov     rdx, qword ptr cs:old_term.c_cflag
+12D3:	mov     qword ptr cs:new_term.c_iflag, rax
+12DA:	mov     qword ptr cs:new_term.c_cflag, rdx
+12E1:	mov     rax, qword ptr cs:old_term.c_line
+12E8:	mov     rdx, qword ptr cs:old_term.c_cc+7
+12EF:	mov     qword ptr cs:new_term.c_line, rax
+12F6:	mov     qword ptr cs:new_term.c_cc+7, rdx
+12FD:	mov     rax, qword ptr cs:old_term.c_cc+0Fh
+1304:	mov     rdx, qword ptr cs:old_term.c_cc+17h
+130B:	mov     qword ptr cs:new_term.c_cc+0Fh, rax
+1312:	mov     qword ptr cs:new_term.c_cc+17h, rdx
+1319:	mov     rax, qword ptr cs:old_term.c_cc+1Fh
+1320:	mov     qword ptr cs:new_term.c_cc+1Fh, rax
+1327:	mov     eax, cs:old_term.c_ospeed
+132D:	mov     cs:new_term.c_ospeed, eax
+1333:	mov     eax, cs:new_term.c_iflag
+1339:	and     eax, 0FFFFFA3Ch
+133E:	mov     cs:new_term.c_iflag, eax
+1344:	mov     eax, cs:new_term.c_oflag
+134A:	and     eax, 0FFFFFFFEh
+134D:	mov     cs:new_term.c_oflag, eax
+1353:	mov     eax, cs:new_term.c_lflag
+1359:	or      al, 81h
+135B:	mov     cs:new_term.c_lflag, eax
+1361:	mov     eax, cs:new_term.c_lflag
+1367:	and     eax, 0FFFFFFF5h
+136A:	mov     cs:new_term.c_lflag, eax
+1370:	mov     cs:new_term.c_cc, 0
+1377:	mov     cs:new_term.c_cc+1, 0
+137E:	mov     cs:new_term.c_cc+8, 0
+1385:	mov     cs:new_term.c_cc+9, 0
+138C:	mov     cs:new_term.c_cc+6, 1
+1393:	mov     cs:new_term.c_cc+5, 0
+139A:	mov     cs:new_term.c_cc+2, 0
+13A1:	mov     cs:new_term.c_cc+3, 0
+13A8:	mov     cs:new_term.c_cc+0Bh, 0
+13AF:	mov     cs:new_term.c_cc+10h, 0
+13B6:	mov     cs:new_term.c_cc+0Ah, 0
+13BD:	mov     cs:new_term.c_cc+0Ch, 0
+13C4:	mov     cs:new_term.c_cc+0Dh, 0
+13CB:	mov     cs:new_term.c_cc+0Eh, 0
+13D2:	mov     cs:new_term.c_cc+0Fh, 0
+13D9:	lea     rax, new_term
+13E0:	mov     rdx, rax; termios_p
+13E3:	mov     esi, 1; optional_actions
+13E8:	mov     edi, 1; fd
+13ED:	call    _tcsetattr
+13F2:	lea     rax, new_term
+13F9:	mov     rdi, rax; termios_p
+13FC:	call    _cfgetospeed
+1401:	mov     cs:ospeed, eax
+1407:	mov     edx, 1
+140C:	mov     esi, 540Ah; request
+1411:	mov     edi, 1; fd
+1416:	mov     eax, 0
+141B:	call    _ioctl
+1420:	mov     esi, 1; action
+1425:	mov     edi, 1; fd
+142A:	call    _tcflow
+142F:	nop
+1430:	pop     rbp
+1431:	retn
+1432:	endbr64
+1436:	push    rbp
+1437:	mov     rbp, rsp
+143A:	lea     rax, old_term
+1441:	mov     rdx, rax; termios_p
+1444:	mov     esi, 1; optional_actions
+1449:	mov     edi, 1; fd
+144E:	call    _tcsetattr
+1453:	nop
+1454:	pop     rbp
+1455:	retn
+1456:	endbr64
+145A:	push    rbp
+145B:	mov     rbp, rsp
+145E:	sub     rsp, 10h
+1462:	mov     [rbp+signum], edi
+1465:	mov     eax, [rbp+signum]
+1468:	lea     rdx, do_exit
+146F:	mov     rsi, rdx; handler
+1472:	mov     edi, eax; sig
+1474:	call    _signal
+1479:	mov     eax, 0
+147E:	call    tty_end
+1483:	mov     edi, 1; status
+1488:	call    _exit
+148D:	endbr64
+1491:	push    rbp
+1492:	mov     rbp, rsp
+1495:	sub     rsp, 10h
+1499:	mov     rax, fs:28h
+14A2:	mov     [rbp+var_8], rax
+14A6:	xor     eax, eax
+14A8:	mov     rax, cs:copyright
+14AF:	lea     rdx, a492; '4.9.2'
+14B6:	lea     rcx, aGnuInteractive; 'GNU Interactive Tools'
+14BD:	mov     rsi, rcx
+14C0:	mov     rdi, rax; format
+14C3:	mov     eax, 0
+14C8:	call    _printf
+14CD:	lea     rax, do_exit
+14D4:	mov     rsi, rax; handler
+14D7:	mov     edi, 0Fh; sig
+14DC:	call    _signal
+14E1:	mov     eax, 0
+14E6:	call    tty_init
+14EB:	mov     esi, (offset dword_0+1); handler
+14F0:	mov     edi, 14h; sig
+14F5:	call    _signal
+14FA:	mov     esi, (offset dword_0+1); handler
+14FF:	mov     edi, 12h; sig
+1504:	call    _signal
+1509:	lea     rax, [rbp+c]
+150D:	mov     edx, 1; nbytes
+1512:	mov     rsi, rax; buf
+1515:	mov     edi, 0; fd
+151A:	call    _read
+151F:	movzx   eax, [rbp+c]
+1523:	cmp     al, 20h ; ' '
+1525:	jz      short loc_1555
+1527:	movzx   eax, [rbp+c]
+152B:	movzx   eax, al
+152E:	mov     esi, eax
+1530:	lea     rax, format; '%x '
+1537:	mov     rdi, rax; format
+153A:	mov     eax, 0
+153F:	call    _printf
+1544:	mov     rax, cs:stdout@GLIBC_2_2_5
+154B:	mov     rdi, rax; stream
+154E:	call    _fflush
+1553:	jmp     short loc_1509
+1555:	nop
+1556:	mov     eax, 0
+155B:	call    tty_end
+1560:	mov     edi, 0Ah; c
+1565:	call    _putchar
+156A:	mov     eax, 0
+156F:	mov     rdx, [rbp+var_8]
+1573:	sub     rdx, fs:28h
+157C:	jz      short locret_1583
+157E:	call    ___stack_chk_fail
+1583:	leave
+1584:	retn
+1588:	endbr64; _fini
+158C:	sub     rsp, 8
+1590:	add     rsp, 8
+1594:	retn
+40C8:	extrn putchar:near
+40D0:	extrn __libc_start_main:near
+40D8:	extrn __stack_chk_fail:near
+40E0:	extrn printf:near
+40E8:	extrn ioctl:near
+40F0:	extrn read:near
+40F8:	extrn signal:near
+4100:	extrn fflush:near
+4108:	extrn cfgetospeed:near
+4110:	extrn tcgetattr:near
+4118:	extrn tcsetattr:near
+4120:	extrn tcflow:near
+4128:	extrn exit:near
+4130:	extrn __imp___cxa_finalize:near ; weak
+4140:	extrn __gmon_start__:near ; weak

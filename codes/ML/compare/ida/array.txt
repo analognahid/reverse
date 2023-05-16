@@ -1,0 +1,175 @@
+1000:	endbr64; _init
+1004:	sub     rsp, 8
+1008:	mov     rax, cs:__gmon_start___ptr
+100F:	test    rax, rax
+1012:	jz      short loc_1016
+1014:	call    rax ; __gmon_start__
+1016:	add     rsp, 8
+101A:	retn
+1020:	push    cs:qword_3FB0
+1026:	bnd jmp cs:qword_3FB8
+1030:	endbr64
+1034:	push    0
+1039:	bnd jmp sub_1020
+1040:	endbr64
+1044:	push    1
+1049:	bnd jmp sub_1020
+1050:	endbr64
+1054:	push    2
+1059:	bnd jmp sub_1020
+1060:	endbr64
+1064:	bnd jmp cs:__cxa_finalize_ptr
+1070:	endbr64
+1074:	bnd jmp cs:__stack_chk_fail_ptr
+1080:	endbr64
+1084:	bnd jmp cs:printf_ptr
+1090:	endbr64
+1094:	bnd jmp cs:__isoc99_scanf_ptr
+10A0:	endbr64
+10A4:	xor     ebp, ebp
+10A6:	mov     r9, rdx; rtld_fini
+10A9:	pop     rsi; argc
+10AA:	mov     rdx, rsp; ubp_av
+10AD:	and     rsp, 0FFFFFFFFFFFFFFF0h
+10B1:	push    rax
+10B2:	push    rsp; stack_end
+10B3:	xor     r8d, r8d; fini
+10B6:	xor     ecx, ecx; init
+10B8:	lea     rdi, main; main
+10BF:	call    cs:__libc_start_main_ptr
+10C5:	hlt
+10D0:	lea     rdi, __bss_start
+10D7:	lea     rax, __bss_start
+10DE:	cmp     rax, rdi
+10E1:	jz      short locret_10F8
+10E3:	mov     rax, cs:_ITM_deregisterTMCloneTable_ptr
+10EA:	test    rax, rax
+10ED:	jz      short locret_10F8
+10EF:	jmp     rax
+10F8:	retn
+1100:	lea     rdi, __bss_start
+1107:	lea     rsi, __bss_start
+110E:	sub     rsi, rdi
+1111:	mov     rax, rsi
+1114:	shr     rsi, 3Fh
+1118:	sar     rax, 3
+111C:	add     rsi, rax
+111F:	sar     rsi, 1
+1122:	jz      short locret_1138
+1124:	mov     rax, cs:_ITM_registerTMCloneTable_ptr
+112B:	test    rax, rax
+112E:	jz      short locret_1138
+1130:	jmp     rax
+1138:	retn
+1140:	endbr64
+1144:	cmp     cs:__bss_start, 0
+114B:	jnz     short locret_1178
+114D:	push    rbp
+114E:	cmp     cs:__cxa_finalize_ptr, 0
+1156:	mov     rbp, rsp
+1159:	jz      short loc_1167
+115B:	mov     rdi, cs:__dso_handle; void *
+1162:	call    __cxa_finalize
+1167:	call    deregister_tm_clones
+116C:	mov     cs:__bss_start, 1
+1173:	pop     rbp
+1174:	retn
+1178:	retn
+1180:	endbr64
+1184:	jmp     register_tm_clones
+1189:	endbr64
+118D:	push    rbp
+118E:	mov     rbp, rsp
+1191:	sub     rsp, 30h
+1195:	mov     rax, fs:28h
+119E:	mov     [rbp+var_8], rax
+11A2:	xor     eax, eax
+11A4:	lea     rax, format; 'Enter 5 integers: '
+11AB:	mov     rdi, rax; format
+11AE:	mov     eax, 0
+11B3:	call    _printf
+11B8:	mov     [rbp+i], 0
+11BF:	jmp     short loc_11F8
+11C1:	mov     eax, [rbp+i]
+11C4:	cdqe
+11C6:	mov     edx, [rbp+i]
+11C9:	mov     [rbp+rax*4+values], edx
+11CD:	lea     rdx, [rbp+values]
+11D1:	mov     eax, [rbp+i]
+11D4:	cdqe
+11D6:	shl     rax, 2
+11DA:	add     rax, rdx
+11DD:	mov     rsi, rax
+11E0:	lea     rax, aD; '%d'
+11E7:	mov     rdi, rax
+11EA:	mov     eax, 0
+11EF:	call    ___isoc99_scanf
+11F4:	add     [rbp+i], 1
+11F8:	cmp     [rbp+i], 4
+11FC:	jle     short loc_11C1
+11FE:	lea     rax, aDisplayingInte; 'Displaying integers: '
+1205:	mov     rdi, rax; format
+1208:	mov     eax, 0
+120D:	call    _printf
+1212:	mov     [rbp+i_0], 0
+1219:	jmp     short loc_1299
+121B:	mov     eax, [rbp+i_0]
+121E:	cdqe
+1220:	mov     edx, [rbp+i_0]
+1223:	mov     [rbp+rax*4+values], edx
+1227:	mov     [rbp+j], 0
+122E:	jmp     short loc_128F
+1230:	mov     eax, [rbp+i_0]
+1233:	imul    eax, [rbp+j]
+1237:	mov     ecx, eax
+1239:	mov     eax, [rbp+i_0]
+123C:	imul    eax, [rbp+j]
+1240:	movsxd  rdx, eax
+1243:	imul    rdx, 66666667h
+124A:	shr     rdx, 20h
+124E:	sar     edx, 1
+1250:	mov     esi, eax
+1252:	sar     esi, 1Fh
+1255:	sub     edx, esi
+1257:	mov     esi, edx
+1259:	shl     esi, 2
+125C:	add     esi, edx
+125E:	sub     eax, esi
+1260:	mov     edx, eax
+1262:	movsxd  rax, ecx
+1265:	imul    rax, 66666667h
+126C:	shr     rax, 20h
+1270:	sar     eax, 1
+1272:	mov     esi, ecx
+1274:	sar     esi, 1Fh
+1277:	sub     eax, esi
+1279:	mov     esi, eax
+127B:	shl     esi, 2
+127E:	add     esi, eax
+1280:	mov     eax, ecx
+1282:	sub     eax, esi
+1284:	movsxd  rdx, edx
+1287:	mov     [rbp+rdx*4+values], eax
+128B:	add     [rbp+j], 1
+128F:	cmp     [rbp+j], 4
+1293:	jle     short loc_1230
+1295:	add     [rbp+i_0], 1
+1299:	cmp     [rbp+i_0], 4
+129D:	jle     loc_121B
+12A3:	mov     eax, 0
+12A8:	mov     rdx, [rbp+var_8]
+12AC:	sub     rdx, fs:28h
+12B5:	jz      short locret_12BC
+12B7:	call    ___stack_chk_fail
+12BC:	leave
+12BD:	retn
+12C0:	endbr64; _fini
+12C4:	sub     rsp, 8
+12C8:	add     rsp, 8
+12CC:	retn
+4020:	extrn __libc_start_main:near
+4028:	extrn __stack_chk_fail:near
+4030:	extrn printf:near
+4038:	extrn __isoc99_scanf:near
+4040:	extrn __imp___cxa_finalize:near ; weak
+4050:	extrn __gmon_start__:near ; weak

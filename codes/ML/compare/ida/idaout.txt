@@ -1,0 +1,103 @@
+test
+1000:	endbr64; _init
+1004:	sub     rsp, 8
+1008:	mov     rax, cs:__gmon_start___ptr
+100F:	test    rax, rax
+1012:	jz      short loc_1016
+1014:	call    rax ; __gmon_start__
+1016:	add     rsp, 8
+101A:	retn
+1020:	push    cs:qword_3FC0
+1026:	bnd jmp cs:qword_3FC8
+1030:	endbr64
+1034:	push    0
+1039:	bnd jmp sub_1020
+1040:	endbr64
+1044:	bnd jmp cs:__cxa_finalize_ptr
+1050:	endbr64
+1054:	bnd jmp cs:printf_ptr
+1060:	endbr64
+1064:	xor     ebp, ebp
+1066:	mov     r9, rdx; rtld_fini
+1069:	pop     rsi; argc
+106A:	mov     rdx, rsp; ubp_av
+106D:	and     rsp, 0FFFFFFFFFFFFFFF0h
+1071:	push    rax
+1072:	push    rsp; stack_end
+1073:	xor     r8d, r8d; fini
+1076:	xor     ecx, ecx; init
+1078:	lea     rdi, main; main
+107F:	call    cs:__libc_start_main_ptr
+1085:	hlt
+1090:	lea     rdi, __bss_start
+1097:	lea     rax, __bss_start
+109E:	cmp     rax, rdi
+10A1:	jz      short locret_10B8
+10A3:	mov     rax, cs:_ITM_deregisterTMCloneTable_ptr
+10AA:	test    rax, rax
+10AD:	jz      short locret_10B8
+10AF:	jmp     rax
+10B8:	retn
+10C0:	lea     rdi, __bss_start
+10C7:	lea     rsi, __bss_start
+10CE:	sub     rsi, rdi
+10D1:	mov     rax, rsi
+10D4:	shr     rsi, 3Fh
+10D8:	sar     rax, 3
+10DC:	add     rsi, rax
+10DF:	sar     rsi, 1
+10E2:	jz      short locret_10F8
+10E4:	mov     rax, cs:_ITM_registerTMCloneTable_ptr
+10EB:	test    rax, rax
+10EE:	jz      short locret_10F8
+10F0:	jmp     rax
+10F8:	retn
+1100:	endbr64
+1104:	cmp     cs:__bss_start, 0
+110B:	jnz     short locret_1138
+110D:	push    rbp
+110E:	cmp     cs:__cxa_finalize_ptr, 0
+1116:	mov     rbp, rsp
+1119:	jz      short loc_1127
+111B:	mov     rdi, cs:__dso_handle; void *
+1122:	call    __cxa_finalize
+1127:	call    deregister_tm_clones
+112C:	mov     cs:__bss_start, 1
+1133:	pop     rbp
+1134:	retn
+1138:	retn
+1140:	endbr64
+1144:	jmp     register_tm_clones
+1149:	endbr64
+114D:	push    rbp
+114E:	mov     rbp, rsp
+1151:	mov     cs:c, 21h ; '!'
+1158:	movzx   eax, cs:c
+115F:	movsx   edx, al
+1162:	mov     eax, cs:i_1
+1168:	lea     ecx, [rax+1]
+116B:	mov     cs:i_1, ecx
+1171:	mov     esi, eax
+1173:	lea     rax, format; '%d%cn'
+117A:	mov     rdi, rax; format
+117D:	mov     eax, 0
+1182:	call    _printf
+1187:	mov     edx, cs:b_0
+118D:	mov     eax, cs:i_1
+1193:	add     eax, edx
+1195:	mov     esi, eax
+1197:	lea     rax, aD; '%dn'
+119E:	mov     rdi, rax; format
+11A1:	mov     eax, 0
+11A6:	call    _printf
+11AB:	mov     eax, cs:i_1
+11B1:	pop     rbp
+11B2:	retn
+11B4:	endbr64; _fini
+11B8:	sub     rsp, 8
+11BC:	add     rsp, 8
+11C0:	retn
+4028:	extrn __libc_start_main:near
+4030:	extrn printf:near
+4038:	extrn __imp___cxa_finalize:near ; weak
+4048:	extrn __gmon_start__:near ; weak

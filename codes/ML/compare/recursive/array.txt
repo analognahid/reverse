@@ -1,0 +1,102 @@
+4256:	endbr64 
+4260:	xor ebp, ebp
+4262:	mov r9, rdx
+4265:	pop rsi
+4266:	mov rdx, rsp
+4269:	and rsp, 0xfffffffffffffff0
+4273:	push rax
+4274:	push rsp
+4275:	xor r8d, r8d
+4278:	xor ecx, ecx
+4280:	lea rdi, [rip + 0xca]
+4287:	call qword ptr [rip + 0x2f13]
+4489:	endbr64 
+4493:	push rbp
+4494:	mov rbp, rsp
+4497:	sub rsp, 0x30
+4501:	mov rax, qword ptr fs:[0x28]
+4510:	mov qword ptr [rbp - 8], rax
+4514:	xor eax, eax
+4516:	lea rax, [rip + 0xe59]
+4523:	mov rdi, rax
+4526:	mov eax, 0
+4531:	call 0x1080
+4536:	mov dword ptr [rbp - 0x2c], 0
+4543:	jmp 0x11f8
+4545:	mov eax, dword ptr [rbp - 0x2c]
+4548:	cdqe 
+4550:	mov edx, dword ptr [rbp - 0x2c]
+4553:	mov dword ptr [rbp + rax*4 - 0x20], edx
+4557:	lea rdx, [rbp - 0x20]
+4561:	mov eax, dword ptr [rbp - 0x2c]
+4564:	cdqe 
+4566:	shl rax, 2
+4570:	add rax, rdx
+4573:	mov rsi, rax
+4576:	lea rax, [rip + 0xe30]
+4583:	mov rdi, rax
+4586:	mov eax, 0
+4591:	call 0x1090
+4596:	add dword ptr [rbp - 0x2c], 1
+4600:	cmp dword ptr [rbp - 0x2c], 4
+4604:	jle 0x11c1
+4606:	lea rax, [rip + 0xe15]
+4613:	mov rdi, rax
+4616:	mov eax, 0
+4621:	call 0x1080
+4626:	mov dword ptr [rbp - 0x28], 0
+4633:	jmp 0x1299
+4635:	mov eax, dword ptr [rbp - 0x28]
+4638:	cdqe 
+4640:	mov edx, dword ptr [rbp - 0x28]
+4643:	mov dword ptr [rbp + rax*4 - 0x20], edx
+4647:	mov dword ptr [rbp - 0x24], 0
+4654:	jmp 0x128f
+4656:	mov eax, dword ptr [rbp - 0x28]
+4659:	imul eax, dword ptr [rbp - 0x24]
+4663:	mov ecx, eax
+4665:	mov eax, dword ptr [rbp - 0x28]
+4668:	imul eax, dword ptr [rbp - 0x24]
+4672:	movsxd rdx, eax
+4675:	imul rdx, rdx, 0x66666667
+4682:	shr rdx, 0x20
+4686:	sar edx, 1
+4688:	mov esi, eax
+4690:	sar esi, 0x1f
+4693:	sub edx, esi
+4695:	mov esi, edx
+4697:	shl esi, 2
+4700:	add esi, edx
+4702:	sub eax, esi
+4704:	mov edx, eax
+4706:	movsxd rax, ecx
+4709:	imul rax, rax, 0x66666667
+4716:	shr rax, 0x20
+4720:	sar eax, 1
+4722:	mov esi, ecx
+4724:	sar esi, 0x1f
+4727:	sub eax, esi
+4729:	mov esi, eax
+4731:	shl esi, 2
+4734:	add esi, eax
+4736:	mov eax, ecx
+4738:	sub eax, esi
+4740:	movsxd rdx, edx
+4743:	mov dword ptr [rbp + rdx*4 - 0x20], eax
+4747:	add dword ptr [rbp - 0x24], 1
+4751:	cmp dword ptr [rbp - 0x24], 4
+4755:	jle 0x1230
+4757:	add dword ptr [rbp - 0x28], 1
+4761:	cmp dword ptr [rbp - 0x28], 4
+4765:	jle 0x121b
+4771:	mov eax, 0
+4776:	mov rdx, qword ptr [rbp - 8]
+4780:	sub rdx, qword ptr fs:[0x28]
+4789:	je 0x12bc
+4791:	call 0x1070
+4796:	leave 
+4798:	add byte ptr [rax], al
+4800:	endbr64 
+4804:	sub rsp, 8
+4808:	add rsp, 8
+4812:	ret 
