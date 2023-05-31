@@ -1,0 +1,37 @@
+{
+  "name":        "easejs",
+  "description": "A Classical Object-Oriented Framework for JavaScript",
+  "version":     "0.2.9",
+  "author":      "Mike Gerwitz <mtg@gnu.org> (http://mikegerwitz.com)",
+  "homepage":    "https://www.gnu.org/software/easejs/",
+
+  "repository": {
+    "type": "git",
+    "url":  "http://git.savannah.gnu.org/r/easejs.git/"
+  },
+
+  "dependencies": {},
+  "devDependencies": {},
+
+  "license": "GPL-3.0+",
+
+  "scripts": {
+    "test": "make test"
+  },
+
+  "keywords": [
+      "classes",
+      "classical",
+      "extend",
+      "gnu",
+      "inheritance",
+      "interfaces",
+      "mixins",
+      "object oriented",
+      "oo",
+      "oop",
+      "protected members",
+      "traits",
+      "visibility"
+  ]
+}

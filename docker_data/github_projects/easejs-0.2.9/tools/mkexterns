@@ -1,0 +1,48 @@
+#!/bin/bash
+#
+# Because this project consists of a bunch of CommonJS modules, the
+# constructors have restricted scope. This means that they cannot be used as
+# types in other modules. Therefore, to permit this, we must generate an
+# extern file containing basic definitions of each.
+#
+#  Copyright (C) 2011, 2012, 2013 Free Software Foundation, Inc.
+#
+#  This file is part of GNU ease.js.
+#
+#  This program is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU General Public License as published by
+#  the Free Software Foundation, either version 3 of the License, or
+#  (at your option) any later version.
+#
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU General Public License for more details.
+#
+#  You should have received a copy of the GNU General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+# #
+
+# all CamelCase modules are likely to be ctors
+modules=$( ls lib/ \
+    | sed 's/lib\/\|\.js//' \
+    | grep -vP '^[a-z]'
+)
+
+# simple definition for now (we'll worry about members later)
+for module in $modules; do
+    echo "/** @constructor */"
+    echo "function $module() {};"
+    echo
+done
+
+# finally, there's some additional useful metadata that we use to make our lives
+# easier, better documented and more consistent
+cat <<ETC
+
+/** @typedef {{abstractMethods: Object}} */
+var __class_meta;
+
+/** @typedef {{public: Object, protected: Object, private: Object}} */
+var __visobj;
+ETC

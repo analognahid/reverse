@@ -1,0 +1,41 @@
+#!/bin/bash
+# Formats and concatenates long commit messages
+#
+#  Copyright (C) 2012, 2013 Free Software Foundation, Inc.
+#
+#  This file is part of GNU ease.js.
+#
+#  This program is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU General Public License as published by
+#  the Free Software Foundation, either version 3 of the License, or
+#  (at your option) any later version.
+#
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU General Public License for more details.
+#
+#  You should have received a copy of the GNU General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+##
+
+# format long commit messages
+git log --log-size --format="%H%n%B" \
+  | grep -A1 '^log size \([5-9][0-9]\{2,\}\|[0-9]\{4,\}\)$' \
+  | grep -o '^[a-z0-9]\+$' \
+  | grep -vFf "${1:-/dev/null}" \
+  | while read id; do
+      # try to account for ChangeLogs in commits
+      text=$(
+        git log -n1 --date=rfc --no-notes "$id" \
+          | awk '/^    \* /{ exit } { print }'
+      )
+
+      # remember that four (or five, if merge) of these lines are the header
+      # (including empty line)
+      len=$( wc -l <<< "$text" )
+      test "$len" -gt 15 || continue
+
+      echo "$text"
+    done \
+  | awk '/^commit/ && NR!=1 { printf "\n\n" } { print }'

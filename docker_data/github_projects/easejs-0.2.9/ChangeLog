@@ -1,0 +1,2739 @@
+2017-11-07  Mike Gerwitz  <mtg@gnu.org>
+
+	make distcheck fixes
+
+	NEWS: Increase line threshold
+
+2017-11-06  Mike Gerwitz  <mtg@gnu.org>
+
+	tools/mkrelease: Use distcheck
+
+	Makefile `reconf' target success when not in git repo
+
+2017-11-04  Mike Gerwitz  <mtg@gnu.org>
+
+	Copyright year update for all files modified since 0.2.8
+
+	Properly handle error subtype #constructor (#__constructor alias)
+
+	Correct copyright line in combine-test.tpl
+
+	Add two hashes to signchk-ignore
+
+	Fail intelligently if provided class in place of definition object
+
+	Correct Trait#__inst in ES3 environments
+
+2017-11-02  Mike Gerwitz  <mtg@gnu.org>
+
+	Modernize documentation examples
+
+	Fix trait __inst
+
+2017-10-29  Mike Gerwitz  <mtg@gnu.org>
+
+	Ignore ChangeLogs in NEWS
+
+2017-10-27  Mike Gerwitz  <mtg@gnu.org>
+
+	Add Class.assert{InstanceOf,isA}
+
+2017-07-25  Mike Gerwitz  <mtg@gnu.org>
+
+	Merge README with README.md
+
+2017-06-30  Mike Gerwitz  <mtg@gnu.org>
+
+	Test parameterized traits with named staging object
+
+	HACKING: Note to write only ES3
+
+	`override' implies `virtual'
+
+2017-01-02  Mike Gerwitz  <mtg@gnu.org>
+
+	Copyright 2017 year update on manual and headers
+
+	Add constructor reference caveat to manual
+
+	Fix trait extending of supertype with constructor
+
+	Constructor virtual by default
+
+	Rework constructor section in manual
+
+2016-12-29  Mike Gerwitz  <mtg@gnu.org>
+
+	Minor cleanup to trait naming test
+
+	Support for named trait class extending
+
+	Copyright year updates for recent trait changes
+
+	Rename Trait/{Scope=>Context}Test
+
+	Correct trait->class calling context on class supertype
+
+2016-12-28  Mike Gerwitz  <mtg@gnu.org>
+
+	Fix silly mix{o=e}r typo in Trait
+
+2016-10-14  Mike Gerwitz  <mtg@gnu.org>
+
+	Add missing INSTALL
+
+2016-07-21  Mike Gerwitz  <mtg@gnu.org>
+
+	Fail mkrelease on npm publish failure
+
+	Shorten combined min license header
+
+	Copyright year updates for combined files
+
+	Correct variable name in combined header
+
+2016-07-16  Mike Gerwitz  <mtg@gnu.org>
+
+	Update copyright years on main Texinfo manual page
+
+	Add "Transparent error subtyping" to README
+
+2016-07-15  Mike Gerwitz  <mtg@gnu.org>
+
+	Copyright year update on classes.texi
+
+	Add "Class Caveats" manual section
+
+	Remove strong recommendation for `public' in manual
+
+	Error constructor integration into ClassBuilder
+
+	Error constructor `after' support
+
+	Add error constructor generator
+
+2016-04-21  Mike Gerwitz  <mtg@gnu.org>
+
+	Add autogen.sh
+
+2016-04-06  Mike Gerwitz  <mtg@gnu.org>
+
+	package.json licence field update to GPL-3.0+
+
+2015-12-28  Mike Gerwitz  <mtg@gnu.org>
+
+	whyfreejs link in README.md
+
+2015-12-24  Mike Gerwitz  <mtg@gnu.org>
+
+	package.json license field update
+
+2015-12-22  Mike Gerwitz  <mtg@gnu.org>
+
+	{default=>all} target
+
+	dia check via configure
+
+	distcheck target fix
+
+	Makefile.am reproducibility (test cases)
+
+	configure.ac reproducibility
+
+	Re-add README
+
+2015-12-21  Mike Gerwitz  <mtg@gnu.org>
+
+	Resolve potential reproducible build issues
+
+2015-12-19  Mike Gerwitz  <mtg@gnu.org>
+
+	Move README.md license below title
+
+2015-10-26  Mike Gerwitz  <mtg@gnu.org>
+
+	Ignore known bad commits in signchk
+
+	[copyright] Copyright update for recent changes 2015
+
+	Remove misplaced function annotations for defineSecureProp
+
+	Do not attempt copy of phony `check` during dist-hook
+
+	Fix protected mixin override for ES3 fallbacks
+
+	Prevent mixin failure on null/undefined supertype properties
+
+2015-10-25  Mike Gerwitz  <mtg@gnu.org>
+
+	Force check target on dist
+
+	Remove deleted README files from dist
+
+	Provide useful error on attempt to mix in non-trait
+
+2015-10-24  Mike Gerwitz  <mtg@gnu.org>
+
+	Support for trait class supertype overrides
+
+2015-10-17  Mike Gerwitz  <mtg@gnu.org>
+
+	Documentation compatibility with Texinfo 5.2
+
+2015-09-16  Mike Gerwitz  <mtg@gnu.org>
+
+	Strip `public` keyword from __construct in docs
+
+	ES6-style constructor added to documentation
+
+	Add test to ensure multiple constructors cannot be defined
+
+	Alias `constructor` member to `__construct`
+
+2015-09-09  Mike Gerwitz  <mtg@gnu.org>
+
+	Prototype wrapping using index function
+
+2015-08-23  Mike Gerwitz  <mtg@gnu.org>
+
+	Remove interactive.js jQuery dependency
+
+	README.md et. al. restructuring
+
+2015-08-14  Mike Gerwitz  <mtg@gnu.org>
+
+	__dirname removal from index.js
+
+2015-07-06  Mike Gerwitz  <mtg@gnu.org>
+
+	LibreJS license header for doc/interactive.js
+
+2015-05-28  Mike Gerwitz  <mtg@gnu.org>
+
+	package.json engines removed; unnecessary
+
+	package.json repo URL update to HTTP
+
+	package.json author e-mail update
+
+	Class is not a needed dependency for Interface
+
+	[copyright] Copyright update
+
+2015-05-27  Mike Gerwitz  <mtg@gnu.org>
+
+	README.traits "Trait Extending" section update to reflect class extension support
+
+	Test ensuring `#use` staging object satisfies `Class.isClass`
+
+	Trait class extension support
+
+	Abstract mixin initial implementation
+
+	"lazy" metadata support
+
+	Remove global _extending state
+
+	Object class masquerading
+
+	Implementation note on this.__super scope with private method calls
+
+2015-05-11  Mike Gerwitz  <mtg@gnu.org>
+
+	.mailmap updated with mtg@gnu.org
+
+2015-05-10  Mike Gerwitz  <mikegerwitz@gnu.org>
+
+	package.json syntax correction (oops)
+
+	package.json keyword additions
+
+	package.json {tags=>keywords}
+
+2015-05-06  Mike Gerwitz  <mikegerwitz@gnu.org>
+
+	tools/copyright ignore `.|..'
+
+	Remove Trait/ParameterTest ctor ordering comment (since resolved)
+
+2014-12-19  Mike Gerwitz  <mikegerwitz@gnu.org>
+
+	README TODOs using Org mode
+
+2014-08-07  Mike Gerwitz  <mikegerwitz@gnu.org>
+
+	`undefined` is no longer applied to Trait.__mixin
+
+	Global no longer uses root as alt object prototype
+
+	method.super references now ES3-compatible
+
+	Corrected test broken by Node.js v0.10.27
+
+2014-08-06  Mike Gerwitz  <mikegerwitz@gnu.org>
+
+	Interface.isInstanceOf will account for interop compatibility
+
+	Interface/InteropTest case assertion refactoring
+
+2014-07-28  Mike Gerwitz  <mikegerwitz@gnu.org>
+
+	tools/mkrelease added
+
+	`clean` target now cleans version file
+
+	Documentation for `super` method reference
+
+2014-07-27  Mike Gerwitz  <mikegerwitz@gnu.org>
+
+	Missing /doc/Makefile{,.in} ignore added
+
+	Missing /version ignore added
+
+	Now using absolute (relative to repo root) paths in .gitignore
+
+	Subtype ctor guarantees with parent __mixin or __construct
+
+	__construct and __mixin ordering guarantees
+
+	Sibling traits will each have __mixin called distinctly
+
+	Parameterized traits may now be mixed in without configuration
+
+	Initial implementation of parameterized traits
+
+	test/runner will now pass all option args to node
+
+2014-07-24  Mike Gerwitz  <mikegerwitz@gnu.org>
+
+	Test case now allows for short-hand require of SUT
+
+2014-07-09  Mike Gerwitz  <mikegerwitz@gnu.org>
+
+	FallbackSymbol now returns instance of self
+
+	FIXME added for possibly leaking private symbol during tctor call
+
+	Private symbol key is now non-enumerable
+
+	createMeta no longer copying to new_class.prototype
+
+	Re-encapsulated ClassBuilder private symbol
+
+	Visibility object is now encapsulated in symbol key
+
+	Class ___$$meta$$ moved into private symbol field
+
+	Corrected MemberBuilderValidator warning handler in class.js
+
+	ClassBuilder#build now only making one getMeta call
+
+	util/Symbol added
+
+	FallbackSymbol added
+
+	Combine script now handles relative includes in subdirectories
+
+2014-07-07  Mike Gerwitz  <mikegerwitz@gnu.org>
+
+	Corrected tools/combine to handle relative require paths
+
+2014-06-11  Mike Gerwitz  <mikegerwitz@gnu.org>
+
+	Extracted warning handlers into their own prototypes
+
+	Extracted Warning into warn/Warning
+
+	Added Global prototype
+
+	Forcing version regen on combine if in git repo
+
+	AC_INIT e-mail changed to bug-easejs@gnu.org
+
+2014-06-08  Mike Gerwitz  <mikegerwitz@gnu.org>
+
+	Closure compiler --language_in=ECMASCRIPT5_STRICT
+
+	Makefile will now write version file on dist
+
+	Version string now dynamically generated
+
+2014-06-03  Mike Gerwitz  <mikegerwitz@gnu.org>
+
+	Warning tests no longer fail in pre-ES5 env emulation
+
+2014-05-04  Mike Gerwitz  <mikegerwitz@gnu.org>
+
+	GNU ease.js and test cases now compile in strict mode
+
+2014-05-02  Mike Gerwitz  <mikegerwitz@gnu.org>
+
+	Setting super method on override wrapper
+
+	Corrected virtual non-overridden trait method invocations
+
+	Moved class virtual param test into ClassVirtualTest case
+
+	Trait virtual method proxies now set __length metadata
+
+2014-04-29  Mike Gerwitz  <mikegerwitz@gnu.org>
+
+	Subtypes of prototype subtypes now work correctly
+
+	Version bump 0.2.2-dev => 0.2.2
+
+	Added section to manual on interoperable polymorphism
+
+	Began work on interop chapter of manual
+
+	Class#asPrototype support
+
+	Test case to protect agaist retval regressions when extending prototypes
+
+	Prototype supertype property proxy fix
+
+2014-04-28  Mike Gerwitz  <mikegerwitz@gnu.org>
+
+	Overriding vanilla prototype methods no longer errors
+
+	ClassBuilder.isInstanceOf now defers to type
+
+	Added isCompatible method to interfaces
+
+	Exposing Trait in combined source files
+
+2014-04-26  Mike Gerwitz  <mikegerwitz@gnu.org>
+
+	Version bump 0.2.2-dev
+
+	Named trait staging object
+
+2014-04-24  Mike Gerwitz  <mikegerwitz@gnu.org>
+
+	Revert "Removed unnecessary try/catch from isInstanceOf"
+
+2014-04-20  Mike Gerwitz  <mikegerwitz@gnu.org>
+
+	No longer using __dirname in requires
+
+	Added documentation for implicit private members
+
+	Exposing keyword bit values and bitmasks
+
+	Added virtual kmask
+
+	Support for implicit private members
+
+2014-04-17  Mike Gerwitz  <mikegerwitz@gnu.org>
+
+	Version bump 0.2.1
+
+2014-04-09  Mike Gerwitz  <mikegerwitz@gnu.org>
+
+	Began performance test case result HTML generation
+
+	Can now build multiple performance logs
+
+	Generic performance test output
+
+	Removed unnecessary try/catch from isInstanceOf
+
+	Removed try/catch from Interface.extend
+
+	Various argument handling optimizations
+
+	Removed fallback check on each defineSecureProp call
+
+	Added baseline tests for prototype method and function call invocation
+
+	Added GNU to ease.js license notice in README.md
+
+	[copyright] Copyright assignment to the FSF
+
+2014-03-20  Mike Gerwitz  <mikegerwitz@gnu.org>
+
+	Added details of private method wrapping exemption to manual
+
+	Private methods are no longer wrapped
+
+	Updated homepage and git repo URLs
+
+	Version bump: 0.2.1-dev
+
+2014-03-16  Mike Gerwitz  <mikegerwitz@gnu.org>
+
+	Package rename in configure.ac (remove dot)
+
+	Version bump to 0.2.0
+
+	Added README.traits to distribution
+
+	AUTHORS file will now contain and sort by commit count
+
+	Added .mailmap
+
+2014-03-15  Mike Gerwitz  <mikegerwitz@gnu.org>
+
+	Corrected version string generation with empty suffix
+
+	[copyright] Copyright update
+
+	README.traits containing remaining TODOs
+
+	Deleted unnecessary trait abstract method in favor of auto-abstract flag
+
+	Prohibiting trait getters/setters
+
+	Added missing trait docblocks
+
+	Throwing exception on trait static member
+
+	Refactored Traits to use propParse hooks
+
+	Refactored ClassBuilder.buildMembers (dynamic prop parse context)
+
+	Exposing Trait module
+
+	Mention of "Traits as mixins" in README.md and manual
+
+	Implemented and abstract with mixins properly handled
+
+	Class definition mixin now requires explicit extend
+
+	Mixing method invocation performance tests
+
+	Trait definition and mixin performance test cases
+
+	Non-private properties now expressly prohibited in trait dfns
+
+	Support for stacked mixins
+
+	Base class now has __cid assigned to 0
+
+	Virtual mixin need not be weak
+
+	Mixin use method calls can now be chained
+
+	Added support for abstract overrides
+
+	Trait can now implement interfaces
+
+	Trait method return value implementation correction and testing
+
+	Began Scala-influenced linearization implementation
+
+	Class.use now creates its own class
+
+	Began named trait implementation
+
+	Named classes now support mixins
+
+	Added immediate partial class invocation support after mixin
+
+	Added support for mixing in traits using use method on a base class
+
+	Subtype mixin support
+
+	Objects are now considered types of class's mixed in traits
+
+	Began testing class subtyping with mixins
+
+	Added test case for visibility escalation internally
+
+	[bug fix] Corrected bug with implicit visibility escalation
+
+	Moved closure out of getMemberVisibility
+
+	Initial trait virtual member proxy implementation
+
+	Added virtual members to class metadata
+
+	Simplified ClassBuilder.buildMembers params
+
+	Began implementing virtual trait methods
+
+	Warning no longer issued when overriding weak method appearing later in dfn obj
+
+	Validation warnings now stored in state object
+
+2014-03-07  Mike Gerwitz  <mikegerwitz@gnu.org>
+
+	The `weak' keyword can now apply to overrides
+
+	Implemented abstract traits
+
+	Classes can now access trait protected members
+
+	Proxy methods may now override abstract methods
+
+	Added support for weak abstract methods
+
+	Added support for `weak' keyword
+
+	Trait concrete class will now be lazily created on first use
+
+	Added tests proving traits' scopes are disjoint from classes' and each others'
+
+	Protected trait methods are now mixed in
+
+	Re-implemented mixin error for member name conflicts
+
+	Began implementing composition-based traits
+
+	Basic, incomplete, but workable traits
+
+	Beginning of Trait and Class.use
+
+	rmtrail now handles single-line comments following trailing comma
+
+	Corrected GetPropertyDescriptorTest traversal test
+
+2014-02-24  Mike Gerwitz  <mikegerwitz@gnu.org>
+
+	Corrected override of super-super methods
+
+2014-02-14  Mike Gerwitz  <mikegerwitz@gnu.org>
+
+	Added test/runner to run individual test cases
+
+2014-02-02  Mike Gerwitz  <mikegerwitz@gnu.org>
+
+	Corrected combine-test throws and doesNotThrow assertions
+
+2014-01-29  Mike Gerwitz  <mikegerwitz@gnu.org>
+
+	Added cwd to NODE_PATH for test-suite
+
+2014-01-21  Mike Gerwitz  <mikegerwitz@gnu.org>
+
+	Revert "test-suite target now depends upon combine"
+
+2014-01-20  Mike Gerwitz  <mikegerwitz@gnu.org>
+
+	[copyright] Copyright update
+
+	Simplified README.md and updated links
+
+	test-suite target now depends upon combine
+
+	Combine script now recognizes new index and combine test case names
+
+	Test suite will now output thrown data if stack not available
+
+	Removed unit test refactoring mention from README.todo
+
+	Removed old test-*.js reference from Makefile
+
+	Moved final test test-combine-pre-es5 into suite as CombinedPreES5Test
+
+	Moved test-combine into suite as CombineTest
+
+	Test runner will not output duplicate newline before results when total % 60
+
+	Moved test-index into suite as IndexTest
+
+	Moved test-interface-name into suite as Interface/TestName
+
+	Moved test-util-prop-parse-keywords into suite as Util/PropParseKeywordsTest
+
+	Moved test-util-prop-prase into suite as Util/PropParseTest
+
+	Moved test-util-get-property-descriptor into suite as Util/GetPropertyDescriptorTest
+
+	Moved test-util-abstract into suite as Util/AbstractTest
+
+	Moved test-util-define-secure-prop into suite as Util/DefineSecurePropTest
+
+	Moved test-util-copy into suite as Util/CopyTest
+
+	Moved test-util-clone into suite as Util/CloneTest
+
+	Moved test-prop_parser-parse-keywords into suite as PropParserKeywordsTest
+
+	prop_parse no longer scans the string twice
+
+	Moved test-warn-* tests into suite
+
+	Moved test-class-abstract into suite as Class/AbstractTest
+
+	Moved test-class-gettersetter into suite as Class/GetterSetterTest
+
+	Moved test-class-name into test suite as Class/NameTest
+
+	Moved test-class-constructor into suite as Class/ConstructorTest
+
+	Moved test-class-parent into test suite as Class/ParentTest
+
+	Moved test-class-extend into suite as Class/{Extend,InstanceSafety}Test
+
+	Moved test-class into suite as Class/GeneralTest
+
+	Moved test-class_builder-final into test suite as ClassBuilder/FinalTest
+
+	Moved test-class_builder-member-restrictions into test suite as ClassBuilder/MemberRestrictionTest
+
+	Moved test-class_builder-visibility into suite as ClassBuilder/VisibilityTest
+
+	Moved test-class_builder-const into suite as ClassBuilder/ConstTest
+
+	Moved test-class-visibility into suite as Class/VisibilityTest
+
+	Moved ClassImplementTest into Class subdirectory in preparation for other test cases
+
+	Moved test-class_builder-static into suite as ClassBuilder/StaticTest
+
+	Moved test-class-implement into suite as ClassImplementTest
+
+	Test suite title modified to reflect that ease.js is now a GNU project
+
+2014-01-17  Mike Gerwitz  <mikegerwitz@gnu.org>
+
+	Added mention of liza
+
+	Corrected all line lengths in doc/
+
+	Removed confusing modification warning from version.js.in
+
+2014-01-16  Mike Gerwitz  <mikegerwitz@gnu.org>
+
+	Moved easejs.texi copyright comment header
+
+	Added copyright header to README.md
+
+	Minor wording correction to README
+
+	linechk script now checking against 76 lines
+
+	Adjusted linkchk script to ignore now non-existant LICENSE and to check updated automake/autoconf files
+
+	Added additional generated files to linkchk ignores
+
+2014-01-15  Mike Gerwitz  <mikegerwitz@gnu.org>
+
+	Copyright script will now ignore [no-copyright]-tagged commits (subject line)
+
+	[no-copyright] Modified headers to reduce GPL license notice width
+
+2014-01-07  Mike Gerwitz  <mikegerwitz@gnu.org>
+
+	Using magnet link for license in minified files, recognized by LibreJS
+
+	Added @licstart and @licend to license.tpl for LibreJS
+
+2014-01-06  Mike Gerwitz  <mikegerwitz@gnu.org>
+
+	Test cases are once again dynamically discovered on suite run
+
+	Corrected new Closure Compiler warnings
+
+	[copyright] Copyright update
+
+	Updated copyright script to include all copyright years in license templates
+
+	dist targets now create and package minified files
+
+	Altered license templates for combined files with section 7 exception
+
+	Added doc-cp clean to clean-local target
+
+	[copyright] Added 2014 to easejs.texi
+
+	Added initial, basic documentation for method proxies
+
+	Added GNU to `ease.js' in certain manual titles
+
+2013-12-25  Mike Gerwitz  <mike@mikegerwitz.com>
+
+	Manual corrections for class examples; overrides must be virtual
+
+	Added html-single target to root Makefile
+
+2013-12-24  Mike Gerwitz  <mike@mikegerwitz.com>
+
+	Corrected html dep ordering issue to ensure img files are built
+
+	doc Makefile modified to let automake do much of the work
+
+	automake did not seem to update version.texi when included inside header comments
+
+	Added previous license change to news-ignore
+
+2013-12-23  Mike Gerwitz  <mike@mikegerwitz.com>
+
+	Added license information to README.md
+
+	Reserved words section of README.md is unneeded
+
+	[copyright] Copyright update for texinfo documents and misc. scripts
+
+	Modified tools/copyright to recognize texinfo documents
+
+	Added reference to REAME.hacking in README
+
+	Added ability to ignore commits in gitlog-to-news
+
+	Added build directory to EXTRA_DIST
+
+	AUTHORS, NEWS, and ChangeLog will now always rebuild
+
+	Tests now work properly with auto* and no longer require minified files
+
+	ease.js is now GNU ease.js.
+
+2013-12-22  Mike Gerwitz  <mike@mikegerwitz.com>
+
+	[copyright] Copyright update after adding --follow to copyright script
+
+	copyright script will now --follow files
+
+2013-12-22  Brandon Invergo  <brandon@invergo.net>
+
+	Version splitting for configure.ac
+
+2013-12-22  Mike Gerwitz  <mike@mikegerwitz.com>
+
+	signchk tool now only checks merge commit (not the commits introduced) for signature
+
+	AUTHORS, NEWS, ChangeLog, and package.json can now be cleaned
+
+	Corrected doc Makefile EXTRA_DIST img/
+
+	AUTHORS, NEWS, and ChangeLog may now be built independently
+
+	Corrected @setfilename for easejs.texi
+
+	Added necessary EXTRA_DIST files for successful dist build
+
+	package.json is now generated by configure script and included in distribution
+
+2013-12-21  Mike Gerwitz  <mike@mikegerwitz.com>
+
+	{manual=>easejs}.texi
+
+	Changed README to mention autoreconf
+
+	verset will no longer update version.tex; deprecated by previous commit
+
+2013-12-21  Brandon Invergo  <brandon@invergo.net>
+
+	Applied autotool-related patch by Brandon Invergo
+
+2013-12-21  Mike Gerwitz  <mike@mikegerwitz.com>
+
+	Version set to 0.2.0-dev
+
+	Modified tools/version to update package.json and configure.ac
+
+	Updated README to reflect that --add-missing must be provided with automake invocation
+
+	Now using automake and autoconf
+
+	Added gitlog-to-{authors,news}
+
+	Imported gitlog-to-changelog from gnulib
+
+2013-12-20  Mike Gerwitz  <mike@mikegerwitz.com>
+
+	[copyright] Copyright update for license templates
+
+	Updated copyright script to place current date in license templates
+
+	[copyright] Copyright update after relicensing
+
+	Relicensed under the GPLv3+
+
+	[copyright] Copyright update
+
+	Added copyright script to update copyright lines based on file history
+
+2013-04-20  Mike Gerwitz  <mike@mikegerwitz.com>
+
+	Corrected bug whereby multiple override calls would clear __super too early
+
+2013-04-13  Mike Gerwitz  <mike@mikegerwitz.com>
+
+	Corrected missing whitespace on interface instantiation error message
+
+2013-01-19  Mike Gerwitz  <mike@mikegerwitz.com>
+
+	'this' now properly binds to the private member object of the instance for getters/setters
+
+	Corrected a bug whereby getters were being inadvertently invoked by util.propParse()
+
+	Corrected warning console output invocation
+
+2012-06-13  Mike Gerwitz  <mike@mikegerwitz.com>
+
+	Split COPYING into two separate files: COPYING and COPYING.LGPL
+
+2012-05-11  Mike Gerwitz  <mike@mikegerwitz.com>
+
+	Added README to scripts/ directory
+
+	Added GNU GPL v3+ license header and copyright notice to all scripts and Makefiles
+
+	Added GNU GPL v3 to COPYING
+
+	LICENSE -> COPYING
+
+2012-05-08  Mike Gerwitz  <mike@mikegerwitz.com>
+
+	Documentation correction regarding class dfn keywords
+
+2012-05-07  Mike Gerwitz  <mike@mikegerwitz.com>
+
+	Added doc-html target to Makefile
+
+2012-05-03  Mike Gerwitz  <mike@mikegerwitz.com>
+
+	Added chk-linelen tool
+
+	Converted a number of test cases to new XUnit-style format
+
+	Moved setup method for XUnit style testing into tryTest() function to properly handle exceptions
+
+	Added support for static proxy methods
+
+	Added `proxy' keyword support
+
+2012-04-18  Mike Gerwitz  <mike@mikegerwitz.com>
+
+	Added signchk tool
+
+2012-04-06  Mike Gerwitz  <mike@mikegerwitz.com>
+
+	Resolved version test error caused by verset commit
+
+2012-03-05  Mike Gerwitz  <mike@mikegerwitz.com>
+
+	Set version to 0.2.0-dev
+
+	manual.texi now looking for version.texi
+
+	Added verset
+
+2012-01-19  Mike Gerwitz  <mike@mikegerwitz.com>
+
+	Added missing closing parenthesis in Visibility Object Implementation section of manual
+
+	Visibility Object Implementation doc correction
+
+	[Fix #37] constructor property now properly set on instances
+
+2012-01-17  Mike Gerwitz  <mike@mikegerwitz.com>
+
+	Added constructor property to reserved members list
+
+2011-12-23  Mike Gerwitz  <mike@mikegerwitz.com>
+
+	Created version module to provide additional version information
+
+	Updated version in documentation and package.json to v0.1.0 - We are nearly there. Happy holidays and happy new year from ease.js ;)
+
+	Copyright year update
+
+	Added version number to exports
+
+	Added {Abstract,Final}Class to index test
+
+2011-12-22  Mike Gerwitz  <mike@mikegerwitz.com>
+
+	Added reduced license header for minified files and updated copyright
+
+	Quoting keyword for consistency and to avoid potential minification issues
+
+	Updated README.md to remove npm unavailibility mention - I had added the project to npm to reserve the name. Besides, the release is soon enough.
+
+	Getters/setters will now trigger warnings if attempting to override without super getter/setter
+
+	Added static validations for getters/setters
+
+	Added virtual and override restrictions to getters/setters
+
+	const getters/setters are unsupported (simply omit the setter)
+
+	Abstract getters/setters are not yet supported - Perhaps in future versions. The implementation details will not be ironed out before v0.1.0 and we can easily add it in the future without breaking BC. Getters/setters have not had too much attention thusfar in ease.js due to testing with systems that must work across many environments, including pre-ES5.
+
+	util.clone() primitive fix (broken in recent commit) - null is considered to be type "object" by instanceof
+
+	Whoops - abstract member param names may now contain underscores
+
+2011-12-21  Mike Gerwitz  <mike@mikegerwitz.com>
+
+	Corrected terms in Abstract Members section of documentation - "Parameters" instead of "arguments" - "Declaration", not "definition"
+
+	Abstract member declaration parameter name restrictions now apply to all abstract member declarations, not just interfaces
+
+2011-12-20  Mike Gerwitz  <mike@mikegerwitz.com>
+
+	Interface members may now only contain arg names that are valid var names - This should apply to all abstract definitions. This will be resolved in the next commit. I am tired.
+
+	AbstractClass.implement().extend() will now properly preserve abstract flag on resulting class - This is a bug fix. The resulting class was not declared abstract, which is a problem if the resulting class chose not to provide a concrete implementation for each of the abstract members.
+
+2011-12-15  Mike Gerwitz  <mike@mikegerwitz.com>
+
+	Now properly handling extending from objects and properly throwing errors for scalars
+
+	Minor documentation correction (>= to >)
+
+	Ignoring webroot - May be left over from switching branches
+
+2011-12-13  Mike Gerwitz  <mike@mikegerwitz.com>
+
+	Updated package.json to remove deps and correct license
+
+	Resolved majority of Closure Compiler warnings (VERBOSE) - Ignored warnings from tests for now - VERBOSE flag removed from Makefile for now until I can figure out how to   resolve certain warnings
+
+2011-12-10  Mike Gerwitz  <mike@mikegerwitz.com>
+
+	Added mkexterns for internal externs (see comments within file for information as to why this is necessary)
+
+	Fixed initial warnings provided by Closure Compiler
+
+2011-12-07  Mike Gerwitz  <mike@mikegerwitz.com>
+
+	Removing toString() call on failAssertion(); string may be passed
+
+2011-12-06  Mike Gerwitz  <mike@mikegerwitz.com>
+
+	Removed invalid @package tags
+
+	Switched to Closure Compiler
+
+	Made necessary changes to tests to prevent Closure Compiler from optimizing them away, causing test failures
+
+	Added missing client-side "fail" assertion
+
+	MemberBuilderValidator tests now properly wrap certain functions (they were working, but let's be safe)
+
+	Fixed issue with minified files in IE
+
+2011-12-04  Mike Gerwitz  <mike@mikegerwitz.com>
+
+	Corrected errors/warnings as indicated by Google Closure compiler
+
+	test/inc-*.js files will now be recognized by make to rebuild combined file
+
+	Fixed trailing comma issue in test - Caused problems in IE6 - Comma stripping script did not catch it due to trailing comments
+
+	Now using vm module in node instead of process.binding.Script (deprecated in newer versions of node)
+
+	Now setting mocked console in warn module for tests - Replacing console broken in newer versions of node/v8 - Replacing console.warn/log works fine, but is a poor choice for testing
+
+	Warning test workaround for FF - Note that warnings do work properly in practice in FF
+
+	Fixed __self assignment for FF
+
+2011-12-03  Mike Gerwitz  <mike@mikegerwitz.com>
+
+	Outputting stack trace in browser tests if available
+
+	Added browser-test-min.html
+
+	[#5] Added private naming conflict mention and inheritance information to Inheritance section of manual
+
+	Added private member name conflict validations
+
+2011-11-29  Mike Gerwitz  <mike@mikegerwitz.com>
+
+	[#5] Added pre-es5 fallback section to visibility object implementation
+
+	[#5] Removed doc-* prefix from doc Makefile; redundant
+
+	uglify's mangle currently causing problems in IE8; removing until it can be further researched
+
+2011-11-28  Mike Gerwitz  <mike@mikegerwitz.com>
+
+	Now implicitly adding abstract keyword for interface method declarations
+
+2011-11-27  Mike Gerwitz  <mike@mikegerwitz.com>
+
+	[#5] Added FinalClass to manual
+
+	[#5] Updated "Root Directory" section of manual
+
+	[#5] Updated "Lib Directory" section
+
+	[#5] Updated "Test Directory" section
+
+	[#5] Slightly adjusted *-wide.dia PNG output size
+
+	[#5] Added method wrapping details for visibility implementation
+
+	[#5] Added property proxy implementation details
+
+	[#5] Added bulk of "The Visibility Object" section to manual
+
+	[#5] Altered doc Makefile to build wide pngs from dia diagrams
+
+2011-11-25  Mike Gerwitz  <mike@mikegerwitz.com>
+
+	[#5] Added additional visibility rationale examples
+
+	[#5] Began adding visibility implementation details
+
+2011-11-20  Mike Gerwitz  <mike@mikegerwitz.com>
+
+	IE uses empty string (rather than undefined) for unmatched regex groups
+
+	[#5] Typo correction in abstract class example
+
+	[#5] Added abstract classes section to manual
+
+	[#5] Added mention to Interfaces section in manual that Interface must be imported
+
+	[#5] Adjusted manual CSS to place border around @samp
+
+	[#5] Added interface documentation to manual (abstract class pending)
+
+2011-11-19  Mike Gerwitz  <mike@mikegerwitz.com>
+
+	[#5] Corrected <= in doc Makefile for HTML replacement
+
+	[#5] Minor typo correction in inheritance section of manual
+
+	[#29] Re-added interface name to interface errors since abstract requirement change
+
+	[#29] Refactored interface extend() test against non-interface into ExtendTest
+
+	'abstract' keyword no longer required for interface method declarations - A warning is not yet being thrown for redundancy if the abstract keyword is   explicitly specified
+
+	[#29] Outputting newline and count every 60 tests
+
+	[#29] Refactored test-interface-extend into new test case format - Preparing for minor changes
+
+	[#29] Added @each() support to test cases - A little sloppy, but it gets the job done
+
+	[#5] Committed forgotten mkeywords.texi (oops
+
+	[#29] Refactored test-interface.js into new test case format
+
+	Fixed bug causing invocation error when accessing undefined static members on a non-class base
+
+	__proto__ => getPrototypeOf
+
+2011-11-18  Mike Gerwitz  <mike@mikegerwitz.com>
+
+	Resolved IE8 test failures - Additional checks for its buggy defineProperty(), etc implementation
+
+2011-11-15  Mike Gerwitz  <mike@mikegerwitz.com>
+
+	[#5] Added additional information to Visibility Escallation section of manual
+
+	[#5] Added gte and lte replacement for manual HTML output
+
+	ClassBuilder.isInstanceOf() will no longer throw errors when given undefined for either argument - Yes, this is just quickly adding a test to a pre-existing, terrible format.   This will be refactored with the rest of the test case.
+
+	[#5] Reworked member keywords and member visibility section in manual
+
+2011-11-10  Mike Gerwitz  <mike@mikegerwitz.com>
+
+	[#5] Removed duplicate phrase for "virtual" keyword in manual
+
+	[#5] Added @ref's to member inheritence section of manual
+
+	[#5] Added forgotten @code to override keyword
+
+	[#5] Adjusted margins for sub/superscript in manual
+
+	[#5] Added additional inheritance information
+
+2011-11-09  Mike Gerwitz  <mike@mikegerwitz.com>
+
+	[#5] Minor subscript correction for "o" in inheritance section of manual
+
+	[#5] jQuery UI not currently needed in manual
+
+	[#5] Began adding technical details of inheritance to manual
+
+2011-11-08  Mike Gerwitz  <mike@mikegerwitz.com>
+
+	[#5] Added sub/sup support for vars in documentation
+
+2011-11-07  Mike Gerwitz  <mike@mikegerwitz.com>
+
+	[#5] Added 'virtual' and 'override' keywords to inheritance example in manual; will continue revisions in following commits - This needs to be corrected as it's a very important detail. However, I need   to get to bed. So the remaining changes will simply need to wait.
+
+	[#5] Added 'Member Keywords' section to manual
+
+2011-11-06  Mike Gerwitz  <mike@mikegerwitz.com>
+
+	[#5] Altered manual CSS for table display
+
+	[#5] Began altering class section of manual, adding detailed syntax and specs
+
+2011-11-05  Mike Gerwitz  <mike@mikegerwitz.com>
+
+	Prefixing warning output with 'Warning: '
+
+	Added warning handler to class facade - This isn't yet tested; have to begin test case for facade - Do note that the actual calling by MemberBuilderValidator is tested
+
+	MemberBuilderValidator will now throw a warning if 'override' keyword is used without a super method
+
+	[#25] Added Getter/Setter validator call tests for MemberBuilder
+
+	[#29] Added test skipping support to test case
+
+	[#25] Refactored common MemberBuilder validator call assertion logic into a common module
+
+2011-11-04  Mike Gerwitz  <mike@mikegerwitz.com>
+
+	[#25] Added MemberBuilder/PropTest for validator call
+
+2011-11-03  Mike Gerwitz  <mike@mikegerwitz.com>
+
+	[#25] Added tests to ensure proper data is passed to validateMethod()
+
+	[#25] Tests with no assertions will be marked incomplete
+
+	[#25] instanceof => typeof for functions; lib/
+
+	[#25] Added suite runner - Getting closer to nice clean testing
+
+2011-11-02  Mike Gerwitz  <mike@mikegerwitz.com>
+
+	[#25] Now injecting MemberBuilderValidator into MemberBuilder
+
+	[#25] Began refactoring test-class_builder-static into new test case system
+
+	[#25] Began moving test-class-implement over to new test case system
+
+	[#25] Began moving test-class-visibility over to new test case style
+
+	[#25] Began moving test-class_builder-visibility over to new test case format
+
+	[#25] MemberBuilder/MethodTest - removed unnecessary test
+
+	[#25] Began converting test-class_builder-const to test case - Not yet renaming, as the conversion is not yet complete
+
+2011-10-30  Mike Gerwitz  <mike@mikegerwitz.com>
+
+	[#25] Removed transfered tests from test-class_builder-const
+
+	[#25] Added visibility de-escalation and escalation tests to MemberBuilderValidator for getters/setters
+
+	[#25] Added attachInstanceOf TODO
+
+2011-10-29  Mike Gerwitz  <mike@mikegerwitz.com>
+
+	[#25] Refactored quickVisChangeTest to share code between each of the member test cases
+
+	[#25] Combined buildGetter() and buildSetter()
+
+	[#25] Began refactoring getter/setter building into a single method (util.propParse)
+
+	[#25] Refactored common getter/setter code into common method within MemberBuilder
+
+2011-10-28  Mike Gerwitz  <mike@mikegerwitz.com>
+
+	[#25] Added visibility [de-]escalation tests for properties
+
+	[#25] Moved bulk of visibility escalation test into common file to be shared with other member tests
+
+	[#25] Moved getter/setter validation tests into new test case
+
+	[#25] Moved getter/setter validation logic into MemberBuilderValidator - Tests have not yet been moved
+
+2011-10-27  Mike Gerwitz  <mike@mikegerwitz.com>
+
+	[#25] Moved single access modifier getter/setter test to VisibilityTest
+
+	[#25] Moved public default getter/setter test to new location
+
+	[#25] Removed replaced vis tests from test-emmber_builder-gettersetter
+
+	[#25] this => _self replacements in MemberBuilder/VisibilityTest
+
+	[#25] Minor typo fix in MemberBuilder/VisibilityTest
+
+	[#25] Added getter/setter vis test to MemberBuilder/VisibilityTest
+
+	[#25] Combined separate property and method vis test
+
+2011-10-26  Mike Gerwitz  <mike@mikegerwitz.com>
+
+	[#25] Finished refactoring MemberBuilder/MethodTest and removed inc-member_builder-common (no longer needed)
+
+	[#25] Moved remaining tests in test-member_builder into MemberBuilder/VisibilityTest
+
+	[#25] Removed test-member_builder-prop; all tests have been moved
+
+2011-10-25  Mike Gerwitz  <mike@mikegerwitz.com>
+
+	[#25] Added test to MemberBuilder/Visibility test to ensure members will be declared public by default (if no access modifier is given)
+
+	[#25] Added test in MemberBuilder/VisibilityTest to ensure multiple access modifiers are not used
+
+	[#25] Removed method hiding test (can restore when reimplementing)
+
+2011-10-23  Mike Gerwitz  <mike@mikegerwitz.com>
+
+	[#25] Moved MemberBuilderValidator property tests into new test case
+
+	[#25] Moved quick keyword validation into shared MemberBuilderValidator test module
+
+	[#25] Moved MethodBuilder property validation into MemberBuilderValidator - Tests have not yet been moved
+
+	[#25] Moved MemberBuilderValidator's quickFailureTest into its own file to share with upcoming property tests
+
+	[#25] Adding proper dirname to combined tests
+
+	[#25] Removed tests from MemberBuilder/MethodTest that have been refactored into MemberBuilderValidator/MethodTest
+
+2011-10-22  Mike Gerwitz  <mike@mikegerwitz.com>
+
+	[#25] Moved MemberBuilderValidator/MethodTest's helper functions into caseSetUp()
+
+	[#25] Added successful test to MemberBuilderValidator's method tests to ensure successful functionality is also tested
+
+	[#25] Removed duplicate code from MemberBuilderValidator method test
+
+	[#25] Added README.todo
+
+	[#25] Throwing error instead of method hiding; will implement in future
+
+	[#25] [#25] Re-added accidently removed portion of test
+
+	[#25] [#25] Began moving MemberBuilder validation rules into MemberBuilderValidator (moved method rules)
+
+	[#25] Now using keywords to compare visibility levels in validations to eliminiate fallback inconsistencies
+
+	[#25] No longer using util.isAbstractMethod() for method validation
+
+2011-10-21  Mike Gerwitz  <mike@mikegerwitz.com>
+
+	[#25] Added test case error output for browser
+
+	[#25] [#25] Added member builder tests for private and protected members
+
+	[#25] Added ability to manually increment assertion count for custom assertions
+
+	[#25] Added assertion count to testcase output
+
+	[#25] Refactored MemberBuilder/VisibilityTest basic tests into reusable functions for upcoming tests in other access levels
+
+	[#25] Began adding MemberBuilder/VisibilityTest to test MemberBuilder directly
+
+	[#25] Added caseSetUp() for test cases
+
+2011-10-20  Mike Gerwitz  <mike@mikegerwitz.com>
+
+	Moved MemberBuilder-MethodTest into MemberBuilder subdir - Altered combine script to support subdirs (note that the dir names aren't included in the combined file)
+
+	Makefile now recognizes all tests for rebuild
+
+2011-10-14  Mike Gerwitz  <mike@mikegerwitz.com>
+
+	Removed accidental commit of console.log() in test-combine.js
+
+	Moved validateMethod() function into MemberBuilder prototype to prepare for overriding with FallbackMemberBuilder
+
+	Updated URL in combined license
+
+	Began adding FallbackMemberBuilder test case
+
+2011-10-12  Mike Gerwitz  <mike@mikegerwitz.com>
+
+	Added very basic formatted output and failure tolerance for test case
+
+2011-09-21  Mike Gerwitz  <mike@mikegerwitz.com>
+
+	Removed new virtual/master reference from README that was added in master branch
+
+	README update to reflect design alterations and present additional project information
+
+2011-09-20  Mike Gerwitz  <mike@mikegerwitz.com>
+
+	Permitting newer versions of uglify-js - Version 1.0.2 broke minification process as was used by ease.js, so we'll just allow any version greater than it for now
+
+	Added notice for checking virtual/master branch
+
+2011-09-02  Mike Gerwitz  <mike@mikegerwitz.com>
+
+	Renamed test case to MemberBuilder-MethodTest.js (#25)
+
+	test-member_builder-method freed from unnecessary dependencies for testing (#25)
+
+	Moved instance binding test to MethodWrappersTest (#25) - Ah; see how much nicer this is?
+
+	Transferred method __super() invocation test to MethodWrappersTest (#25)
+
+	Begin moving method wrapper tests into MethodWrappersTest (#25)
+
+	Oops. Dummy want to name things correctly? (#25)
+
+	Added beginning of README.hacking
+
+2011-08-31  Mike Gerwitz  <mike@mikegerwitz.com>
+
+	Refactored new and override method wrappers into separate prototypes - Note that, since we're mid-refactor, this is a bit of a mess
+
+	Adjusted client-side module cleaning regex in combine.tpl
+
+	Now passing getInst() directly into MethodwrapperFactory factory function, like good 'ol times - I seem to have forgotten that this is necessary due to the static implementation
+
+2011-08-29  Mike Gerwitz  <mike@mikegerwitz.com>
+
+	Ensuring combined tests run last
+
+2011-08-28  Mike Gerwitz  <mike@mikegerwitz.com>
+
+	Added MethodWrapperFactory prototype - Not yet used
+
+	combine script will now include modules that are not require()'d by any other module
+
+2011-08-27  Mike Gerwitz  <mike@mikegerwitz.com>
+
+	Added missing MemberBuilder docblocks (#25)
+
+	Added bug tracker to README
+
+2011-08-14  Mike Gerwitz  <mike@mikegerwitz.com>
+
+	Removed old member_builder module
+
+	Began refactoring member_builder module into MemberBuilder prototype (#25)
+
+	Replaced hard-coded, manually ordered module list with script (#25)
+
+2011-08-13  Mike Gerwitz  <mike@mikegerwitz.com>
+
+	Integrated VisibilityObjectFactory and removed old propobj (#25) - Note that the excessive gluing is temporary
+
+	Now incluiding *Test*.js files in full combined file (#25)
+
+	Errors during combine process now output to stderr
+
+	Added new prototypes to combined file (#25)
+
+	Added VisibilityObjectFactoryFactory (#25) - This may be temporary, depending on the ultimate implementation. This is intended to ease into the refactoring.
+
+	Added property object comment to VisibilityObjectFactory (#25)
+
+	Implemented FallbackVisibilityObjectFactory (#25)
+
+2011-08-11  Mike Gerwitz  <mike@mikegerwitz.com>
+
+	Prototype tests now have 'Test' suffix, rather than 'test-' prefix (#25)
+
+	Moved non-fallback visibility object into VisibilityObjectFactory (system does not yet use it) (#25)
+
+	Added assert.notStrictEqual to client-side assertions
+
+2011-08-09  Mike Gerwitz  <mike@mikegerwitz.com>
+
+	Initial refactoring of class_builder module into ClassBuilder ctor (#25)
+
+2011-08-04  Mike Gerwitz  <mike@mikegerwitz.com>
+
+	Can no longer override non-virtual methods (#19)
+
+	Override keyword is now required to override a virtual method (#19)
+
+2011-08-03  Mike Gerwitz  <mike@mikegerwitz.com>
+
+	Implicit method hiding warning now applies to virtual methods as well as non-virtual (#19)
+
+	More appropriately named method hiding test (#19)
+
+2011-07-06  Mike Gerwitz  <mike@mikegerwitz.com>
+
+	[#19] Began implementing method hiding (added warning for implicit hiding)
+
+	Corrected Warning stack trace
+
+	Corrected member builder method test testCannotOverridePropertyWithMethod
+
+	Set stack trace limit to 20 frames for tests
+
+	Altered warning display and stack trace
+
+2011-06-30  Mike Gerwitz  <mike@mikegerwitz.com>
+
+	Tests fail on minified files with uglify-js 1.0.3; disallowing for now
+
+	Merge branch 'master' into 'virtual/master' - Resolved conflicts
+
+2011-06-29  Mike Gerwitz  <mike@mikegerwitz.com>
+
+	Added ability to set and trigger the active warning handler
+
+	Ensure we don't throw errors for warning handler tests if console is not defined
+
+	Added 'dismiss' warning handler - Phew. That was a hard one.
+
+	Added throwError warning handler
+
+	Added 'log' warning handler
+
+	Added Warning
+
+2011-06-14  Mike Gerwitz  <mike@mikegerwitz.com>
+
+	Not running getter/setter override tests if unsupported by environment
+
+	Can no longer override getters/setters with properties
+
+	Can no longer override getters/setters with methods
+
+	Getters/setters can no longer override properties
+
+	Added test to ensure getter/setter method override error contains name
+
+2011-06-12  Mike Gerwitz  <mike@mikegerwitz.com>
+
+	Can no longer override methods with getters/setters
+
+	Now passing base into member builder for getters/setters
+
+2011-06-11  Mike Gerwitz  <mike@mikegerwitz.com>
+
+	Added util.get{Own,}PropertyDescriptor
+
+	Corrected client-side assert.deepEqual() to only perform object/array operations if both provided values are objects/arrays respectively
+
+	Corrected Makefile; moved src_* back to root Makefile - Was causing combine target to not recognize file changes
+
+2011-06-10  Mike Gerwitz  <mike@mikegerwitz.com>
+
+	Updated README.md; removed portion of note mentioning that interfaces are not yet available.
+
+	0.1.0-pre in package.json until 0.1.0 tag to avoid npm confusion
+
+2011-06-09  Mike Gerwitz  <mike@mikegerwitz.com>
+
+	[#19] Cannot declare virtual static methods
+
+	Corrected non-virtual override test
+
+	[#19] Cannot declare virtual properties
+
+2011-06-08  Mike Gerwitz  <mike@mikegerwitz.com>
+
+	[#19] Re-added FinalClass tests (we still want those ;))
+
+	[#19] Removed 'final' keyword and all associated logic - Kept FinalClass'
+
+	[#19] Implemented 'virtual' keyword - Baby steps. 'override' keyword is not yet necessary. - Final not yet removed
+
+	Properly copying over abstract methods in implement()
+
+2011-06-07  Mike Gerwitz  <mike@mikegerwitz.com>
+
+	[#5] Added additional information to the memory management section in documentation
+
+	Updated README to contain full documentation URLs
+
+2011-06-05  Mike Gerwitz  <mike@mikegerwitz.com>
+
+	Placed mkbuild back into root Makefile
+
+	[#5] Separated Makefile into doc/ Makefile
+
+	[#5] CSS for split html documentation is now referenced rather than included in each output file
+
+	[#5] Added syntax highlighting to HTML documentation
+
+2011-06-03  Mike Gerwitz  <mike@mikegerwitz.com>
+
+	[#5] Additional documentation HTML styling
+
+2011-06-02  Mike Gerwitz  <mike@mikegerwitz.com>
+
+	Minor HTML documentation CSS alterations (#5)
+
+	Added manual.css to Makefile for HTML docs
+
+	Fixed abstract/final class export in combined file - I somehow had them swapped
+
+2011-05-31  Mike Gerwitz  <mike@mikegerwitz.com>
+
+	Removed 'Late Static Binding' section from documentation - May be re-introduced in the future, but the documentation will have to be updated with the new implementation
+
+	Fixed static bug and removed late static binding - Late static binding will be revisited in the future
+
+2011-05-30  Mike Gerwitz  <mike@mikegerwitz.com>
+
+	Supplying alternative to getMethodInstance() for static methods
+
+	Removed unneeded argument
+
+	Added documentation for 'const' keyword
+
+	Documentation menu correction
+
+	Added tests to ensure constants support different levels of visibility
+
+2011-05-28  Mike Gerwitz  <mike@mikegerwitz.com>
+
+	Added final keyword documentation
+
+	Fixed makeinfo warning regarding @var
+
+2011-05-27  Mike Gerwitz  <mike@mikegerwitz.com>
+
+	Documentation typo correction
+
+2011-05-26  Mike Gerwitz  <mike@mikegerwitz.com>
+
+	Added make {install,uninstall} to doc
+
+2011-05-25  Mike Gerwitz  <mike@mikegerwitz.com>
+
+	Makefile's install target only requires doc-info
+
+	Converted case of all Makefile vars to lower
+
+	Added min target to .PHONY and all target
+
+	Added install and uninstall targets to Makefile for info doc
+
+2011-05-24  Mike Gerwitz  <mike@mikegerwitz.com>
+
+	Began updating package.json - Added additional information, including dev deps, license, test script and 'engines'
+
+2011-05-23  Mike Gerwitz  <mike@mikegerwitz.com>
+
+	Added exports for {Abstract,Final}Class
+
+	Added information on the minification process to documentation
+
+	Added license to minified files
+
+	Added minified files to tests
+
+	Added notice in the event that UglifyJS is unavailable
+
+	Added minification script
+
+	Added node_modules to .gitignore
+
+	Combined file now exports {Final,Abstract}Class
+
+	Updated abstract documentation in README.md
+
+	Syntax highlighting for README.md
+
+2011-05-22  Mike Gerwitz  <mike@mikegerwitz.com>
+
+	Implemented GH#7 - Implement assert.deepEqual() client-side
+
+	Fixed tests containing unknwon keywords - Broken from previous commit
+
+	Implemented GH#2 - Keyword restrictions; throw exception when unknown keywords are used
+
+	Implement GH#1 Provide useful error when attempting to extend from non-constructor
+
+	Added support for final subtypes
+
+	Added support for named abstract subclasses
+
+	Added class_abstract docblocks
+
+	Implemented AbstractClass - Some of this functionality requires further refactoring
+
+	Reorganized abstract tests
+
+	Refactored method validations into separate method
+
+	Added support for final classes - This commit was originally many. Unfortunately, certain Git objects became   corrupt shortly after my 500th commit due to HDD issues. Due to the scope, I   was unable to recover the set of commits I needed (after an hour of trying   every method).   - Fortunately, vim's swap files came to the rescue. Had I been able to     properly shut down my PC, I would have been rather frustrated.
+
+2011-05-19  Mike Gerwitz  <mike@mikegerwitz.com>
+
+	Added static, const and final mention to README.md
+
+	Implemented constant properties
+
+	Const keyword now results in static property
+
+	Static keyword cannot be used with const for properties
+
+	Methods cannot be declared as constant
+
+	Util unnecessary in final test case
+
+2011-05-18  Mike Gerwitz  <mike@mikegerwitz.com>
+
+	Disallowed use of final keyword with properties
+
+	Added late static binding documentation
+
+	Added late static binding tests - This simply tests a very important consequence of the existing implementation - Regression test
+
+	Corrected member_builder-prop tests - Doesn't properly add method; added as property
+
+2011-05-15  Mike Gerwitz  <mike@mikegerwitz.com>
+
+	Simplified and enhanced util.freeze()
+
+	Added final keyword for methods
+
+	Added static property documentation
+
+	Added static method documentation
+
+	Began adding static documentation
+
+2011-05-14  Mike Gerwitz  <mike@mikegerwitz.com>
+
+	Added tests to ensure private static getters/setters are properly implemented
+
+	Corrected public static getter/setter sub-subtype inheritance test
+
+	Added tests to ensure protected static getters/setters operate as intended
+
+2011-05-13  Mike Gerwitz  <mike@mikegerwitz.com>
+
+	Added test to ensure users can't be tricky and try to break static property encapsulation
+
+	Implemented private static properties
+
+2011-05-12  Mike Gerwitz  <mike@mikegerwitz.com>
+
+	Initial concept for protected static property access
+
+2011-05-11  Mike Gerwitz  <mike@mikegerwitz.com>
+
+	Static property accessor method is no longer enumerable
+
+	Implemented private static methods
+
+	Added tests to ensure that static method overrides are supported
+
+	Protected static methods are now inherited by subtypes
+
+2011-05-10  Mike Gerwitz  <mike@mikegerwitz.com>
+
+	Extendig concrete classes should no longer consume an instance id unnecessarily - This is not tested because it would be testing too closely to the implementation
+
+	[Cleanup] Removed unused arguments from concrete ctor
+
+	[Bug Fix] Concrete class constructor is no longer invoked on extend - The ctor must be instantiated for use in the prototype chain - This was working in the past, but apparently no test existed for it and   refactoring broke it
+
+	Implemented protected static members within static methods - Still not inheritence
+
+2011-05-09  Mike Gerwitz  <mike@mikegerwitz.com>
+
+	Began adding protected static members (supported for instance methods) - No inheritance support yet
+
+	Minor doc corrections for static implementation
+
+2011-04-14  Mike Gerwitz  <mike@mikegerwitz.com>
+
+	Comment correction for static members
+
+2011-04-13  Mike Gerwitz  <mike@mikegerwitz.com>
+
+	Enhanced static property setter to support setting to both undefined and null values
+
+	Added strictEqual to client-side assertions
+
+	Can no longer set values of undeclared static properties
+
+	Static property setter now returns calling class
+
+	Writes to public static properties now work properly
+
+	Began implementing static property method (getter)
+
+	propobj doSetup() param doc fix
+
+	Fix for overriding protected with protected - A better solution may be explored
+
+2011-04-12  Mike Gerwitz  <mike@mikegerwitz.com>
+
+	Added section to manual on static implementation
+
+2011-04-10  Mike Gerwitz  <mike@mikegerwitz.com>
+
+	Public static properties references are now shared with subtypes
+
+2011-04-05  Mike Gerwitz  <mike@mikegerwitz.com>
+
+	Inherited static members are no longer copied by reference - Sharing values with supertype = bad
+
+	util.clone() no longer falsely attempts to clone functions
+
+	Added deep copy to util.copyTo()
+
+	Subtypes now inherit public static members from their supertype
+
+	More efficient inheritance check for __initProps()'s __inst definition
+
+	Implemented __self for static access
+
+	Added regression test to ensure 'this' is bound to the class definition rather than instance within static methods
+
+	Added support for public static getters/setters
+
+	Added util.copyTo()
+
+2011-04-04  Mike Gerwitz  <mike@mikegerwitz.com>
+
+	Began implementing public static members
+
+	Removing unnecessary method reference (more post-refactor cleanup)
+
+	Removed unused var from class_builder - 'properties' var no longer used after prior refactoring
+
+	Updated README, class definition section
+
+2011-04-03  Mike Gerwitz  <mike@mikegerwitz.com>
+
+	Current __self -> __inst; __self will be used in a different manner in following commits
+
+2011-04-02  Mike Gerwitz  <mike@mikegerwitz.com>
+
+	Protected property values, when set by the parent, are now available to subtypes
+
+	Corrected documentation and default value for unless_exists in propobj's doSetup()
+
+2011-04-01  Mike Gerwitz  <mike@mikegerwitz.com>
+
+	Methods can now be properly overridden when visibility is escalated
+
+2011-03-30  Mike Gerwitz  <mike@mikegerwitz.com>
+
+	Only adding __self() for instance, not supertype init
+
+	Implemented GH#15 Access to public interface from within class instance
+
+2011-03-29  Mike Gerwitz  <mike@mikegerwitz.com>
+
+	Properties can no longer be declared as abstract
+
+	Implemented GH#3 Abstract keyword cannot be used with private members
+
+	Formatted prop_parser tests
+
+	Chose a more tolerable name to show in debuggers for class instances
+
+	__super() method is now properly set on context
+
+	Moved attachId() to class_builder
+
+	Moved attachAbstract() to class_builder
+
+2011-03-28  Mike Gerwitz  <mike@mikegerwitz.com>
+
+	Moved TODO items to GitHub issue tracker
+
+	Added toString() to forced-public methods list
+
+	Added tests for forced-public methods
+
+	reserved => reserved_members
+
+	Added tests for reserved members
+
+	Public-required members are now stored in a hash
+
+	Now storing reserved names in a hash
+
+	Removed completed TODO item
+
+2011-03-27  Mike Gerwitz  <mike@mikegerwitz.com>
+
+	Split concrete and abstract ctor generation into two separate functions
+
+	Added test todo for class_builder
+
+	Continued moving class creation logic into class_builder module - Again, very messy. Not yet complete.
+
+	Using __dirname for modules rather than relative path
+
+	test target once again runs default
+
+	Began refactoring into class_builder module - Sloppy thusfar. Baby steps.
+
+2011-03-23  Mike Gerwitz  <mike@mikegerwitz.com>
+
+	Constructor must now be public
+
+	Typo caught my eye in comment
+
+	Added section on constructors to manual
+
+	Began adding implementation details as appendix to manual
+
+2011-03-21  Mike Gerwitz  <mike@mikegerwitz.com>
+
+	Error => TypeError, manual
+
+	Added jQuery to page using interactive.js; does not yet do anything with page
+
+	Makefile now inserts interactive JS (not yet implemented) into generated HTML docs
+
+	Proofread inheritance section
+
+	Swapped 'Overriding Methods' and 'Type Checks and Polymorphism' due to referring content
+
+	Added 'Type Checks and Polymorphism' subsection to manual
+
+2011-03-20  Mike Gerwitz  <mike@mikegerwitz.com>
+
+	Added section in manual for overriding methods
+
+	Added backup files to .gitignore for doc/img
+
+	Began adding 'Understanding Member Inheritance' subsection to manual
+
+	Documentation is now properly rebuilt when Dia files are modified
+
+	Completion of main inheritance section for manual - Not yet proofread - Still requires subsections
+
+	HTML documentation will now be rebuilt on texi update
+
+	Reduced image size for manual
+
+	Added txt version of inheritance example to doc and altered Makefile to rebuild text-based targets on text image modifications
+
+	Placed test targets in their own Makefile to faciliate using tests as prerequisites for ease-full.js, ensuring it'll be rebuilt on test modification
+
+	Makefile no longer recombines if unnecessary
+
+	Altered Makefile so that doc targets needn't be rebuilt if they have not been updated
+
+2011-03-19  Mike Gerwitz  <mike@mikegerwitz.com>
+
+	Removed CWD from Makefile
+
+	Began adding inheritance chapter, which required getting images working within documentation - Restructured portions of Makefile
+
+	Split doc processes into separate targets for Makefile
+
+	Makefile will now only remove what's specified in doc/.gitignore for 'make doc'
+
+	All interface members must now be public
+
+	Disallowing member redeclaration in same class definition
+
+2011-03-18  Mike Gerwitz  <mike@mikegerwitz.com>
+
+	Removed completed items from TODO
+
+	Added test to ensure same visibility de-escalation rules apply to concrete implementations of Interface methods
+
+	Added test to ensure __super() works properly with protected method overrides
+
+	Visibility de-escalation no longer permitted
+
+2011-03-16  Mike Gerwitz  <mike@mikegerwitz.com>
+
+	Apparently methodOverride callback isn't used anymore in this context. Forgot to remove.
+
+	Ensuring all combine tests run after all normal tests
+
+	Added section on visibility escalation to manual
+
+	Corrections to visibility portion of manual
+
+	Now throwing expection if more than two arguments are passed to extend() when implementing
+
+	Can now specify parent class in extend() when implementing atop an empty base
+
+	Preventing base specification via extend() when implementing off of an existing base class
+
+	Extending class while using temporary name object is now permitted
+
+	Corrected error language for invoking class module
+
+	Added copyright to HTML manual
+
+	Began adding section on visibility
+
+2011-03-15  Mike Gerwitz  <mike@mikegerwitz.com>
+
+	Added comment to more clearly state that the class declaration example does not use ease.js
+
+	Added temporary instance section to manual
+
+	Added section on temporary classes
+
+	Corrected argument documentation
+
+2011-03-14  Mike Gerwitz  <mike@mikegerwitz.com>
+
+	Now storing visibility data in class instance (so GC can clear it)
+
+	Class metadata is now stored in class object (first step in working with GC)
+
+	Manual typo fix
+
+	Adjusted CSS for manual for browser like FF
+
+	Altered toString() defaults to be more consistent with v8
+
+	Class chapter corrections
+
+	Added visibility and error items to TODO for v0.1.0 milestone
+
+	Began adding 'Working With Classes' chapter
+
+	Additional manual styling for floats
+
+2011-03-13  Mike Gerwitz  <mike@mikegerwitz.com>
+
+	Added styling for manual definitions and float captions
+
+	Moved 'Getting ease.js' section to Integration chapter
+
+	Added pre-ES5 test to ensure we can catch fallback bugs quickly between browser tests (preferably, before even committing)
+
+	Fixed visibility issues in IE6 - Wasn't properly falling back
+
+	Added mention of performance tests to manual
+
+	Added test todo to TODO
+
+	Added visibility test to ensure supertypes do not have access to private members of subtypes when invoked
+
+	Added more detailed documentation regarding the class_instance object
+
+	Fixed bug that made private members of a supertype inaccessible to methods that have not been overridden by a subtype - In doing so, abandoned the super identifier (sid) for a more elegant solution with class ids (cid's) - This permits fast and easy private member swapping via getMethodInstance() in class.js
+
+	Storing each supertype's private members in a separate object to prepare for future change - sid = super identifier
+
+2011-03-12  Mike Gerwitz  <mike@mikegerwitz.com>
+
+	Separated private members into a separate object (propobj) to prepare for future modifications - This incurs a performance hit for accessing protected members, and even further for public, internally   - But speeds up access to private members, likely due to there being less members
+
+	Added additional items to TODO for v0.1.0
+
+	Altered Makefile to ensure the combine test is performed after all others
+
+2011-03-11  Mike Gerwitz  <mike@mikegerwitz.com>
+
+	Extra tab in Makefile
+
+	Distinction between JS and shell tests unnecessary in 'find'
+
+	Altered Makefile to support parallel tests
+
+	Reformatted Makefile to support parallel processing of performance tests
+
+	Added result explanations to method invocation performance tests
+
+	Added perf tests for invoking class methods
+
+	Added performance tests for setting properties, internally and externally
+
+	Added member redeclaration bug fix to TODO
+
+	Added performance test for reading properties, internal and external
+
+	Updated TODO with targets for v0.1.0
+
+2011-03-10  Mike Gerwitz  <mike@mikegerwitz.com>
+
+	Source Tree is now an appendix in manual
+
+	Directory count correction in documentation
+
+	Added property/method class definition performance tests
+
+	Added count to perf output to calculate individual cost
+
+	Added performance tests to Makefile
+
+	Began adding performance tests
+
+	Overridden methods now property return instance when returning 'this' - There may be a cleaner way to do this. This is a quick fix.
+
+	Added test to ensure correct instance is returned when returning 'this' from a parent method
+
+	Returning 'this' from a method will now return the object instance, not the internal property object
+
+	Added include information to manual
+
+2011-03-09  Mike Gerwitz  <mike@mikegerwitz.com>
+
+	Moved license below integration in manual
+
+	Added build section to manual
+
+	doc target now runs mkbuild
+
+	Added information on source tree
+
+	Quoting all path arguments in Makefile - Protect those crazy users from themselves
+
+	Began adding CSS for manual
+
+	Added 'Why ease.js?' section
+
+	Updated README to reflect manual for current support
+
+	Began adding About chapter to manual, beginning with history
+
+	Added info and plain text output to Makefile for manual
+
+	Added single doc HTML file to Makefile
+
+2011-03-08  Mike Gerwitz  <mike@mikegerwitz.com>
+
+	Makefile cleanup - Absolute paths - No moving of texi HTML output necessary
+
+	Added doc HTML output to Makefile
+
+	Using @apendix for license
+
+	Added doc target to Makefile
+
+	Initial commmit of documentation (currently contains only license)
+
+2011-03-07  Mike Gerwitz  <mike@mikegerwitz.com>
+
+	README corrections
+
+	Continuing to use BASH for now for rmtrail test
+
+	Updated README and TODO with visibility status
+
+	Basic package.json
+
+	/bin/{bash => sh} to support system with only sh installed - e.g. FreeBSD - Nothing in the scripts actually needs BASH anyway
+
+	Replaed all __{define,lookup}[GS]etter__'s with defineProperty/getOwnPropertyDescriptor
+
+	Property object now properly falls back in IE8
+
+	Provided a more accurate mechanism for detecting Object.defineProperty (tests in IE8 fixed)
+
+	No longer clearing test name output on successful browser test
+
+	Added test for good measure to ensure class instances do not share protected member values
+
+	Initial concept of inheriting protected/private members
+
+	Once again refactored propobj.setup(), removing unnecessary argument and separating into inheritance and non-inheritance methods
+
+2011-03-06  Mike Gerwitz  <mike@mikegerwitz.com>
+
+	Refactored propbj.setup() to be a bit more managable
+
+	Tada! Private members.
+
+	Using visibility fallback for browsers that do not support getters/setters
+
+	Replaced __define[GS]etter__ with defineProperty for prop proxy
+
+	Refactored property proxying into its own method
+
+	Began factoring property instance object out of class module
+
+	Fix toString() override for IE - All tests once again pass on IE6
+
+	IE6 was blowing up on getter/setter test
+
+	Outputting current test for browser - Output is hidden on success, but useful on failure
+
+	IE6 Error.prototype.toString() !== Error.message
+
+	Test failure message will now show up in browsers like IE6
+
+	Corrected test combine process; was not including tests in ease-full.js
+
+2011-03-05  Mike Gerwitz  <mike@mikegerwitz.com>
+
+	Can now override toString() method of a class
+
+	Removed class naming from TODO and updated README to include mention
+
+	Interface name included in instantiation error, if available
+
+	Interface name is included in declaration errors, if available
+
+	Class name is now provided in all errors where name is available, within class module
+
+	Interface definition errors now contain class name when available
+
+	Class name is included in definition errors when available
+
+	Implemented staging-style named class definition when implementing interfaces
+
+	interface() calls now push/pop rather than shift/unshift (performance)
+
+	interface() no longer returns a usable class - Number of reasons. First and foremost, it doesn't make sense to return a usable class with no body/definition - Secondly, to make the following commit(s) possible and consistent
+
+	Began implementing class name staging (implement() does not yet work with it)
+
+2011-03-04  Mike Gerwitz  <mike@mikegerwitz.com>
+
+	Moved named class argument check error to a more sensible location and amended error message
+
+	Implemented strict argument check for interface creation
+
+	Refactored interface module invocation into separate functions for named and anonymous
+
+	Added class module refactoring (due to side) to TODO
+
+	Refactored class module invocation method into separate functions - The class module is getting too big. Something will have to be done soon.
+
+	Declaring named class will throw error for extreaneous arguments
+
+	No need to recheck the type each time
+
+	Interfaces now have sane/useful values when converted to strings
+
+	Updated class module docblock
+
+2011-03-03  Mike Gerwitz  <mike@mikegerwitz.com>
+
+	Added Interface.isInterface()
+
+	Altered class toString() representations to be more consistent with JS
+
+	Class instances now have different default toString() implementations than uninstantiated classes - Instance id is not yet included, as that is currently in a different branch
+
+	Began implementing named classes - toString() implementation
+
+	README correction
+
+	Added brief mention and example of interfaces to README
+
+	Altered README to reflect recent 'natural definition' addition
+
+	Initial implementation of natural class definition by invoking class module
+
+	Updated TODO for naming
+
+	The interface module may now be invoked, providing a more natural looking means of declaring interfaces
+
+	Combine process now wraps using module rather than only exports - This will allow us to overwrite the 'exports' object
+
+2011-03-02  Mike Gerwitz  <mike@mikegerwitz.com>
+
+	Added visibility mention to README
+
+	Removed protected from TODO - I've been procrastinating.
+
+	Fix setting public properties - This currently only works with ES5 engines   - Fallback to follow so this will work with pre-ES5 engines - As such, I do not recommend using this commit outside of ES5-compliant engines that work properly with getters/setters   - This does NOT include IE8, as IE8 only works with getters/setters on DOM elements
+
+	Initial implementation of protected members - This was quite the pain in the ass - There are additional considerations. I DO NOT recommend using this commit. Check out a later commit.
+
+	Removed visibility dependency from test-class-abstract
+
+	test-class-parent no longer relies on member visibility to succeed - This is important for pending changes
+
+2011-03-01  Mike Gerwitz  <mike@mikegerwitz.com>
+
+	Resolved bug that was causing the system to think that Object prototype members were part of the abstract member list when attempting to define a method with the same name
+
+	Modified interface property message to be a bit more helpful in a likely common scenerio
+
+2011-01-27  Mike Gerwitz  <mike@mikegerwitz.com>
+
+	Extended existing visibility tests to include methods
+
+	Began adding protected/private member support - No longer adding ANY properties to prototype - protected/private members no longer part of the public access level
+
+2011-01-25  Mike Gerwitz  <mike@mikegerwitz.com>
+
+	Abstract methods list is no longer public
+
+	Removed old console.log
+
+	Meta now uses deep cloning
+
+	Preparing to remove abstractMethods from public prototype; now uses hash for performance since it no longer needs to be referenced cleanly externally - It will be later referenced via reflection
+
+2011-01-24  Mike Gerwitz  <mike@mikegerwitz.com>
+
+	Removed direct reference to abstractMethods from README
+
+	{new,} TypeError
+
+	Getters/setters are not supported within interface definitions
+
+	Concrete methods cannot be overridden by abstract methods
+
+	util.propCopy() no longer needed
+
+	Interface now uses propParse and member builders
+
+	Combined shared conditions in separate if statements
+
+	Beginning to move Class over to use member builders
+
+	Added getter/setter keywords to propParse
+
+	Began moving abstract logic out of propCopy
+
+2011-01-21  Mike Gerwitz  <mike@mikegerwitz.com>
+
+	Method builder wraps overrides in an override function
+
+	Overridden methods must have >= length parameter lists
+
+	Method builder does not permit overriding properties with methods
+
+	Cannot override method with property
+
+	Began adding basic method builder (currently operates the same as property builder) - They are essentially the same, but the method builder will have additional logic (e.g. method overriding) and support different keywords
+
+	Refactored test logic that will be shared between multiple members into inc-member_builder-common.js to reduce code duplication
+
+	Added params to member_builder.initMembers() docblock
+
+	Preparing class to use member_builder
+
+2011-01-20  Mike Gerwitz  <mike@mikegerwitz.com>
+
+	Can initialize member object with existing objects for each level of visibility
+
+	Began adding member_builder.initMembers()
+
+	Added getter/setter to member builder
+
+	Property member builder tests now use object and deepEqual() to ensure that property is copied as intended
+
+	Made property member builder tests more specific to ensure that properties are not copied to multiple prototypes
+
+	Throws TypeError if multiple visibility keywords are given to member builder
+
+	Result of buildProp() in tests unneeded
+
+	Presumably private keywords will be used more frequently than protected, if the class is properly encapsulated
+
+	Member builder uses public prototype by default
+
+	Member builder recognizes private members
+
+	Member builder recognizes protected members
+
+2011-01-18  Mike Gerwitz  <mike@mikegerwitz.com>
+
+	Began adding member_builder
+
+	Multiple spaces now properly handled in keyword parser
+
+2011-01-17  Mike Gerwitz  <mike@mikegerwitz.com>
+
+	Keywords are now returned by propParse
+
+	Altered property keyword parser tests to be more easily recognizable
+
+	Abstract classes also have a more intuitive string representation
+
+	Classes now return a more intuitive string representation
+
+2011-01-11  Mike Gerwitz  <mike@mikegerwitz.com>
+
+	Added reflection and patterns to TODO
+
+	Put class-implement tests into self-executing functions in testdox format to make them more easily recognized - Eventually, I'd like for all the tests to be in this format
+
+	Updated README to reflect Interface implementation
+
+2011-01-10  Mike Gerwitz  <mike@mikegerwitz.com>
+
+	Classes now contain implement() method
+
+	Moved implement() into its own method, accepting destination object as the first parameter
+
+2011-01-09  Mike Gerwitz  <mike@mikegerwitz.com>
+
+	Added todo to profile propParse's use of fvoid vs if statements
+
+	[minor] formatting fix
+
+	Added typing and preprocessing to TODO
+
+	Combined test now testing for Interface export
+
+	Added deep cloning level for util.clone() to TODO
+
+	Added deep cloning for objects
+
+	Added assert.deepEqual() to TODO
+
+	Added deep cloning for arrays
+
+	Added Documentation to TODO
+
+	Added basic property keywords to TODO
+
+	Added missing comma to variable list
+
+2011-01-04  Mike Gerwitz  <mike@mikegerwitz.com>
+
+	isInstanceOf() now works with interfaces
+
+2011-01-03  Mike Gerwitz  <mike@mikegerwitz.com>
+
+	Encapsulating implemented list (can use isInstanceOf() or a future reflection API)
+
+	Abstract method list is now updated for classes that implement interfaces
+
+2010-12-30  Mike Gerwitz  <mike@mikegerwitz.com>
+
+	Class.{implements => implement} - like Class.extend(), we're looking for a verb
+
+	Exposed Interface
+
+2010-12-29  Mike Gerwitz  <mike@mikegerwitz.com>
+
+	Interface methods are now copied to the class prototype (basic implementation - no deep copy for interface subtypes yet)
+
+	Classes now store implemented interfaces in a list (does not yet import methods)
+
+	[minor] formatting fix
+
+	Remove accidental attach of isInstanceOf() to Class
+
+	Interfaces cannot be instantiated
+
+	Classes now tested using isInstanceOf()
+
+	Added isA() as an alias for isInstanceOf()
+
+	Added isInstanceOf() partially applied function to class instances
+
+	Instantiating test object only once
+
+	Began adding isInstanceOf, starting with prototype chain checks
+
+	Fixed self-invoking constructor issue in IE
+
+2010-12-28  Mike Gerwitz  <mike@mikegerwitz.com>
+
+	Added missing semi-colons that would otherwise be inserted via semicolon insertion
+
+	All functions are now camelCase
+
+	Interfaces cannot inherit from Classes
+
+	Added isClass() and isClassInstance() methods
+
+	Removed Interface.abstractMethod() in favor of 'abstract' keyword
+
+	Class constructors are now self-invoking - Permits omitting 'new' keyword, which is a style preferred by some (such as Crockford) - It's very difficult to use apply() with the 'new' keyword - this method permits a simple way of passing an argument list to the constructor
+
+	abstractMethod() no longer used; removed reference from README in reserved words section
+
+	Altered secure property test to work properly in IE8, which falls back due to its incomplete implementation of Object.defineProperty()
+
+	Altered browser-test.html failure message
+
+	Added function to prefix failed client-side assertions with 'Assertion failed: '
+
+	Corrected line over 80 character mark
+
+	Added browser-test.html
+
+	Moved @license (and changed to @preserved) so Closure Compiler would properly retain the block
+
+	Tests will not attempt to use Object.isFrozen() unless defined
+
+	Removed forEach from tests to support engines that have not yet implemented that method (new in ES5)
+
+	IE does not like 'item' as a var name
+
+	Resolved getter/setter test issues for browsers that do not support the functionality
+
+	Removing trailing commas from combine-test.tpl
+
+	Added ease-full.js, which includes tests to be run client-side (initial implementation; may be buggy)
+
+2010-12-27  Mike Gerwitz  <mike@mikegerwitz.com>
+
+	Renamed prop_parse.{parse => parseKeywords}
+
+	Added @license annotation to ensure Google Closure Compiler et. al. will not remove the license from the combined file
+
+	Added property keyword parser tests (was previously encapsulated)
+
+	Property keyword parser now simply checks for spaces (to be flexible enough to support any keywords in the future)
+
+	Removed now unnecessary abstract keyword check from util.propParse()
+
+	Abstract methods must contain a parameter list as an array
+
+	Moved util abstract method tests into their own test case
+
+	Finished correcting assertion tests with new implementation
+
+	Updated README with new abstract method implementation
+
+	Removed Class.abstractMethod in favor of property keyword
+
+	Began adding prop_parser module and moved existing property keyword parser function into it
+
+	Began adding property keyword parsing (concept)
+
+2010-12-23  Mike Gerwitz  <mike@mikegerwitz.com>
+
+	Added tests to ensure constructor is properly applied to subtypes
+
+2010-12-22  Mike Gerwitz  <mike@mikegerwitz.com>
+
+	If setting a secure property fails, it will force a fallback to prevent performance degredation due to exceptions
+
+2010-12-21  Mike Gerwitz  <mike@mikegerwitz.com>
+
+	All tests now using common.require() to prepare for client-side testing
+
+	Tests now explicitly specify relative path to tested module - Certain modules otherwise have naming conflicts (e.g. util in node.js is loaded instead)
+
+	util.defineSecureProp() no longer performs fallback check on each invocation
+
+	IE8 does not support Object.defineProperty on non-DOM objects (see http://stackoverflow.com/questions/3830800/object-defineproperty-in-es5)
+
+	Calling hasOwnProperty via Object prototype in case it has been overridden
+
+2010-12-20  Mike Gerwitz  <mike@mikegerwitz.com>
+
+	make 'test' target now runs 'default' target
+
+	Added basic test for combined file (does not yet test functionality)
+
+	Added BASH tests to Makefile
+
+	separated rmtrail function into its own tool and added test
+
+	Tests for util.defineSecureProp() (had accidently omitted from previous commit)
+
+	Removed unneeded 'continue' statement
+
+	Added tests for util.defineSecureProp()
+
+	util.defineSecureProp was failing in browsers that do not support Object.defineProperty() - This is untested! Test needed.
+
+	Combine tool now removes trailing commas from array and object definitions (for older browsers such as IE6)
+
+	IE doesn't like using reserved words as properties - This is one thing I'll have to complement IE on. Every browser should blow up on reserved words.
+
+2010-12-19  Mike Gerwitz  <mike@mikegerwitz.com>
+
+	Added make targets: default, mkbuild, combine, clean
+
+	[*] Added tools/combine script for client-side (browser) distributable file - It should be noted that this won't yet work in IE6/7 (I'm not positive on IE7), since they are picky with trailing commas, and currently ease.js uses trailing commas on all array and object declarations
+
+	Finished refactoring to remove result_data object in class extend() function
+
+	Rearranged util.overrideMethod() arguments to match methodOverride propCopy() action (to avoid unnecessary mistakes and confusion)
+
+	Refactored abstract method logic out of util.propCopy() into class extend()
+
+2010-12-18  Mike Gerwitz  <mike@mikegerwitz.com>
+
+	Abstract map no longer passed to method_override() - it's only used in that method
+
+	Now exporting util's array_shrink() as util.arrayShrink()
+
+	class.js 'extending' var is an argument and shouldn't be declared with var keyword
+
+	util.propParse() now ignores instance prototype properties
+
+	Removed unneeded var
+
+2010-12-17  Mike Gerwitz  <mike@mikegerwitz.com>
+
+	Added another subtype to test case to ensure parent property intialization of class instances is recursive
+
+2010-12-16  Mike Gerwitz  <mike@mikegerwitz.com>
+
+	Added index to propCopy() performDefault test message
+
+	Corrected attach_prop_init() documentation (__propInit => __initProps)
+
+	Ensured __initProps() is treated as a reserved method and cannot be declared within Classes
+
+	Class extend() now implements propCopy's performDefault (see previous commit)
+
+	propCopy() parser function overrides can now invoke default functionality
+
+	[*] Previous commit (property cloning per instance) now applied to subtypes as well
+
+	[*] Properties are no longer shared between class instances - Properties were previously shared on the prototype level, acting as though they were static class properties, which can cause some nasty bugs
+
+	Added util.clone(); does not yet support deep cloning
+
+	Added ability to override propCopy() parser functions
+
+2010-12-10  Mike Gerwitz  <mike@mikegerwitz.com>
+
+	Using TypeError instead of Error for property type inconsistiencies
+
+2010-12-07  Mike Gerwitz  <mike@mikegerwitz.com>
+
+	Ensured properties cannot be overridden with methods
+
+	attempt_override() within propCopy() no longer needed after previous commit
+
+	Both concrete and abstract methods now use the same callback in propParse() - Now uses an is_abstract parameter - Intended to reduce clutter and duplicate code
+
+	Resolved failing test (methods may only be overridden with methods) with propParse() 'each'
+
+	[1 failing test] Added support for 'each' in propParse()
+
+	[1 failing test] Crude beginning of implementation of propParse() - Looks ugly now because it is. Attempting to refactor before doing a proper implementation. Baby steps.
+
+2010-12-05  Mike Gerwitz  <mike@mikegerwitz.com>
+
+	Added support for getters/setters in propParse()
+
+2010-12-04  Mike Gerwitz  <mike@mikegerwitz.com>
+
+	Minor formatting change in propParse test
+
+	Added abstract method support to propParse()
+
+	Began adding util.propParse() to simplify design (supports scalar, arr and obj props and concrete methods)
+
+2010-12-03  Mike Gerwitz  <mike@mikegerwitz.com>
+
+	Fix of unintended global var
+
+2010-12-01  Mike Gerwitz  <mike@mikegerwitz.com>
+
+	Added extend method to Interface
+
+	Comment spelling correction
+
+	Added tests to assure that intefaces can be extended from other interfaces
+
+	Added missing space to error string
+
+	Interface prototype contains defined methods
+
+	Moved extend-related tests to their own file for interfaces in preparation for additional extend tests
+
+	Interface does not depend on Class
+
+	README.md now reflects abstract method definition change
+
+	Interfaces permit only abstract methods
+
+	Abstract methods of subtypes overriding abstract methods must be compatiable with the previous definition
+
+	Altered abstract method declaration (using strings to represent arguments rather than a function)
+
+	Added util.isAbstractMethod
+
+	abstractMethod() moved to util.defineAbstractMethod
+
+	util.canFreeze removed, replaced with util.freeze()
+
+	define_secure_prop moved to util.defineSecureProp
+
+	Only methods are permitted within interface declarations
+
+	Began Interface development
+
+2010-11-15  Mike Gerwitz  <mike@mikegerwitz.com>
+
+	Began moving utility methods into their own module
+
+	Freezing class object after creation
+
+	Case of poor copy-and-paste
+
+	Corrected documentation for abstractMethod
+
+	Updated README.md with some of the new changes
+
+	Refactored constructor creation logic for new classes into its own method and placed both functions (and their shared var) into a closure to remove the 'extending' var from the module's scope
+
+	Simply moved extend() function higher up in the source file, since it will be one of the most commonly referenced functions
+
+2010-11-14  Mike Gerwitz  <mike@mikegerwitz.com>
+
+	Removed old code from attach_extend()
+
+	Refactored abstract method logic
+
+	Grammar
+
+	Refactored method override logic into its own function
+
+	Refactored abstract method regeneration logic into a array_shrink() function
+
+	If a definition is provided for an abstract method, the concrete implementation must be compatiable (proper number of arguments)
+
+	abstractFlag now defined using define_secure_prop()
+
+	Added test to ensure constructor of abstract supertypes can be called
+
+	Ensured abstract classes cannot be instantiated and permitted their instantiation during extending so that it may be used in the subclass's prototype
+
+	Class.isAbstract() now defined using define_secure_prop
+
+	Properly implemented abstract methods list
+
+	Refactored defineProperty() code into define_secure_prop() function to reduce duplicate code
+
+	Abstract methods are now passed to subtypes
+
+	Corrected abstract class tests (.equals() = .equal())
+
+	Added isAbstract() method to class
+
+	prop_copy() will now keep track of abstract methods
+
+	Added a result_data argment to prop_copy()
+
+	Added setup_props function to prepare for adding multiple properties to generated classes
+
+	Began implementing abstract methods
+
+	Added some beginning test cases for abstract classes (will currently fail)
+
+2010-11-11  Mike Gerwitz  <mike@mikegerwitz.com>
+
+	Added tests to ensure it is possible to extend classes that were not previously created using Class.extend()
+
+	Added index.js
+
+	Initial commit of README.md
+
+2010-11-10  Mike Gerwitz  <mike@mikegerwitz.com>
+
+	Methods can no longer be overridden with non-methods (anything other than a Function)
+
+	Converted vars to conventional function delcarations (no difference; just preference)
+
+	Added additional documentation to prop_copy()
+
+	Moved class extend() export to the top of the module to make it more noticable in the mess of functions
+
+	Added documentation for attach_extend()
+
+	Added checks for ES5 features
+
+	Added getter/setter override support
+
+	Added access to parent prototype via parent property
+
+	Added support for _super method - Motivation from John Reisg's "Simple Javascript Inheritance": http://ejohn.org/blog/simple-javascript-inheritance/
+
+	Began adding parent tests (parent method call currently fails)
+
+	Changed license to LGPL
+
+	Added inheritance instanceof assertions
+
+	Added support for extending classes via convenience method and tests for property inheritance
+
+	Class.extend() should not be part of the prototype (we're extending the class, not an object instance)
+
+	Corrected makefile to run all tests
+
+	Moved object extend() assertion to its own file to prepare for extending subtypes
+
+	Minor documentation changes
+
+	Added Makefile for testing
+
+	Added tests for constructor arguments
+
+	Moved constructor tests into their own file
+
+	Implemented constructor
+
+	Began implementing constructor (not yet operable - test will fail)
+
+	Began adding Class.extend()
+
+	Initial commit beginning to outline concept

@@ -1,0 +1,248 @@
+/**
+ * ease.js manual color scheme
+ *
+ * Inspired by Tango Icon Theme
+ */
+
+html {
+  background-color: #efefef;
+}
+
+body {
+  background-color: white;
+
+  border-color: #babdb6;
+  border-width: 0px 1px 1px 1px;
+  border-style: solid;
+
+  margin: 0px 5em;
+  padding: 1em;
+
+  font-size:   13px;
+}
+
+body, .float-caption
+{
+  font-family: arial, sans-serif;
+}
+
+.float pre, var {
+  font-family: 'DejaVu Sans Mono', 'Droid Sans Mono', Courier, monospace;
+}
+
+table {
+  width: 100%;
+}
+
+table, table td {
+  padding: 0.25em;
+}
+
+table ul {
+  margin:  0px;
+  padding: 0px 0px 0px 1em;
+}
+
+dfn {
+  font-style: italic;
+  font-weight: bold;
+}
+
+var {
+  font-family: monospace;
+}
+
+var div {
+  position: relative;
+  display:  inline;
+  margin-right: 0.25em;
+}
+
+var sub, var sup {
+  font-size: 0.75em;
+}
+
+sup.left {
+  position: absolute;
+  left: 0px;
+  top: -0.25em;
+}
+
+sub.left {
+  position: absolute;
+  left:   0px;
+  bottom: -0.2em;
+}
+
+.float, samp {
+  border:  1px solid #babdb6;
+  padding: 0px;
+}
+
+.float img {
+  padding: 1em;
+}
+
+/* for code samples */
+.float .verbatim,
+.float table {
+  background-color: #fafafc;
+
+  font-size: 12px;
+  color:     #222;
+
+  border-bottom: 1px dashed #babdb6;
+
+  margin:  0px;
+  padding: 0.5em 0.5em 1em 0.5em;
+}
+
+.float table {
+  font-size: inherit;
+
+  padding-top: 0px;
+  margin-top:  0px;
+}
+
+/* unnecessary addition by texinfo */
+.float table td br {
+  display: none;
+}
+
+.float-caption {
+  margin:  0px;
+  padding: 0.5em;
+  color:   black;
+
+  line-height: 0.5em;
+}
+
+
+/*
+github.com style (c) Vasily Polovnyov <vast@whiteants.net>
+*/
+
+pre code {
+  display: block; padding: 0.5em;
+  color: #000;
+  background: #f8f8ff
+}
+
+pre .comment,
+pre .template_comment,
+pre .diff .header,
+pre .javadoc {
+  color: #998;
+  font-style: italic
+}
+
+pre .keyword,
+pre .css .rule .keyword,
+pre .winutils,
+pre .javascript .title,
+pre .lisp .title,
+pre .subst {
+  color: #000;
+  font-weight: bold
+}
+
+pre .number,
+pre .hexcolor {
+  color: #40a070
+}
+
+pre .string,
+pre .tag .value,
+pre .phpdoc,
+pre .tex .formula {
+  color: #d14
+}
+
+pre .title,
+pre .id {
+  color: #900;
+  font-weight: bold
+}
+
+pre .javascript .title,
+pre .lisp .title,
+pre .subst {
+  font-weight: normal
+}
+
+pre .class .title,
+pre .haskell .label,
+pre .tex .command {
+  color: #458;
+  font-weight: bold
+}
+
+pre .tag,
+pre .tag .title,
+pre .rules .property,
+pre .django .tag .keyword {
+  color: #000080;
+  font-weight: normal
+}
+
+pre .attribute,
+pre .variable,
+pre .instancevar,
+pre .lisp .body {
+  color: #008080
+}
+
+pre .regexp {
+  color: #009926
+}
+
+pre .class {
+  color: #458;
+  font-weight: bold
+}
+
+pre .symbol,
+pre .ruby .symbol .string,
+pre .ruby .symbol .keyword,
+pre .ruby .symbol .keymethods,
+pre .lisp .keyword,
+pre .tex .special,
+pre .input_number {
+  color: #990073
+}
+
+pre .builtin,
+pre .built_in,
+pre .lisp .title {
+  color: #0086b3
+}
+
+pre .preprocessor,
+pre .pi,
+pre .doctype,
+pre .shebang,
+pre .cdata {
+  color: #999;
+  font-weight: bold
+}
+
+pre .deletion {
+  background: #fdd
+}
+
+pre .addition {
+  background: #dfd
+}
+
+pre .diff .change {
+  background: #0086b3
+}
+
+pre .chunk {
+  color: #aaa
+}
+
+pre .tex .formula {
+  opacity: 0.5;
+}
+

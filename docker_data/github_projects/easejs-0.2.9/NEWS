@@ -1,0 +1,1151 @@
+commit 86df50d1ca3a27adb929b0ef3e1438c4dfd2db26
+Merge: 37a459a a7e1d2a
+Author: Mike Gerwitz <mtg@gnu.org>
+Date:   Fri, 15 Jul 2016 00:21:55 -0400
+
+    Transparent Error Subtyping
+    
+    Error subtyping (creating your own error types) in ECMAScript is notoriously
+    crude, and getting it to work intuitively is even harder.  ease.js will now
+    transparently handle all necessarily boilerplate when extending Error or its
+    subtypes.
+    
+    Take, for example, the common boilerplate for creating your own Error type:
+    
+    ```javascript
+        function ErrorSubtype( message )
+        {
+            var err = new Error();
+    
+            this.name         = 'ErrorSubtype';
+            this.message      = message || 'Error';
+            this.stack        = err.stack;
+            this.lineNumber   = err.lineNumber;
+            this.columnNumber = err.columnNumber;
+            this.fileName     = err.fileName;
+        }
+    
+        ErrorSubtype.prototype             = new Error();
+        ErrorSubtype.prototype.constructor = ErrorSubtype;
+    ```
+    
+    There are a number of problems with this:
+    
+      - That's a lot of boilerplate for any type you wish to create;
+      - Some of those features may not be supported by your environment
+        (e.g. column numbers or stack traces);
+      - The stack trace will include `ErrorSubtype` _itself_ (as the top frame);
+        and
+      - Consequently, the `{line,column}Number` and `fileName` will represent
+        that top frame---the error constructor itself.
+    
+    With ease.js, it's just like extending any other class/constructor:
+    
+    ```javascript
+        Class( 'ErrorSubtype' )
+            .extend( Error, {} );
+    ```
+    
+    More information can be found in the "Error Subtypes" section of the manual.
+    
+    Happy Error hacking.  Maybe you'll actually want to create them now.
+
+
+commit d9b86c154467400807150a1aca7712324d3540d0
+Author: Mike Gerwitz <mtg@gnu.org>
+Date:   Thu, 22 Oct 2015 23:44:28 -0400
+
+    Support for trait class supertype overrides
+    
+    Traits can now override methods of their class supertypes.  Previously, in
+    order to override a method of some class `C` by mixing in some trait `T`,
+    both had to implement a common interface.  This had two notable downsides:
+    
+      1. A trait that was only compatible with details of `C` could only work
+         with `C#M` if it implemented an interface `I` that declared `I#M`.
+         This required the author of `C` to create interfaces where they would
+         otherwise not be necessary.
+    
+      2. As a corollary of #1---since methods of interfaces must be public, it
+         was not possible for `T` to override any protected method of `C`; this
+         meant that `C` would have to declare such methods public, which may
+         break encapsulation or expose unnecessary concerns to the outside
+         world.
+    
+    Until documentation is available---hopefully in the near future---the test
+    cases provide detailed documentation of the behavior.  Stackable traits work
+    as you would expect:
+    
+    ```javascript
+    var C = Class(
+    {
+        'virtual foo': function()
+        {
+            return 'C';
+        },
+    } );
+    
+    var T1 = Trait.extend( C,
+    {
+        'virtual abstract override foo': function()
+        {
+            return 'T1' + this.__super();
+        },
+    } );
+    
+    var T2 = Trait.extend( C,
+    {
+        'virtual abstract override foo': function()
+        {
+            return 'T2' + this.__super();
+        },
+    } );
+    
+    C.use( T1 )
+        .use( T1 )
+        .use( T2 )
+        .use( T2 )
+        .foo();
+    // result: "T2T2T1T1C"
+    ```
+    
+    If the `override` keyword is used without `abstract`, then the super method
+    is statically bound to the supertype, rather than being resolved at runtime:
+    
+    ```javascript
+    var C = Class(
+    {
+        'virtual foo': function()
+        {
+            return 'C';
+        },
+    } );
+    
+    var T1 = Trait.extend( C,
+    {
+        'virtual abstract override foo': function()
+        {
+            return 'T1' + this.__super();
+        },
+    } );
+    
+    var T2 = Trait.extend( C,
+    {
+        // static override
+        'virtual override foo': function()
+        {
+            return 'T2' + this.__super();
+        },
+    } );
+    
+    C.use( T1 )
+        .use( T1 )
+        .use( T2 )
+        .use( T2 )
+        .foo();
+    // result: "T2C"
+    ```
+    
+    This latter form should be discouraged in most circumstances (as it prevents
+    stackable traits), but the behavior is consistent with the rest of the
+    system.
+    
+    Happy hacking.
+
+
+commit ba2605f8365c9c767340622591ff155da326881e
+Author: Mike Gerwitz <mtg@gnu.org>
+Date:   Tue, 15 Sep 2015 00:10:07 -0400
+
+    Alias `constructor` member to `__construct`
+    
+    This allows ease.js classes to mimic the structure of ES6 classes, which use
+    `constructor` to denote the constructor.  This patch simply aliases it to
+    `__construct`, which ease.js handles as it would normally.
+    
+    To that note, since the ES6 `class` keyword is purely syntatic sugar around
+    the prototype model, there is not much benefit to using it over ease.js if
+    benefits of ease.js are still desired, since the member definition syntax is
+    a feature of object literals:
+    
+    ```
+    // ease.js using ES6
+    let Person = Class(
+    {
+        _name: '',
+    
+        // note that __construct still works as well
+        constructor( name ) {
+          this._name = ''+name;
+        },
+    
+        sayHi() {
+          return "Hi, I'm " + this.getName();
+        },
+    
+        // keywords still work as expected
+        'protected getName'() {
+          return this._name;
+        }
+    } );
+    
+    // ES6 using `class` keyword
+    class Person
+    {
+        // note that ES6 will _not_ make this private
+        _name: '',
+    
+        constructor( name ) {
+          this._name = ''+name;
+        },
+    
+        sayHi() {
+          return "Hi, I'm " + this.getName();
+        }
+    
+        // keywords unsupported (you'd have to use Symbols)
+        getName() {
+          return this._name;
+        }
+    }
+    
+    // ES3/5 ease.js
+    var Person = Class(
+    {
+        _name: '',
+    
+        __construct: function( name ) {
+          this._name = ''+name;
+        },
+    
+        sayHi: function() {
+          return "Hi, I'm " + this._name;
+        },
+    
+        'protected getName': function() {
+          return this._name;
+        }
+    } );
+    ```
+    
+    As you can see, the only change between writing ES6-style method definitions
+    is the syntax; all keywords and other features continue to work as expected.
+
+
+commit ee85b058df783ffaa9f8d5ae58f9eb6d7586b0ca
+Merge: cef45cd a5c8956
+Author: Mike Gerwitz <mikegerwitz@gnu.org>
+Date:   Thu, 7 Aug 2014 22:57:14 -0400
+
+    Various ES3-related bugfixes for bugs introduced by v0.2.3
+    
+    GNU ease.js remains committed to supporting environments as far back as ES3;
+    unfortunately, this is important due to the popularity of older IE versions
+    (IE<=8). Btw, ease.js runs on IE 5.5, in case you still need that. ;)
+    
+    But please don't use a proprietary web browser. Indeed, this is why the
+    breaks were introduced in the first place: I neglected to run the
+    browser-based test suite on the proprietary Microsloth browsers until after
+    the v0.2.3 release, because I do not own a copy of Windows; I had to run it
+    at work. But, regardless---my apologies; I'll be more diligent.
+
+
+commit d0ec7aca9b7f149f40db9a511820bef0cc46caec
+Author: Mike Gerwitz <mikegerwitz@gnu.org>
+Date:   Thu, 7 Aug 2014 22:24:25 -0400
+
+    method.super references now ES3-compatible
+    
+    This is a bugfix; the bug was introduced in v0.2.3.
+    
+    In ECMAScript 5, reserved keywords can be used to reference the field of an
+    object in dot notation (e.g. method.super), but in ES3 this is prohibited;
+    in these cases, method['super'] must be used. To maintain ES3 compatiblity,
+    GNU ease.js will use the latter within its code.
+    
+    Of course, if you are developing software that need not support ES3, then
+    you can use the dot notation yourself in your own code.
+    
+    This does not sway my decision to use `super`---ES3 will soon (hopefully)
+    become extinct, and would be already were it not for the terrible influence
+    of Microsloth's outdated browsers.
+
+
+commit cef45cd0977f5f3f2baa5a5d2da857aff63ee50b
+Author: Mike Gerwitz <mikegerwitz@gnu.org>
+Date:   Wed, 6 Aug 2014 23:55:34 -0400
+
+    Corrected test broken by Node.js v0.10.27
+    
+    Specifically, aae51ecf, which introduces deepEqual changes for comparing
+    argument objects---specifically, this change:
+    
+    ```c
+      if ((aIsArgs && !bIsArgs) || (!aIsArgs && bIsArgs))
+        return false;
+    ```
+    
+    Since I was comparing an array with an arguments object, deepEqual failed.
+    While such an implementation may confuse users---since argument objects are
+    generally treated like arrays---the distinction is important and I do agree
+    with the change.
+
+
+commit e934338b41518ecb5cb898cec25e0be44b739bdb
+Author: Mike Gerwitz <mikegerwitz@gnu.org>
+Date:   Sun, 27 Jul 2014 01:40:35 -0400
+
+    Subtype ctor guarantees with parent __mixin or __construct
+    
+    A solution for this problem took a disproportionally large amount of time,
+    attempting many different approaches, and arriving still at a kluge; this is
+    indicative of a larger issue---we've long since breached the comfort of the
+    original design, and drastic refactoring is needed.
+    
+    I have ideas for this, and have already started in another branch, but I
+    cannot but this implementation off any longer while waiting for it.
+    
+    Sorry for anyone waiting on the next release: this is what held it up, in
+    combination with my attention being directed elsewhere during that time (see
+    the sparse commit timestamps). Including this ordering guarantee is very
+    important for a stable, well-designed [trait] system.
+
+
+commit 3fc0f90e01ac4ff2a41716d6158b168406c72cfc
+Author: Mike Gerwitz <mikegerwitz@gnu.org>
+Date:   Wed, 28 May 2014 23:37:36 -0400
+
+    Initial implementation of parameterized traits
+    
+    This is an important feature to permit trait reuse without excessive
+    subtyping---composition over inheritance. For example, consider that you
+    have a `HttpPlainAuth` trait that adds authentication support to some
+    transport layer. Without parameterized traits, you have two options:
+    
+      1. Expose setters for credentials
+      2. Trait closure
+      3. Extend the trait (not yet supported)
+    
+    The first option seems like a simple solution:
+    
+    ```javascript
+      Transport.use( HttpPlainAuth )()
+        .setUser( 'username', 'password' )
+        .send( ... );
+    ```
+    
+    But we are now in the unfortunate situation that our initialization
+    procedure has changed. This, for one, means that authentication logic must
+    be added to anything that instantiates classes that mix in `HttpPlainAuth`.
+    We'll explore that in more detail momentarily.
+    
+    More concerning with this first method is that, not only have we prohibited
+    immutability, but we have also made our code reliant on *invocation order*;
+    `setUser` must be called before `send`. What if we have other traits mixed
+    in that have similar conventions? Normally, this is the type of problem that
+    would be solved with a builder, but would we want every configurable trait
+    to return a new `Transport` instance? All that on top of littering the
+    API---what a mess!
+    
+    The second option is to store configuration data outside of the Trait acting
+    as a closure:
+    
+    ```javascript
+      var _user, _pass;
+      function setCredentials( user, pass ) { _user = user; _pass = pass; }
+      Trait( 'HttpPlainAuth', { /* use _user and _pass */ } )
+    ```
+    
+    There are a number of problems with this; the most apparent is that, in this
+    case, the variables `_user` and `_pass` act in place of static fields---all
+    instances will share that data, and if the data is modified, it will affect
+    all instances; you are therefore relying on external state, and mutability
+    is forced upon you. You are also left with an awkward `setCredentials` call
+    that is disjoint from `HttpPlainAuth`.
+    
+    The other notable issue arises if you did want to support instance-specific
+    credentials. You would have to use ease.js' internal identifiers (which is
+    undocumented and subject to change in future versions), and would likely
+    accumulate garbage data as mixin instances are deallocated, since ECMAScript
+    does not have destructor support.
+    
+    To recover from memory leaks, you could instead create a trait generator:
+    
+    ```javascript
+      function createHttpPlainAuth( user, pass )
+      {
+          return Trait( { /* ... */ } );
+      }
+    ```
+    
+    This uses the same closure concept, but generates new traits at runtime.
+    This has various implications depending on your engine, and may thwart
+    future ease.js optimization attempts.
+    
+    The third (which will be supported in the near future) is prohibitive: we'll
+    add many unnecessary traits that are a nightmare to develop and maintain.
+    
+    Parameterized traits are similar in spirit to option three, but without
+    creating new traits each call: traits now support being passed configuration
+    data at the time of mixin that will be passed to every new instance:
+    
+    ```javascript
+      Transport.use( HttpPlainAuth( user, pass ) )()
+        .send( ... );
+    ```
+    
+    Notice now how the authentication configuration is isolated to the actual
+    mixin, *prior to* instantiation; the caller performing instantiation need
+    not be aware of this mixin, and so the construction logic can remain wholly
+    generic for all `Transport` types.
+    
+    It further allows for a convenient means of providing useful, reusable
+    exports:
+    
+    ```javascript
+      module.exports = {
+          ServerFooAuth: HttpPlainAuth( userfoo, passfoo ),
+          ServerBarAuth: HttpPlainAuth( userbar, passbar ),
+    
+          ServerFooTransport: Transport.use( module.exports.ServerFooAuth ),
+          // ...
+      };
+    
+      var module = require( 'foo' );
+    
+      // dynamic auth
+      Transport.use( foo.ServerFooAuth )().send( ... );
+    
+      // or predefined classes
+      module.ServerFooTransport().send( ... );
+    ```
+    
+    Note that, in all of the above cases, the initialization logic is
+    unchanged---the caller does not need to be aware of any authentication
+    mechanism, nor should the caller care of its existence.
+    
+    So how do you create parameterized traits? You need only define a `__mixin`
+    method:
+    
+      Trait( 'HttpPlainAuth', { __mixin: function( user, pass ) { ... } } );
+    
+    The method `__mixin` will be invoked upon instantiation of the class into
+    which a particular configuration of `HttpPlainAuth` is mixed into; it was
+    named differently from `__construct` to make clear that (a) traits cannot be
+    instantiated and (b) the constructor cannot be overridden by traits.
+    
+    A configured parameterized trait is said to be an *argument trait*; each
+    argument trait's configuration is discrete, as was demonstrated by
+    `ServerFooAuth` and `ServerBarAuth` above. Once a parameterized trait is
+    configured, its arguments are stored within the argument trait and those
+    arguments are passed, by reference, to `__mixin`. Since any mixed in trait
+    can have its own `__mixin` method, this permits traits to have their own
+    initialization logic without the need for awkward overrides or explicit
+    method calls.
+
+
+commit 1b9317de62b7062f9f1cdcd5df88f19081eacab0
+Merge: 81ce339 8ab183f
+Author: Mike Gerwitz <mikegerwitz@gnu.org>
+Date:   Fri, 2 May 2014 21:27:02 -0400
+
+    Super method now provided on method override wrapper
+    
+    This allows invoking any arbitrary method of a supertype. This is needed,
+    for example, if some method `foo` is overridden, but we wish to call the
+    parent `foo` in another method; this is not possible with __super:
+    
+      var C = Class(
+      {
+          'virtual foo': function() { return 'super'; }
+      } );
+    
+      var SubC = C.extend(
+      {
+          'override foo': function() { return 'sub'; },
+    
+          superfoo: function() { return this.foo.super.call( this ); }
+      } );
+    
+      SubC().superfoo();  // 'super'
+    
+    Obviously, __super would not work here because any call to __super within
+    SubC#superfoo would try to invoke C@superfoo, which does not exist.
+
+
+commit 74f53aa8612d94e948b1f0e1cc6c79abd61cbd9a
+Merge: 034876a 2a8965f
+Author: Mike Gerwitz <mikegerwitz@gnu.org>
+Date:   Tue, 29 Apr 2014 02:04:19 -0400
+
+    Vanilla ECMAScript interop patches
+    
+    Now that ease.js is a GNU project, it has much broader reach than before.
+    Since its very existence is controversial, it would be wise (and polite) to
+    provide a means for others to integrate with libraries written using ease.js
+    without being forced to use ease.js themselves. Further, ease.js users
+    should be able to build off of the work of other libraries that do not use
+    ease.js.
+    
+    This set of changes introduces a number of interoperability improvements,
+    documented in the new manual chapter ``Interoperability''. Since it is
+    documented in the manual, this commit message will not go into great detail;
+    I wish to only provide a summary.
+    
+    Firstly, we now have the concept of interface compatibility; while ease.js
+    classes/etc must still conform to the existing interface requirements, the
+    rules are a bit more lax for other ECMAScript objects to permit
+    interoperability with type-checking ease.js code. For example:
+    
+      var I   = Interface( { foo: [ 'a' ] } ),
+          obj = { foo: function( a ) {} };
+    
+      Class.isA( I, obj );  // true
+    
+    This is also a powerful feature for implementing interfaces around existing
+    objects, as a preemptive interface check (rather than duck typing).
+    
+    Prototypally extending ease.js classes is potentially problematic because
+    the constructor may perform argument validations (this is also an issue in
+    pure prototypal code). As a solution, all classes now have a static
+    `asPrototype` method, which defers constructor invocation, trusting that the
+    prototype constructor will do so itself.
+    
+    Aside from a few bug fixes, there is also a more concise notation for
+    private members to allow prototypal developers to feel more at home when
+    using GNU ease.js: members prefixed with an underscore are now implicitly
+    private, which will satisfy the most common visibility use cases. I do
+    recognize that some (mostly in the Java community) use underscore *suffixes*
+    to denote private members, but I've noticed that this is relatively rare in
+    the JS community; I have therefore not included such a check, but will
+    consider it if many users request it.
+    
+    There are many more ideas to come, but I hope that this will help to bridge
+    the gap between the prototypal and classical camps, allowing them to
+    cooperate with as little friction as possible.
+
+
+commit 86a4703a1c04866858ef891698f4c407a9446e14
+Merge: a1cf650 b5ae607
+Author: Mike Gerwitz <mikegerwitz@gnu.org>
+Date:   Thu, 17 Apr 2014 00:01:40 -0400
+
+    Miscellaneous performance enhancements
+    
+    These are the beginning of some smaller performance optimizations brought on
+    by the v8 profiler. This includes removal or movement of over-reaching
+    try/catch blocks and more disciplined argument handling, neither of which
+    can be compiled into machine code (permanently, at least). This also removes
+    some unneeded code, adds some baseline performance test cases, and begins
+    generic performance test output and HTML generation which will be used in
+    the future for more detailed analysis.
+    
+    This is just a starting point; there's more to come, guided by profiling.
+    The trait implementation needs some love and, since its development is not
+    yet complete, that will be optimized in the near future. Further, there are
+    additional optimizations that can be made when ease.js recognizes that
+    certain visibility layers are unneeded, allowing it to create more
+    lightweight classes.
+    
+    Performance enhancements will also introduce the ability to generate a
+    ``compiled'' class, which will generate a prototype that can be immediately
+    run without the overhead of processing keywords, etc. This will also have
+    the benefit of generating code that can be understood by static analysis
+    tools and, consequently, optimizers.
+    
+    All in good time.
+
+
+commit a1cf650bac5e8d5bd99881e157766cf17b8efaad
+Merge: 9c70904 6bd4298
+Author: Mike Gerwitz <mikegerwitz@gnu.org>
+Date:   Wed, 9 Apr 2014 19:20:53 -0400
+
+    Copyright assignment to the FSF
+    
+    Copyright for the GNU ease.js project has been assigned to the Free Software
+    Foundation. This allows the FSF to enforce the project licenses, which is
+    something that I lack the time and money to do. It further ensures, through
+    the contract I signed with the FSF, that all distrbutions of GNU ease.js,
+    and all derivatives, will always ``be on terms that explicitly and
+    perpetually permit anyone possessing a copy of the work to which the terms
+    apply, and possessing accurate notice of these terms, to redistribute copies
+    of the work to anyone on the same terms'' and that the project ``shall be
+    offered in the form of machine-readable source code''.
+    
+    Consequently, any contributors to the project (aside from changes deemed to
+    be trivial) will be required to assign copyright to the FSF; this puts GNU
+    ease.js on a firm legal ground to prevent complicating enforcement.
+    Contributors can rest assured that the code they contribute will always
+    remain free (as in freedom).
+    
+    I thank Donald Robertson III of the FSF for his help and guidance during
+    this process.
+
+
+commit c835641dcbc38b2e88b7e24cc6ba44bd6a05e7bd
+Author: Mike Gerwitz <mikegerwitz@gnu.org>
+Date:   Thu, 20 Mar 2014 22:36:43 -0400
+
+    Private methods are no longer wrapped
+    
+    This is an exciting performance optimization that seems to have eluded me
+    for a surprisingly long time, given that the realization was quite random.
+    ease.js accomplishes much of its work through a method wrapper---each and
+    every method definition (well, until now) was wrapped in a closure that
+    performed a number of steps, depending on the type of wrapper involved:
+    
+      1. All wrappers perform a context lookup, binding to the instance's private
+         member object of the class that defined that particular method. (See
+         "Implementation Details" in the manual for more information.)
+      2. This context is restored upon returning from the call: if a method
+         returns `this', it is instead converted back to the context in which
+         the method was invoked, which prevents the private member object from
+         leaking out of a public interface.
+      3. In the event of an override, this.__super is set up (and torn down).
+    
+    There are other details (e.g. the method wrapper used for method proxies),
+    but for the sake of this particular commit, those are the only ones that
+    really matter. There are a couple of important details to notice:
+    
+      - Private members are only ever accessible from within the context of the
+        private member object, which is always the context when executing a
+        method.
+      - Private methods cannot be overridden, as they cannot be inherited.
+    
+    Consequently:
+    
+      1. We do not need to perform a context lookup: we are already in the proper
+         context.
+      2. We do not need to restore the context, as we never needed to change it
+         to begin with.
+      3. this.__super is never applicable.
+    
+    Method wrappers are therefore never necessary for private methods; they have
+    therefore been removed.
+    
+    This has some interesting performance implications. While in most cases the
+    overhead of method wrapping is not a bottleneck, it can have a strong impact
+    in the event of frequent method calls or heavily recursive algorithms. There
+    was one particular problem that ease.js suffered from, which is mentioned in
+    the manual: recursive calls to methods in ease.js were not recommended
+    because it
+    
+      (a) made two function calls for each method call, effectively halving the
+          remaining call stack size, and
+      (b) tail call optimization could not be performed, because recursion
+          invoked the wrapper, *not* the function that was wrapped.
+    
+    By removing the method wrapper on private methods, we solve both of these
+    problems; now, heavily recursive algorithms need only use private methods
+    (which could always be exposed through a protected or public API) when
+    recursing to entirely avoid any performance penalty by using ease.js.
+    
+    Running the test cases on my system (your results may vary) before and after
+    the patch, we have:
+    
+      BEFORE:
+      0.170s (x1000 = 0.0001700000s each): Declare 1000 anonymous classes with
+        private members
+      0.021s (x500000 = 0.0000000420s each): Invoke private methods internally
+    
+      AFTER:
+      0.151s (x1000 = 0.0001510000s each): Declare 1000 anonymous classes with
+        private members
+      0.004s (x500000 = 0.0000000080s each): Invoke private methods internally
+    
+    This is all the more motivation to use private members, which enforces
+    encapsulation; keep in mind that, because use of private members is the
+    ideal in well-encapsulated and well-factored code, ease.js has been designed
+    to perform best under those circumstances.
+
+
+commit ac1a0368cf264b96b688fdb9e2f30ee6ec5b5177
+Merge: 44a45d1 00a4ff6
+Author: Mike Gerwitz <mikegerwitz@gnu.org>
+Date:   Sat, 15 Mar 2014 22:19:38 -0400
+
+    Preliminary support for traits as mixins
+    
+    This has turned out to be a very large addition to the project---indeed,
+    with this release, its comprehensiveness remains elusive, but this is a huge
+    step in the right direction.
+    
+    Traits allow for powerful methods of code reuse by defining components that
+    can be ``mixed into'' classes, almost as if the code were copied and pasted
+    directly into the class definition. Mixins, as they are so called, carry
+    with them the type of the trait, just as implementing an interface carries
+    with it the type of the interface; this means that they integrate into
+    ease.js' type system such that, given some trait T that mixes into class C
+    and an instance of C, it will be true that Class.isA( T, inst ).
+    
+    The trait implementation for GNU ease.js is motivated heavily by Scala's
+    implementation of mixins using traits. Notable features include:
+    
+      1. Traits may be mixed in either prior to or following a class definition;
+         this allows coupling traits tightly with a class or allowing them to be
+         used in a decorator-style manner prior to instantiation.
+    
+      2. By mixing in a trait prior to the class definition, the class may
+         override methods of the trait:
+    
+           Class( 'Foo' ).use( T ).extend( { /*...*/ } )
+    
+         If a trait is mixed in after a class definition, then the trait may
+         instead override the functionality of a class:
+    
+           Class( 'Foo', { /*...*/ } ).use( T )
+    
+      3. Traits are stackable: By using the `abstract override' keyword
+         combination, a trait can override the concrete definition of its
+         parent, provided that the abstract definition is implemented by the
+         trait (e.g. by implementing a common interface). This allows overrides
+         to be mixed in any order. For example, consider some class Buffer that
+         defines an `add' method, accepting a string. Now consider two traits
+         Dup and Upper:
+    
+           Buffer.use( Dup ).use( Upper )().add( "foo" )
+    
+         This would result in the string "FooFoo" being added to the buffer.
+         On the other hand:
+    
+           Buffer.use( Reverse ).use( Dup )().add( "foo" )
+    
+         would add the string "Foofoo".
+    
+      4. A trait may maintain its own private state and API completely disjoint
+         from the class that it is mixed into---a class has access only to
+         public and protected members of a trait and vice versa. This further
+         allows a class and trait to pass messages between one-another without
+         having their communications exposed via a public API. A trait may even
+         communicate with with other traits mixed into the same class (or its
+         parents/children), given the proper overrides.
+    
+    Traits provide a powerful system of code reuse that solves the multiple
+    inheritance problems of languages like C++, without introducing the burden
+    and code duplication concerns of Java's interfaces (note that GNU ease.js
+    does support interfaces, but not multiple inheritance). However, traits also
+    run the risk of encouraging overly rich APIs and complicated inheritance
+    trees that produce a maintenance nightmare: it is important to keep concerns
+    separated, creating classes (and traits) that do one thing and do it well.
+    Users should understand the implications of mixing in traits prior to the
+    class definition, and should understand how decorating an API using mixins
+    after a class definition tightly couples the trait with all objects derived
+    from the generated class (as opposed to the flexibility provided by the
+    composition-based decorator pattern). These issues will be detailed in the
+    manual once the trait implementation is complete.
+    
+    The trait implementation is still under development; outstanding tasks are
+    detailed in `README.traits`. In the meantime, note that the implementation
+    *is* stable and can be used in the production environment. While
+    documentation is not yet available in the manual, comprehensive examples and
+    rationale may be found in the trait test cases.
+    
+    Happy hacking!
+
+
+commit 3005cda5439326a89efd350754e392a2035cea10
+Author: Mike Gerwitz <mikegerwitz@gnu.org>
+Date:   Thu, 6 Mar 2014 01:51:49 -0500
+
+    Support for stacked mixins
+    
+    The concept of stacked traits already existed in previous commits, but until
+    now, mixins could not be stacked without some ugly errors. This also allows
+    mixins to be stacked atop of themselves, duplicating their effect. This
+    would naturally have limited use, but it's there.
+    
+    This differs slightly from Scala. For example, consider this ease.js mixin:
+    
+      C.use( T ).use( T )()
+    
+    This is perfectly valid---it has the effect of stacking T twice. In reality,
+    ease.js is doing this:
+    
+      - C' = C.use( T );
+      - new C'.use( T );
+    
+    That is, it each call to `use' creates another class with T mixed in.
+    
+    Scala, on the other hand, complains in this situation:
+    
+      new C with T with T
+    
+    will produce an error stating that "trait T is inherited twice". You can
+    work around this, however, by doing this:
+    
+      class Ca extends T
+      new Ca with T
+    
+    In fact, this is precisely what ease.js is doing, as mentioned above; the
+    "use.use" syntax is merely shorthand for this:
+    
+      new C.use( T ).extend( {} ).use( T )
+    
+    Just keep that in mind.
+
+
+commit 71358eab5940564ea3009ae7df95e411277bc4f2
+Author: Mike Gerwitz <mikegerwitz@gnu.org>
+Date:   Thu, 23 Jan 2014 00:34:15 -0500
+
+    Began implementing composition-based traits
+    
+    As described in <https://savannah.gnu.org/task/index.php#comment3>.
+    
+    The benefit of this approach over definition object merging is primarily
+    simplicitly---we're re-using much of the existing system. We may provide
+    more tight integration eventually for performance reasons (this is a
+    proof-of-concept), but this is an interesting start.
+    
+    This also allows us to study and reason about traits by building off of
+    existing knowledge of composition; the documentation will make mention of
+    this to explain design considerations and issues of tight coupling
+    introduced by mixing in of traits.
+
+
+commit e1a28d7c7130fc57ff4915c9fd9486438f4d7719
+Merge: daae0c6 e07ebc8
+Author: Mike Gerwitz <mikegerwitz@gnu.org>
+Date:   Mon, 20 Jan 2014 21:29:55 -0500
+
+    GNU ease.js
+    
+    ease.js is now part of the GNU project; this merges in changes that led up
+    to the submission being accepted and additional cleanup thereafter. More
+    information will be included in the release announcement (which will be
+    included in the 0.2.0 tag), and relicensing rationale is included in the
+    commit that introduced the license change. The release announcement will
+    also include a small essay I have been authoring with the help and input of
+    RMS about the importance of making JavaScript code free.
+    
+    Happy GNU year!
+
+
+commit 9050c4e4ac21b0c80afdf99fc925538b23cc7f18
+Author: Mike Gerwitz <mike@mikegerwitz.com>
+Date:   Fri, 20 Dec 2013 01:00:35 -0500
+
+    Relicensed under the GPLv3+
+    
+    This project was originally LGPLv+-licensed to encourage its use in a community
+    that is largely copyleft-phobic. After further reflection, that was a mistake,
+    as adoption is not the important factor here---software freedom is.
+    
+    When submitting ease.js to the GNU project, it was asked if I would be willing
+    to relicense it under the GPLv3+; I agreed happily, because there is no reason
+    why we should provide proprietary software any sort of edge. Indeed, proprietary
+    JavaScript is a huge problem since it is automatically downloaded on the user's
+    PC generally without them even knowing, and is a current focus for the FSF. As
+    such, to remain firm in our stance against proprietary JavaScript, relicensing
+    made the most sense for GNU.
+    
+    This is likely to upset current users of ease.js. I am not sure of their
+    number---I have only seen download counts periodically on npmjs.org---but I know
+    there are at least a small number. These users are free to continue using the
+    previous LGPL'd releases, but with the understanding that there will be no
+    further maintenance (not even bug fixes). If possible, users should use the
+    GPL-licensed versions and release their software as free software.
+    
+    Here comes GNU ease.js.
+
+
+commit b4fe08292f56773f28b8c6984d6a4cffc2586e96
+Author: Mike Gerwitz <mike@mikegerwitz.com>
+Date:   Sat, 19 Jan 2013 20:54:30 -0500
+
+    'this' now properly binds to the private member object of the instance for getters/setters
+    
+    Getters/setters did not get much attention during the initial development of
+    ease.js, simply because there was such a strong focus on pre-ES5
+    compatibility---ease.js was created for a project that strongly required it.
+    Given that, getters/setters were not used, since those are ES5 features. As
+    such, I find that two things have happened:
+    
+      1. There was little incentive to provide a proper implementation; even though
+         I noticed the issues during the initial development, they were left
+         unresolved and were then forgotten about as the project lay dormant for a
+         while.
+      2. The project was dormant because it was working as intended (sure, there
+         are still things on the TODO-list feature-wise). Since getters/setters were
+         unused in the project for which ease.js was created, the bug was never
+         found and so never addressed.
+    
+    That said, I now am using getters/setters in a project with ease.js and noticed
+    a very odd bug that could not be explained by that project's implementation.
+    Sure enough, it was an ease.js issue and this commit resolves it.
+    
+    Now, there is more to be said about this commit. Mainly, it should be noted that
+    MemberBuilder.buildGetterSetter, when compared with its method counterpart
+    (buildMethod) is incomplete---it does not properly address overrides, the
+    abstract keyword, proxies or the possibility of method hiding. This is certainly
+    something that I will get to, but I want to get this fix out as soon as I can.
+    Since overriding ES5 getters/setters (rather than explicit methods) is more
+    likely to be a rarity, and since a partial fix is better than no fix, this will
+    likely be tagged immediately and a further fix will follow in the (hopefully
+    near) future.
+    
+    (This is an interesting example of how glaring bugs manage to slip through the
+    cracks, even when the developer is initially aware of them.)
+
+
+commit d84b86b21b64fa486c5319077680616d3f71cddd
+Author: Mike Gerwitz <mike@mikegerwitz.com>
+Date:   Wed, 2 May 2012 13:26:47 -0400
+
+    Added `proxy' keyword support
+    
+    The concept of proxy methods will become an important, core concept in ease.js
+    that will provide strong benefits for creating decorators and proxies, removing
+    boilerplate code and providing useful metadata to the system. Consider the
+    following example:
+    
+      Class( 'Foo',
+      {
+          // ...
+    
+          'public performOperation': function( bar )
+          {
+              this._doSomethingWith( bar );
+              return this;
+          },
+      } );
+    
+      Class( 'FooDecorator',
+      {
+          'private _foo': null,
+    
+          // ...
+    
+          'public performOperation': function( bar )
+          {
+              return this._foo.performOperation( bar );
+          },
+      } );
+    
+    In the above example, `FooDecorator` is a decorator for `Foo`. Assume that the
+    `getValueOf()` method is undecorated and simply needs to be proxied to its
+    component --- an instance of `Foo`. (It is not uncommon that a decorator, proxy,
+    or related class will alter certain functionality while leaving much of it
+    unchanged.) In order to do so, we can use this generic, boilerplate code
+    
+      return this.obj.func.apply( this.obj, arguments );
+    
+    which would need to be repeated again and again for *each method that needs to
+    be proxied*. We also have another problem --- `Foo.getValueOf()` returns
+    *itself*, which `FooDecorator` *also* returns.  This breaks encapsulation, so we
+    instead need to return ourself:
+    
+      'public performOperation': function( bar )
+      {
+          this._foo.performOperation( bar );
+          return this;
+      },
+    
+    Our boilerplate code then becomes:
+    
+      var ret = this.obj.func.apply( this.obj, arguments );
+      return ( ret === this.obj )
+          ? this
+          : ret;
+    
+    Alternatively, we could use the `proxy' keyword:
+    
+      Class( 'FooDecorator2',
+      {
+          'private _foo': null,
+    
+          // ...
+    
+          'public proxy performOperation': '_foo',
+      } );
+    
+    `FooDecorator2.getValueOf()` and `FooDecorator.getValueOf()` both perform the
+    exact same task --- proxy the entire call to another object and return its
+    result, unless the result is the component, in which case the decorator itself
+    is returned.
+    
+    Proxies, as of this commit, accomplish the following:
+      - All arguments are forwarded to the destination
+      - The return value is forwarded to the caller
+        - If the destination returns a reference to itself, it will be replaced with
+          a reference to the caller's context (`this`).
+      - If the call is expected to fail, either because the destination is not an
+        object or because the requested method is not a function, a useful error
+        will be immediately thrown (rather than the potentially cryptic one that
+        would otherwise result, requiring analysis of the stack trace).
+    
+    N.B. As of this commit, static proxies do not yet function properly.
+
+
+commit 66fd2ece83ea1027b99c78ac0286d32d8a667e01
+Author: Mike Gerwitz <mike@mikegerwitz.com>
+Date:   Tue, 6 Dec 2011 18:28:56 -0500
+
+    Switched to Closure Compiler
+    
+    This is nothing against uglify. Rather, here's the story on this:
+    
+    Commit e4cd1e fixed an error that was causing minified files to break in IE.
+    This was due to how IE interprets things, not how UglifyJS was minifying them.
+    Indeed, Closure Compiler had the exact same problem.
+    
+    The decision to move to Closure Compiler was due to a variety of factors, which
+    came down to primarily feature set and tests. Closure Compiler is well tested
+    and maintained. It also includes a number of additional, beneficial features.
+    UglifyJS is an excellent project and I would recommend it to anyone, but it is
+    not tested (no unit tests; it's tested by ensuring common libraries like jQuery
+    run after minification). It is, however, significantly faster.
+    
+    It's likely that, in the future, once I add autoconf for the build process to
+    configure certain settings, that I will add UglifyJS as an option. I'm sure many
+    people would prefer that, especially those who dislike Java and do not wish to
+    have it installed. Hopefully those that do decide to install Java will go with
+    openjdk, not Oracle's proprietary implementation.
+
+
+commit 446aa8d41388f5346bef1d334f21708726a858d0
+Author: Mike Gerwitz <mike@mikegerwitz.com>
+Date:   Sun, 4 Dec 2011 00:32:16 -0500
+
+    Fixed __self assignment for FF
+    
+    This little experience was rather frustrating. Indeed, it would imply that
+    the static implementation (at least, accessing protected and private static
+    members) was always broken in FF. I should be a bit more diligent in my testing.
+    Or perhaps it broke in a more recent version of FF, which is more likely. The
+    problem seems to be that we used defineSecureProp() for an assignment to the
+    actual class, then later properly assigned it to class.___$$svis$$.
+    Of course, defineSecureProp() makes it read-only, so this failed, causing
+    an improper assignment for __self, breaking the implementation. As such,
+    this probably broke in newer versions of FF and worked properly in older versions.
+    
+    More concerningly is that the implementations clearly differ between Chromium
+    and Firefox. It may be that Firefox checks the prototype chain, whereas Chromium
+    (v8, specifically) will simply write to that object, ignoring that the property
+    further down the prototype chain is read-only.
+
+
+commit 6d1cc06c2724fff5a52eae5f2e6a746a06a34f8f
+Author: Mike Gerwitz <mike@mikegerwitz.com>
+Date:   Wed, 26 Oct 2011 23:38:43 -0400
+
+    [#25] Finished refactoring MemberBuilder/MethodTest and removed inc-member_builder-common (no longer needed)
+    
+    Finally feels like things are starting to come together.
+    
+    It's rather interesting looking back. Each time I begin writing a piece of
+    software, I think to myself, "This is the best way to do it." Well, generally.
+    Perhaps the implementation could have been better, but I may not have had the
+    time. However, the general concept remains.
+    
+    Each time I look back months later and find that I disagree with certain
+    decisions. I find certain implementations to be messy or poorly constructed. Or
+    perhaps I was just being lazy to begin with. Whatever the case, it is
+    comforting. It shows that one is continuing to learn and evolve.
+    
+    Now, in the case of ease.js, we're working with a number of different factors in
+    regards to my perception of prior code quality. Primarily, I'm looking at a
+    basic implementation (in this case, I'm referring to test cases) that served as
+    a foundation that could be later evolved. I didn't have the time to devote to a
+    stronger solution. However, since the project has evolved so far past my
+    original expectations, a more sophisticated solution is needed in order to
+    simplify the overall design. That is what happened here.
+    
+    Of course, we're also looking at a year's worth of additional, intimate
+    experience with a language.
+    
+    Regardless of the reason, I love to see software evolve. Especially my own. It's
+    as if I'm watching my child grow. From that, I can get a great deal of
+    satisfaction.
+    
+    One shouldn't expect perfection. But one should certainly aim for it.
+
+
+commit c10fc5818a1a9e402a666d4af3c38a15c8abc8eb
+Author: Mike Gerwitz <mike@mikegerwitz.com>
+Date:   Mon, 10 Oct 2011 23:25:23 -0400
+
+    Added very basic formatted output and failure tolerance for test case
+    
+    The one year anniversary of the beginning of the ease.js project is quickly
+    approaching. I find myself to be not quite where I had expected many months ago,
+    but find that the project has evolved so much further than I had event
+    originally anticipated. My main motivation behind the project continues to be
+    making my life at work easier, while providing an excellent library that others
+    can hopefully benefit from. If anything, it's a fascinating experiment and
+    clever hack around JavaScript.
+    
+    Now I find myself with a newborn child (nearly four weeks old), who demands my
+    constant attention (and indeed, it is difficult to find the desire to put my
+    attention elsewhere). Still - I am a hacker. Software is my passion. So the
+    project must move forward.
+    
+    I also find myself unwilling to create a blog for ease.js. I feel it's
+    inappropriate for a project that's in its (relative) infancy and does not have
+    much popularity (it has never been announced to anyone). As such, I feel that
+    commit messages will serve my purpose as useful journal entries regarding the
+    status of the project. They will also be interesting easter eggs for those who
+    would wish to seek them out for additional perspective on the project. (Granted,
+    one could easy script the discovery of such entries by examining the absurd
+    length of the commit message...perhaps the git log manpages would be useful).
+    
+    So. Let's get back to the project.
+    
+    ease.js is currently going through a strong refactoring in order to address
+    design issues that have begun to creep up as the project grew. The initial
+    design was a very simple one - a "series of modules", as it was originally
+    described in a CommonJS sense, that would provide features of a classical
+    Object-Oriented system. It would seem ironic that, having a focus on
+    classical Object-Oriented development, one would avoid developing the project in
+    such a paradigm. Instead, I wished to keep the design simple (because the
+    project seemed simple), more natural to JS developers (prototypal) and
+    performant (object literals do not have the overhead of instantiation). Well,
+    unfortunately, the project scope has increased drastically due to the success of
+    the implementation (and my playfulness), the chosen paradigm has become awkward
+    in itself and the performance benefit is indeed a micro-optimization when
+    compared with the performance of both the rest of the system and the system that
+    will implement ease.js as a framework.
+    
+    You can only put off refactoring for so long before the system begins to trip
+    over itself and stop being a pleasure to work with. In fact, it's a slap in the
+    face. You develop this intricate and beautiful system (speaking collectively and
+    generally, of course) and it begins to feel tainted. In order to prevent it from
+    developing into a ball of mud - a truly unmaintainable mess - the act of
+    refactoring is inevitable, especially if we want to ensure that the project
+    survives and is actively developed for any length of time.
+    
+    In this case, the glaring problem is that each of the modules are terribly,
+    tightly coupled. This reduces the flexibility of the system and forces us to
+    resort to a system riddled with conditionals. This becomes increasingly apparent
+    when we need to provide slightly different implementations between environments
+    (e.g. ES5/pre-ES5, production/development, etc and every combination).
+    Therefore, we need to decouple the modules in order to take advantage of
+    composition in order to provide more flexible feature sets depending on
+    environment.
+    
+    What does this mean?
+    
+    We need to move from object literals for the modules to prototypes (class-like,
+    but remember that ease.js exists because JS does not have "classes"). A number
+    of other prototypes can be extracted from the existing modules and abstracted to
+    the point where they can be appropriately injected where necessary. Rather than
+    using conditions for features such as fallbacks, we can encapsulate the entire
+    system in a facade that contains the features relevant to that particular
+    environment. This will also have the consequence that we can once again test
+    individual units rather than systems.
+    
+    At the point of this commit (this entry was written before any work was done),
+    the major hurdle is refactoring the test cases so that they do not depend on
+    fallback logic and instead simply test specific units and skip the test if the
+    unit (the prototype) is not supported by the environment (e.g. proxies in a
+    pre-ES5 environment). This will allow us to finish refactoring the fallback and
+    environment-specific logic. It will also allow us to cleanly specify a fallback
+    implementation (through composition) in an ES5 environment while keeping ES5
+    detection mechanisms separate.
+    
+    The remaining refactorings will likely be progressive. This all stemmed out of
+    the desire to add the method hiding feature, whose implementation varies
+    depending on environment. I want to get back to developing that feature so I can
+    get the first release (v0.1.0) out. Refactoring can continue after that point.
+    This project needs a version number so it can be used reliably.
