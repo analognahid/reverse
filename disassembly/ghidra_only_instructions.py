@@ -19,64 +19,9 @@ DISTANCE_FROM_BYTE_TO_INST = 15
 
 
 import os
-
 import math
 
-MSG_FORMAT = ' {{addr:<{0}}} {{byte:<{1}}} {{inst}}\n'.format(
-    DISTANCE_FROM_ADDRESS_TO_BYTE,
-    DISTANCE_FROM_ADDRESS_TO_BYTE+DISTANCE_FROM_BYTE_TO_INST 
-)
 
-
-def unoverflow(x):
-    return (abs(x) ^ 0xff) + 1
-
-
-def to_hex(integer):
-    return '{:02x}'.format(integer)
-
-
-def _get_function_signature(func):
-    # Get function signature
-    calling_conv = func.getDefaultCallingConventionName()
-    params = func.getParameters()
-
-    return '\n{calling_conv} {func_name}({params})\n'.format(
-        calling_conv=calling_conv,
-        func_name=func.getName(),
-        params=', '.join([str(param).replace('[', '').replace(']', '').split('@')[0] for param in params]))
-
-
-def _get_instructions(func):
-    instructions = ''
-
-    # Get instructions in function
-    func_addr = func.getEntryPoint()
-    insts = ghidra_app.currentProgram.getListing().getInstructions(func_addr, True)
-
-    # Process each instruction
-    for inst in insts:
-        if ghidra_app.getFunctionContaining(inst.getAddress()) != func:
-            break
-
-        instructions +=str((inst.getAddress()))+":\t"+  MSG_FORMAT.format(
-            addr=inst.getAddressString(True, True),
-            byte=' '.join([to_hex(b) if b >= 0 else to_hex(unoverflow(b)) for b in inst.getBytes()]),
-            inst=inst
-        )
-
-    return instructions
-
-
-def disassemble_func(func):
-    '''disassemble given function, and returns as string.
-    Args:
-        func (ghidra.program.model.listing.Function): function to be disassembled
-    Returns:
-        string: disassembled function with function signature and instructions
-    '''
-
-    return  _get_instructions(func)
 
 
 def disassemble(program):
@@ -86,38 +31,42 @@ def disassemble(program):
     Returns:
         string: all disassembled functions 
     '''
+    baseAddress = program.getImageBase()
 
     executalbe_size = os.path.getsize(str(currentProgram.getExecutablePath()))
     digits = int(math.log10(executalbe_size))+1   #int(math.ceil(executalbe_size/10)*10)
     mod_number = pow(10,digits)
     disasm_result = ''
+    visited_addresses = []
     for instr in program.getListing().getInstructions(True): 
         # instructionList.append(instr)
-
-
-        disasm_result+= str( hex(int(str(instr.getAddress()),16)%mod_number ) )+ " "+str(int(str(instr.getAddress()),16)) +" %"+str(mod_number)+ ":\t"+ str(	instr.getAddress().isMemoryAddress())+ (instr.getAddress().getPhysicalAddress().toString()) + "::\t"+instr.getAddressString(True, True)+"\t"+ instr.toString() +"\n"
-
-    
+            disasm_result+= str(hex(instr.getAddress().subtract(baseAddress)))+ " %" + "::\t"+instr.getAddressString(True, True)+"\t"+ instr.toString() +"\n"
+            visited_addresses.append( instr.getAddress().subtract(baseAddress) )
 
 
 
-    return disasm_result
+
+    return visited_addresses
 
 
 def run():
-
-    # os.path.getsize()
-
+    
+    print("___"*50+"\n"*5)
     output = '/home/nahid/reverse/disassembly/disassembly.asm'
 
     print(output)
 
     # Get disassembled code
-    disassembled = disassemble(ghidra_app.currentProgram)
+    disassembled_addresses = disassemble(ghidra_app.currentProgram)
+    
+    print(type(disassembled_addresses[0]))
+
+    print(disassembled_addresses)
+    breakpoint()
+
+    print("\n"*5)
     # Save to output file
-    with open(output, 'w') as fw:
-        fw.write(disassembled)
-        print('[*] success. save to -> {}'.format(output))
+
     
 # Starts execution here
 if __name__ == '__main__':
