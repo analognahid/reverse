@@ -180,6 +180,11 @@ for func in ghidra_app.currentProgram.getListing().getFunctions(True):
             varnode = hv.getRepresentative()
             print("Varnode: {}".format(varnode))
             fs = DecompilerUtils.getForwardSlice(varnode)
+            print(dir(fs))
+            for n in fs:
+                print(n.PCAddress, dir(n))
+                break
+                
             print("Forward Slice: {}".format(fs))
 
             bs = DecompilerUtils.getBackwardSlice(varnode)
