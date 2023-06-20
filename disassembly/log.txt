@@ -1,0 +1,540 @@
+INFO  Using log config file: jar:file:/home/nahid/reverse_tools/ghidra/ghidra_10.2_PUBLIC_20221101/ghidra_10.2_PUBLIC/Ghidra/Framework/Generic/lib/Generic.jar!/generic.log4j.xml (LoggingInitialization)  
+INFO  Using log file: /home/nahid/.ghidra/.ghidra_10.2_PUBLIC/application.log (LoggingInitialization)  
+INFO  Loading user preferences: /home/nahid/.ghidra/.ghidra_10.2_PUBLIC/preferences (Preferences)  
+INFO  Class search complete (1192 ms) (ClassSearcher)  
+INFO  Initializing SSL Context (SSLContextInitializer)  
+INFO  Initializing Random Number Generator... (SecureRandomFactory)  
+INFO  Random Number Generator initialization complete: NativePRNGNonBlocking (SecureRandomFactory)  
+INFO  Trust manager disabled, cacerts have not been set (ApplicationTrustManagerFactory)  
+INFO  HEADLESS Script Paths:
+    /home/nahid/reverse_tools/ghidra/ghidra_10.2_PUBLIC_20221101/ghidra_10.2_PUBLIC/Ghidra/Features/Base/ghidra_scripts
+    /home/nahid/reverse_tools/ghidra/ghidra_10.2_PUBLIC_20221101/ghidra_10.2_PUBLIC/Ghidra/Processors/8051/ghidra_scripts
+    /home/nahid/reverse_tools/ghidra/ghidra_10.2_PUBLIC_20221101/ghidra_10.2_PUBLIC/Ghidra/Processors/Atmel/ghidra_scripts
+    /home/nahid/reverse_tools/ghidra/ghidra_10.2_PUBLIC_20221101/ghidra_10.2_PUBLIC/Ghidra/Features/Python/ghidra_scripts
+    /home/nahid/reverse_tools/ghidra/ghidra_10.2_PUBLIC_20221101/ghidra_10.2_PUBLIC/Ghidra/Debug/Debugger-agent-dbgmodel-traceloader/ghidra_scripts
+    /home/nahid/reverse_tools/ghidra/ghidra_10.2_PUBLIC_20221101/ghidra_10.2_PUBLIC/Ghidra/Features/MicrosoftCodeAnalyzer/ghidra_scripts
+    /home/nahid/reverse_tools/ghidra/ghidra_10.2_PUBLIC_20221101/ghidra_10.2_PUBLIC/Ghidra/Processors/JVM/ghidra_scripts
+    /home/nahid/reverse_tools/ghidra/ghidra_10.2_PUBLIC_20221101/ghidra_10.2_PUBLIC/Ghidra/Features/BytePatterns/ghidra_scripts
+    /home/nahid/reverse_tools/ghidra/ghidra_10.2_PUBLIC_20221101/ghidra_10.2_PUBLIC/Ghidra/Debug/Debugger-agent-frida/ghidra_scripts
+    /home/nahid/reverse/disassembly
+    /home/nahid/reverse_tools/ghidra/ghidra_10.2_PUBLIC_20221101/ghidra_10.2_PUBLIC/Ghidra/Features/Decompiler/ghidra_scripts
+    /home/nahid/reverse_tools/ghidra/ghidra_10.2_PUBLIC_20221101/ghidra_10.2_PUBLIC/Ghidra/Debug/Debugger/ghidra_scripts
+    /home/nahid/reverse_tools/ghidra/ghidra_10.2_PUBLIC_20221101/ghidra_10.2_PUBLIC/Ghidra/Features/VersionTracking/ghidra_scripts
+    /home/nahid/reverse_tools/ghidra/ghidra_10.2_PUBLIC_20221101/ghidra_10.2_PUBLIC/Ghidra/Features/FunctionID/ghidra_scripts
+    /home/nahid/reverse_tools/ghidra/ghidra_10.2_PUBLIC_20221101/ghidra_10.2_PUBLIC/Ghidra/Features/GnuDemangler/ghidra_scripts
+    /home/nahid/reverse_tools/ghidra/ghidra_10.2_PUBLIC_20221101/ghidra_10.2_PUBLIC/Ghidra/Processors/PIC/ghidra_scripts
+    /home/nahid/reverse_tools/ghidra/ghidra_10.2_PUBLIC_20221101/ghidra_10.2_PUBLIC/Ghidra/Features/FileFormats/ghidra_scripts
+    /home/nahid/reverse_tools/ghidra/ghidra_10.2_PUBLIC_20221101/ghidra_10.2_PUBLIC/Ghidra/Features/PDB/ghidra_scripts
+    /home/nahid/reverse_tools/ghidra/ghidra_10.2_PUBLIC_20221101/ghidra_10.2_PUBLIC/Ghidra/Processors/DATA/ghidra_scripts (HeadlessAnalyzer)  
+INFO  HEADLESS: execution starts (HeadlessAnalyzer)  
+INFO  Opening existing project: /home/nahid/reverse/disassembly/ghidra_project/ghidraBenchmarking_MainProcess (HeadlessAnalyzer)  
+INFO  Opening project: /home/nahid/reverse/disassembly/ghidra_project/ghidraBenchmarking_MainProcess (HeadlessProject)  
+INFO  REPORT: Processing input files:  (HeadlessAnalyzer)  
+INFO       project: /home/nahid/reverse/disassembly/ghidra_project/ghidraBenchmarking_MainProcess (HeadlessAnalyzer)  
+INFO  IMPORTING: /home/nahid/reverse/codes/ML/data/binaries/array (HeadlessAnalyzer)  
+INFO  /array: file deleted (nahid) (LocalFileSystem)  
+INFO  Deleted local file array (GhidraFileData)  
+WARN  REPORT: Removed conflicting program file from project: /array (HeadlessAnalyzer)  
+INFO  Using Loader: Executable and Linking Format (ELF) (AutoImporter)  
+INFO  REPORT: Import succeeded with language "x86:LE:64:default" and cspec "gcc" for file: /home/nahid/reverse/codes/ML/data/binaries/array (HeadlessAnalyzer)  
+INFO  SCRIPT: /home/nahid/reverse/disassembly/dwarf_line.py (HeadlessAnalyzer)  
+{u'GCC Exception Handlers': u'true', u'Variadic Function Signature Override': u'false', u'x86 Constant Reference Analyzer': u'true', u'Data Reference.Relocation Table Guide': u'true', u'ASCII Strings': u'true', u'Shared Return Calls.Allow Conditional Jumps': u'false', u'Create Address Tables.Allow Offcut References': u'false', u'Reference.Unicode String References': u'true', u'Decompiler Parameter ID.Analysis Decompiler Timeout (sec)': u'60', u'Function ID.Create Analysis Bookmarks': u'true', u'Create Address Tables': u'true', u'Function Start Search After Data.Bookmark Functions': u'false', u'Disassemble Entry Points.Respect Execute Flag': u'true', u'Aggressive Instruction Finder': u'false', u'Function Start Search After Code.Search Data Blocks': u'false', u'Reference.Address Table Minimum Size': u'2', u'DWARF': u'true', u'ASCII Strings.Minimum String Length': u'LEN_5', u'Reference.Minimum String Length': u'5', u'Function ID': u'true', u'Non-Returning Functions - Known.Create Analysis Bookmarks': u'true', u'Reference.Ascii String References': u'true', u'Stack.useNewFunctionStackAnalysis': u'true', u'Reference.Relocation Table Guide': u'true', u'Demangler GNU.Apply Function Signatures': u'true', u'Variadic Function Signature Override.Create Analysis Bookmarks': u'false', u'Function Start Search': u'true', u'x86 Constant Reference Analyzer.Min absolute reference': u'4', u'Data Reference.Address Table Alignment': u'1', u'Decompiler Parameter ID': u'false', u'Non-Returning Functions - Discovered.Repair Flow Damage': u'true', u'Apply Data Archives.Create Analysis Bookmarks': u'true', u'Create Address Tables.Create Analysis Bookmarks': u'true', u'Reference.References to Pointers': u'true', u'ELF Scalar Operand References': u'true', u'Non-Returning Functions - Discovered': u'true', u'Create Address Tables.Relocation Table Guide': u'true', u'Reference.Address Table Alignment': u'1', u'Data Reference.Align End of Strings': u'false', u'Function ID.Always Apply FID Labels': u'false', u'DWARF.Output Source Info': u'false', u'Apply Data Archives': u'true', u'ASCII Strings.Create Strings Containing Existing Strings': u'true', u'DWARF.Preload All DIEs': u'false', u'Data Reference.Create Address Tables': u'false', u'ASCII Strings.Force Model Reload': u'false', u'Function ID.Multiple Match Threshold': u'30.0', u'x86 Constant Reference Analyzer.Function parameter/return Pointer analysis': u'true', u'Data Reference.Ascii String References': u'true', u'Data Reference.Respect Execute Flag': u'true', u'Data Reference.Subroutine References': u'true', u'Function ID.Instruction Count Threshold': u'14.6', u'Shared Return Calls': u'true', u'Data Reference': u'true', u'Condense Filler Bytes': u'false', u'Reference': u'true', u'Subroutine References': u'true', u'ASCII Strings.Create Strings Containing References': u'true', u'Disassemble Entry Points': u'true', u'Aggressive Instruction Finder.Create Analysis Bookmarks': u'true', u'ELF Scalar Operand References.Relocation Table Guide': u'true', u'Demangler GNU': u'true', u'Shared Return Calls.Assume Contiguous Functions Only': u'true', u'Data Reference.Switch Table References': u'false', u'Condense Filler Bytes.Filler Value': u'Auto', u'DWARF.Add Lexical Block Comments': u'false', u'Stack.Create Local Variables': u'true', u'Call Convention ID.Analysis Decompiler Timeout (sec)': u'60', u'Data Reference.Address Table Minimum Size': u'2', u'Create Address Tables.Table Alignment': u'4', u'DWARF.Output DWARF DIE Info': u'false', u'Demangler GNU.Use Deprecated Demangler': u'false', u'GCC Exception Handlers.Create Try Catch Comments': u'true', u'Data Reference.Unicode String References': u'true', u'Embedded Media.Create Analysis Bookmarks': u'true', u'Decompiler Parameter ID.Prototype Evaluation': u'__stdcall', u'ASCII Strings.String Start Alignment': u'ALIGN_1', u'Decompiler Parameter ID.Analysis Clear Level': u'ANALYSIS', u'Decompiler Switch Analysis.Analysis Decompiler Timeout (sec)': u'60', u'ASCII Strings.Require Null Termination for String': u'true', u'Decompiler Parameter ID.Commit Data Types': u'true', u'x86 Constant Reference Analyzer.Trust values read from writable memory': u'true', u'Create Address Tables.Minimum Table Size': u'2', u'Data Reference.References to Pointers': u'true', u'Demangler GNU.Apply Function Calling Conventions': u'true', u'Non-Returning Functions - Discovered.Create Analysis Bookmarks': u'true', u'Create Address Tables.Pointer Alignment': u'1', u'Function Start Search After Data': u'true', u'External Entry References': u'true', u'DWARF.Add Inlined Functions Comments': u'false', u'Reference.Respect Execute Flag': u'true', u'ASCII Strings.String end alignment': u'4', u'Function Start Search After Data.Search Data Blocks': u'false', u'x86 Constant Reference Analyzer.Stored Value Pointer analysis': u'true', u'Function Start Search After Code.Bookmark Functions': u'false', u'DWARF.Debug Item Limit': u'2000000', u'Non-Returning Functions - Known': u'true', u'Stack': u'true', u'Reference.Align End of Strings': u'false', u'Non-Returning Functions - Discovered.Function Non-return Threshold': u'3', u'Reference.Subroutine References': u'true', u'Subroutine References.Create Thunks Early': u'true', u'Call Convention ID': u'true', u'Demangler GNU.Demangler Format': u'AUTO', u'ASCII Strings.Search Only in Accessible Memory Blocks': u'true', u'Reference.Create Address Tables': u'false', u'ASCII Strings.Model File': u'StringModel.sng', u'Demangler GNU.Demangle Only Known Mangled Symbols': u'false', u'x86 Constant Reference Analyzer.Speculative reference max': u'512', u'Embedded Media': u'true', u'Reference.Switch Table References': u'false', u'DWARF Line Number': u'true', u'Data Reference.Minimum String Length': u'5', u'x86 Constant Reference Analyzer.Max Threads': u'2', u'Create Address Tables.Minimum Pointer Address': u'4132', u'Function Start Search After Code': u'true', u'DWARF.Import Functions': u'true', u'Decompiler Switch Analysis': u'true', u'Decompiler Parameter ID.Commit Void Return Values': u'false', u'DWARF.Maximum Name Length': u'2000', u'Function Start Search.Search Data Blocks': u'false', u'x86 Constant Reference Analyzer.Speculative reference min': u'1024', u'DWARF.Try To Pack Structs': u'true', u'Call-Fixup Installer': u'true', u'DWARF.Import Data Types': u'true', u'Create Address Tables.Auto Label Table': u'false', u'Create Address Tables.Maxmimum Pointer Distance': u'16777215', u'DWARF.Create Function Signatures': u'true', u'Stack.Create Param Variables': u'true', u'Function Start Search.Bookmark Functions': u'false', u'Condense Filler Bytes.Minimum number of sequential bytes': u'1'}
+xing!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+INFO  ANALYZING all memory and code: /home/nahid/reverse/codes/ML/data/binaries/array (HeadlessAnalyzer)  
+ERROR Error during DWARFAnalyzer import: Only DWARF version 2, 3, or 4 information is currently supported (detected 5). (DWARFAnalyzer) ghidra.app.util.bin.format.dwarf4.DWARFException: Only DWARF version 2, 3, or 4 information is currently supported (detected 5).
+	at ghidra.app.util.bin.format.dwarf4.DWARFCompilationUnit.readCompilationUnit(DWARFCompilationUnit.java:156)
+	at ghidra.app.util.bin.format.dwarf4.next.DWARFProgram.bootstrapCompilationUnits(DWARFProgram.java:586)
+	at ghidra.app.util.bin.format.dwarf4.next.DWARFProgram.<init>(DWARFProgram.java:246)
+	at ghidra.app.plugin.core.analysis.DWARFAnalyzer.added(DWARFAnalyzer.java:190)
+	at ghidra.app.plugin.core.analysis.AnalysisScheduler.runAnalyzer(AnalysisScheduler.java:186)
+	at ghidra.app.plugin.core.analysis.AnalysisTask.applyTo(AnalysisTask.java:39)
+	at ghidra.app.plugin.core.analysis.AutoAnalysisManager$AnalysisTaskWrapper.run(AutoAnalysisManager.java:688)
+	at ghidra.app.plugin.core.analysis.AutoAnalysisManager.startAnalysis(AutoAnalysisManager.java:788)
+	at ghidra.app.plugin.core.analysis.AutoAnalysisManager.startAnalysis(AutoAnalysisManager.java:667)
+	at ghidra.app.plugin.core.analysis.AutoAnalysisManager.startAnalysis(AutoAnalysisManager.java:632)
+	at ghidra.app.util.headless.HeadlessAnalyzer.analyzeProgram(HeadlessAnalyzer.java:1016)
+	at ghidra.app.util.headless.HeadlessAnalyzer.processFileWithImport(HeadlessAnalyzer.java:1551)
+	at ghidra.app.util.headless.HeadlessAnalyzer.processWithImport(HeadlessAnalyzer.java:1689)
+	at ghidra.app.util.headless.HeadlessAnalyzer.processWithImport(HeadlessAnalyzer.java:1754)
+	at ghidra.app.util.headless.HeadlessAnalyzer.processLocal(HeadlessAnalyzer.java:445)
+	at ghidra.app.util.headless.AnalyzeHeadless.launch(AnalyzeHeadless.java:127)
+	at ghidra.GhidraLauncher.launch(GhidraLauncher.java:77)
+	at ghidra.Ghidra.main(Ghidra.java:54)
+ 
+ERROR Unexpected Exception: Only DWARF v2 is supported. (DwarfLineNumberAnalyzer) java.lang.IllegalStateException: Only DWARF v2 is supported.
+	at ghidra.app.util.bin.format.dwarf.line.StatementProgramPrologue.<init>(StatementProgramPrologue.java:46)
+	at ghidra.app.plugin.core.analysis.DwarfLineNumberAnalyzer.added(DwarfLineNumberAnalyzer.java:67)
+	at ghidra.app.plugin.core.analysis.AnalysisScheduler.runAnalyzer(AnalysisScheduler.java:186)
+	at ghidra.app.plugin.core.analysis.AnalysisTask.applyTo(AnalysisTask.java:39)
+	at ghidra.app.plugin.core.analysis.AutoAnalysisManager$AnalysisTaskWrapper.run(AutoAnalysisManager.java:688)
+	at ghidra.app.plugin.core.analysis.AutoAnalysisManager.startAnalysis(AutoAnalysisManager.java:788)
+	at ghidra.app.plugin.core.analysis.AutoAnalysisManager.startAnalysis(AutoAnalysisManager.java:667)
+	at ghidra.app.plugin.core.analysis.AutoAnalysisManager.startAnalysis(AutoAnalysisManager.java:632)
+	at ghidra.app.util.headless.HeadlessAnalyzer.analyzeProgram(HeadlessAnalyzer.java:1016)
+	at ghidra.app.util.headless.HeadlessAnalyzer.processFileWithImport(HeadlessAnalyzer.java:1551)
+	at ghidra.app.util.headless.HeadlessAnalyzer.processWithImport(HeadlessAnalyzer.java:1689)
+	at ghidra.app.util.headless.HeadlessAnalyzer.processWithImport(HeadlessAnalyzer.java:1754)
+	at ghidra.app.util.headless.HeadlessAnalyzer.processLocal(HeadlessAnalyzer.java:445)
+	at ghidra.app.util.headless.AnalyzeHeadless.launch(AnalyzeHeadless.java:127)
+	at ghidra.GhidraLauncher.launch(GhidraLauncher.java:77)
+	at ghidra.Ghidra.main(Ghidra.java:54)
+ 
+ERROR Unexpected Exception: Only DWARF v2 is supported. (DwarfLineNumberAnalyzer) java.lang.IllegalStateException: Only DWARF v2 is supported.
+	at ghidra.app.util.bin.format.dwarf.line.StatementProgramPrologue.<init>(StatementProgramPrologue.java:46)
+	at ghidra.app.plugin.core.analysis.DwarfLineNumberAnalyzer.added(DwarfLineNumberAnalyzer.java:67)
+	at ghidra.app.plugin.core.analysis.AnalysisScheduler.runAnalyzer(AnalysisScheduler.java:186)
+	at ghidra.app.plugin.core.analysis.AnalysisTask.applyTo(AnalysisTask.java:39)
+	at ghidra.app.plugin.core.analysis.AutoAnalysisManager$AnalysisTaskWrapper.run(AutoAnalysisManager.java:688)
+	at ghidra.app.plugin.core.analysis.AutoAnalysisManager.startAnalysis(AutoAnalysisManager.java:788)
+	at ghidra.app.plugin.core.analysis.AutoAnalysisManager.startAnalysis(AutoAnalysisManager.java:667)
+	at ghidra.app.plugin.core.analysis.AutoAnalysisManager.startAnalysis(AutoAnalysisManager.java:632)
+	at ghidra.app.util.headless.HeadlessAnalyzer.analyzeProgram(HeadlessAnalyzer.java:1016)
+	at ghidra.app.util.headless.HeadlessAnalyzer.processFileWithImport(HeadlessAnalyzer.java:1551)
+	at ghidra.app.util.headless.HeadlessAnalyzer.processWithImport(HeadlessAnalyzer.java:1689)
+	at ghidra.app.util.headless.HeadlessAnalyzer.processWithImport(HeadlessAnalyzer.java:1754)
+	at ghidra.app.util.headless.HeadlessAnalyzer.processLocal(HeadlessAnalyzer.java:445)
+	at ghidra.app.util.headless.AnalyzeHeadless.launch(AnalyzeHeadless.java:127)
+	at ghidra.GhidraLauncher.launch(GhidraLauncher.java:77)
+	at ghidra.Ghidra.main(Ghidra.java:54)
+ 
+INFO  hit non-returning function, restarting decompiler switch analyzer later (DecompilerSwitchAnalyzer)  
+INFO  Packed database cache: /tmp/nahid-Ghidra/packed-db-cache (PackedDatabaseCache)  
+INFO  -----------------------------------------------------
+    ASCII Strings                              0.314 secs
+    Apply Data Archives                        0.272 secs
+    Call Convention ID                         0.028 secs
+    Call-Fixup Installer                       0.003 secs
+    Create Address Tables                      0.005 secs
+    Create Function                            0.002 secs
+    DWARF                                      0.017 secs
+    DWARF Line Number                          0.002 secs
+    Data Reference                             0.006 secs
+    Decompiler Switch Analysis                 0.040 secs
+    Decompiler Switch Analysis - One Time      0.241 secs
+    Demangler GNU                              0.007 secs
+    Disassemble Entry Points                   0.051 secs
+    ELF Scalar Operand References              0.006 secs
+    Embedded Media                             0.011 secs
+    External Entry References                  0.000 secs
+    Function ID                                0.045 secs
+    Function Start Search                      0.024 secs
+    Function Start Search After Code           0.001 secs
+    Function Start Search After Data           0.000 secs
+    GCC Exception Handlers                     0.050 secs
+    Non-Returning Functions - Discovered       0.002 secs
+    Non-Returning Functions - Known            0.006 secs
+    Reference                                  0.012 secs
+    Shared Return Calls                        0.010 secs
+    Stack                                      0.023 secs
+    Subroutine References                      0.006 secs
+    Subroutine References - One Time           0.000 secs
+    x86 Constant Reference Analyzer            0.042 secs
+-----------------------------------------------------
+     Total Time   1 secs
+-----------------------------------------------------
+ (AutoAnalysisManager)  
+INFO  REPORT: Analysis succeeded for file: /home/nahid/reverse/codes/ML/data/binaries/array (HeadlessAnalyzer)  
+INFO  SCRIPT: /home/nahid/reverse/disassembly/ghidra_slice.py (HeadlessAnalyzer)  
+['ADDED_VARIABLE_STORAGE_MANAGER_VERSION', 'ANALYSIS_OPTIONS_MOVED_VERSION', 'ANALYSIS_PROPERTIES', 'ANALYSIS_START_DATE', 'ANALYSIS_START_DATE_FORMAT', 'ANALYZED', 'AUTO_PARAMETERS_ADDED_VERSION', 'COMPOUND_VARIABLE_STORAGE_ADDED_VERSION', 'CONTENT_TYPE', 'CREATE', 'CREATED_WITH_GHIDRA_VERSION', 'DATE_CREATED', 'DBHandle', 'DISASSEMBLER_PROPERTIES', 'DOCR_ADDRESS_SET_PROPERTY_MAP_ADDED', 'DOCR_ADDRESS_SET_PROPERTY_MAP_CHANGED', 'DOCR_ADDRESS_SET_PROPERTY_MAP_REMOVED', 'DOCR_BOOKMARK_ADDED', 'DOCR_BOOKMARK_CHANGED', 'DOCR_BOOKMARK_REMOVED', 'DOCR_BOOKMARK_TYPE_ADDED', 'DOCR_BOOKMARK_TYPE_REMOVED', 'DOCR_CATEGORY_ADDED', 'DOCR_CATEGORY_MOVED', 'DOCR_CATEGORY_REMOVED', 'DOCR_CATEGORY_RENAMED', 'DOCR_CODE_ADDED', 'DOCR_CODE_MOVED', 'DOCR_CODE_REMOVED', 'DOCR_CODE_REPLACED', 'DOCR_CODE_UNIT_PROPERTY_ALL_REMOVED', 'DOCR_CODE_UNIT_PROPERTY_CHANGED', 'DOCR_CODE_UNIT_PROPERTY_RANGE_REMOVED', 'DOCR_CODE_UNIT_USER_DATA_CHANGED', 'DOCR_COMPOSITE_ADDED', 'DOCR_COMPOSITE_REMOVED', 'DOCR_CUSTOM_FORMAT_ADDED', 'DOCR_CUSTOM_FORMAT_REMOVED', 'DOCR_DATA_TYPE_ADDED', 'DOCR_DATA_TYPE_CHANGED', 'DOCR_DATA_TYPE_MOVED', 'DOCR_DATA_TYPE_REMOVED', 'DOCR_DATA_TYPE_RENAMED', 'DOCR_DATA_TYPE_REPLACED', 'DOCR_DATA_TYPE_SETTING_CHANGED', 'DOCR_DOCUMENT_CHANGED', 'DOCR_EOL_COMMENT_CHANGED', 'DOCR_EQUATE_ADDED', 'DOCR_EQUATE_REFERENCE_ADDED', 'DOCR_EQUATE_REFERENCE_REMOVED', 'DOCR_EQUATE_REMOVED', 'DOCR_EQUATE_RENAMED', 'DOCR_EXTERNAL_ENTRY_POINT_ADDED', 'DOCR_EXTERNAL_ENTRY_POINT_REMOVED', 'DOCR_EXTERNAL_NAME_ADDED', 'DOCR_EXTERNAL_NAME_CHANGED', 'DOCR_EXTERNAL_NAME_REMOVED', 'DOCR_EXTERNAL_PATH_CHANGED', 'DOCR_EXTERNAL_REFERENCE_ADDED', 'DOCR_EXTERNAL_REFERENCE_REMOVED', 'DOCR_FALLTHROUGH_CHANGED', 'DOCR_FLOWOVERRIDE_CHANGED', 'DOCR_FRAGMENT_MOVED', 'DOCR_FUNCTION_ADDED', 'DOCR_FUNCTION_BODY_CHANGED', 'DOCR_FUNCTION_CHANGED', 'DOCR_FUNCTION_REMOVED', 'DOCR_FUNCTION_TAG_CHANGED', 'DOCR_FUNCTION_TAG_CREATED', 'DOCR_FUNCTION_TAG_DELETED', 'DOCR_GROUP_ADDED', 'DOCR_GROUP_ALIAS_CHANGED', 'DOCR_GROUP_COMMENT_CHANGED', 'DOCR_GROUP_REMOVED', 'DOCR_GROUP_RENAMED', 'DOCR_GROUP_REPARENTED', 'DOCR_IMAGE_BASE_CHANGED', 'DOCR_INT_ADDRESS_SET_PROPERTY_MAP_ADDED', 'DOCR_INT_ADDRESS_SET_PROPERTY_MAP_CHANGED', 'DOCR_INT_ADDRESS_SET_PROPERTY_MAP_REMOVED', 'DOCR_LANGUAGE_CHANGED', 'DOCR_MEMORY_BLOCKS_JOINED', 'DOCR_MEMORY_BLOCK_ADDED', 'DOCR_MEMORY_BLOCK_CHANGED', 'DOCR_MEMORY_BLOCK_MOVED', 'DOCR_MEMORY_BLOCK_REMOVED', 'DOCR_MEMORY_BLOCK_SPLIT', 'DOCR_MEMORY_BYTES_CHANGED', 'DOCR_MEM_REFERENCE_ADDED', 'DOCR_MEM_REFERENCE_REMOVED', 'DOCR_MEM_REF_PRIMARY_REMOVED', 'DOCR_MEM_REF_PRIMARY_SET', 'DOCR_MEM_REF_TYPE_CHANGED', 'DOCR_MODULE_REORDERED', 'DOCR_OBJECT_CREATED', 'DOCR_PLATE_COMMENT_CHANGED', 'DOCR_POST_COMMENT_CHANGED', 'DOCR_PRE_COMMENT_CHANGED', 'DOCR_REGISTER_VALUES_CHANGED', 'DOCR_REPEATABLE_COMMENT_ADDED', 'DOCR_REPEATABLE_COMMENT_CHANGED', 'DOCR_REPEATABLE_COMMENT_CREATED', 'DOCR_REPEATABLE_COMMENT_DELETED', 'DOCR_REPEATABLE_COMMENT_REMOVED', 'DOCR_SOURCE_ARCHIVE_ADDED', 'DOCR_SOURCE_ARCHIVE_CHANGED', 'DOCR_SYMBOL_ADDED', 'DOCR_SYMBOL_ADDRESS_CHANGED', 'DOCR_SYMBOL_ANCHORED_FLAG_CHANGED', 'DOCR_SYMBOL_ASSOCIATION_ADDED', 'DOCR_SYMBOL_ASSOCIATION_REMOVED', 'DOCR_SYMBOL_DATA_CHANGED', 'DOCR_SYMBOL_REMOVED', 'DOCR_SYMBOL_RENAMED', 'DOCR_SYMBOL_SCOPE_CHANGED', 'DOCR_SYMBOL_SET_AS_PRIMARY', 'DOCR_SYMBOL_SOURCE_CHANGED', 'DOCR_TAG_ADDED_TO_FUNCTION', 'DOCR_TAG_REMOVED_FROM_FUNCTION', 'DOCR_TREE_CREATED', 'DOCR_TREE_REMOVED', 'DOCR_TREE_RENAMED', 'DOCR_TREE_RESTORED', 'DOCR_USER_DATA_CHANGED', 'DOCR_VARIABLE_REFERENCE_ADDED', 'DOCR_VARIABLE_REFERENCE_REMOVED', 'DO_DOMAIN_FILE_CHANGED', 'DO_OBJECT_CLOSED', 'DO_OBJECT_ERROR', 'DO_OBJECT_RENAMED', 'DO_OBJECT_RESTORED', 'DO_OBJECT_SAVED', 'DO_PROPERTY_CHANGED', 'EXTERNAL_FUNCTIONS_ADDED_VERSION', 'FUNCTION_CHANGED_CALL_FIXUP', 'FUNCTION_CHANGED_INLINE', 'FUNCTION_CHANGED_NORETURN', 'FUNCTION_CHANGED_PARAMETERS', 'FUNCTION_CHANGED_PURGE', 'FUNCTION_CHANGED_RETURN', 'FUNCTION_CHANGED_THUNK', 'JANUARY_1_1970', 'MAX_OPERANDS', 'METADATA_ADDED_VERSION', 'PREFERRED_ROOT_NAMESPACE_CATEGORY_PROPERTY', 'PROGRAM_INFO', 'PROGRAM_SETTINGS', 'READ_ONLY', 'UPDATE', 'UPGRADE', '__class__', '__copy__', '__deepcopy__', '__delattr__', '__doc__', '__ensure_finalizer__', '__eq__', '__format__', '__getattribute__', '__hash__', '__init__', '__ne__', '__new__', '__reduce__', '__reduce_ex__', '__repr__', '__setattr__', '__str__', '__subclasshook__', '__unicode__', 'addCloseListener', 'addConsumer', 'addListener', 'addOverlaySpace', 'addSynchronizedDomainObject', 'addTransactionListener', 'addressFactory', 'addressMap', 'bookmarkManager', 'canLock', 'canRedo', 'canSave', 'canUndo', 'categoryAdded', 'categoryChanged', 'changeSet', 'changeStatus', 'changeable', 'changed', 'changes', 'checkExclusiveAccess', 'class', 'clearUndo', 'closed', 'codeManager', 'compiler', 'compilerSpec', 'consumerList', 'createAddressSetPropertyMap', 'createIntRangeMap', 'createPrivateEventQueue', 'creationDate', 'currentTransaction', 'dataTypeAdded', 'dataTypeChanged', 'dataTypeManager', 'dbError', 'defaultPointerSize', 'deleteAddressRange', 'deleteAddressSetPropertyMap', 'deleteIntRangeMap', 'description', 'domainFile', 'domainObjectChanged', 'domainObjectListener', 'effectiveImageBase', 'endTransaction', 'equals', 'equateTable', 'eventsEnabled', 'executableFormat', 'executableMD5', 'executablePath', 'executableSHA256', 'externalManager', 'fireEvent', 'flushEvents', 'flushPrivateEventQueue', 'flushWriteCache', 'forceLock', 'functionManager', 'getAddressFactory', 'getAddressMap', 'getAddressSetPropertyMap', 'getBookmarkManager', 'getChangeSet', 'getChangeStatus', 'getChanges', 'getClass', 'getCodeManager', 'getCompiler', 'getCompilerSpec', 'getConsumerList', 'getContentHandler', 'getCreationDate', 'getCurrentTransaction', 'getDBHandle', 'getDataTypeManager', 'getDefaultPointerSize', 'getDescription', 'getDomainFile', 'getEquateTable', 'getExecutableFormat', 'getExecutableMD5', 'getExecutablePath', 'getExecutableSHA256', 'getExternalManager', 'getFunctionManager', 'getGlobalNamespace', 'getImageBase', 'getIntRangeMap', 'getLanguage', 'getLanguageID', 'getListing', 'getLock', 'getMaxAddress', 'getMemory', 'getMetadata', 'getMinAddress', 'getModificationNumber', 'getName', 'getNamespaceManager', 'getOptions', 'getOptionsNames', 'getPreferredRootNamespaceCategoryPath', 'getProgramContext', 'getProgramUserData', 'getRedoName', 'getReferenceManager', 'getRegister', 'getRegisters', 'getRelocationTable', 'getStoredVersion', 'getSymbolTable', 'getSynchronizedDomainObjects', 'getTreeManager', 'getUndoName', 'getUndoStackDepth', 'getUniqueProgramID', 'getUsrPropertyManager', 'globalNamespace', 'hasExclusiveAccess', 'hasTerminatedTransaction', 'hashCode', 'imageBase', 'invalidate', 'invalidateWriteCache', 'isChangeable', 'isChanged', 'isClosed', 'isLanguageUpgradePending', 'isLocked', 'isSendingEvents', 'isTemporary', 'isUsedBy', 'language', 'languageID', 'languageUpgradePending', 'listing', 'lock', 'locked', 'maxAddress', 'memory', 'metadata', 'minAddress', 'modificationNumber', 'moveAddressRange', 'name', 'namespaceManager', 'notify', 'notifyAll', 'optionsNames', 'parseAddress', 'preferredRootNamespaceCategoryPath', 'programContext', 'programTreeAdded', 'programTreeChanged', 'programUserData', 'redo', 'redoName', 'referenceManager', 'release', 'releaseSynchronizedDomainObject', 'relocationTable', 'removeCloseListener', 'removeListener', 'removeOverlaySpace', 'removePrivateEventQueue', 'removeTransactionListener', 'renameOverlaySpace', 'restoreImageBase', 'save', 'saveToPackedFile', 'sendingEvents', 'setChanged', 'setCompiler', 'setDefaultContentClass', 'setEffectiveImageBase', 'setEventsEnabled', 'setExecutableFormat', 'setExecutableMD5', 'setExecutablePath', 'setExecutableSHA256', 'setImageBase', 'setLanguage', 'setName', 'setObjChanged', 'setPreferredRootNamespaceCategoryPath', 'setPropertyChanged', 'setPropertyRangeRemoved', 'setRegisterValuesChanged', 'setTemporary', 'sourceArchiveAdded', 'sourceArchiveChanged', 'startTransaction', 'storedVersion', 'symbolAdded', 'symbolChanged', 'symbolTable', 'synchronizedDomainObjects', 'tagChanged', 'tagCreated', 'temporary', 'toString', 'treeManager', 'undo', 'undoLock', 'undoName', 'undoStackDepth', 'uniqueProgramID', 'unlock', 'usrPropertyManager', 'wait']
+
+__stdcall _init(EVP_PKEY_CTX * ctx)
+ .init:0000000000101000 f3 0f 1e fa                    ENDBR64
+ .init:0000000000101004 48 83 ec 08                    SUB RSP,0x8
+ .init:0000000000101008 48 8b 05 d9 2f 00 00           MOV RAX,qword ptr [0x00103fe8]
+ .init:000000000010100f 48 85 c0                       TEST RAX,RAX
+ .init:0000000000101012 74 02                          JZ 0x00101016
+ .init:0000000000101014 ff d0                          CALL RAX
+ .init:0000000000101016 48 83 c4 08                    ADD RSP,0x8
+ .init:000000000010101a c3                             RET
+
+__stdcall FUN_00101020()
+ .plt:0000000000101020 ff 35 8a 2f 00 00              PUSH qword ptr [0x00103fb0]
+ .plt:0000000000101026 f2 ff 25 8b 2f 00 00           JMP qword ptr [0x00103fb8]
+
+__stdcall __cxa_finalize()
+ .plt.got:0000000000101060 f3 0f 1e fa                    ENDBR64
+ .plt.got:0000000000101064 f2 ff 25 8d 2f 00 00           JMP qword ptr [0x00103ff8]
+
+__stdcall __stack_chk_fail()
+ .plt.sec:0000000000101070 f3 0f 1e fa                    ENDBR64
+ .plt.sec:0000000000101074 f2 ff 25 45 2f 00 00           JMP qword ptr [0x00103fc0]
+
+__stdcall printf(char * __format)
+ .plt.sec:0000000000101080 f3 0f 1e fa                    ENDBR64
+ .plt.sec:0000000000101084 f2 ff 25 3d 2f 00 00           JMP qword ptr [0x00103fc8]
+
+__stdcall __isoc99_scanf()
+ .plt.sec:0000000000101090 f3 0f 1e fa                    ENDBR64
+ .plt.sec:0000000000101094 f2 ff 25 35 2f 00 00           JMP qword ptr [0x00103fd0]
+
+__stdcall _start()
+ .text:00000000001010a0 f3 0f 1e fa                    ENDBR64
+ .text:00000000001010a4 31 ed                          XOR EBP,EBP
+ .text:00000000001010a6 49 89 d1                       MOV R9,RDX
+ .text:00000000001010a9 5e                             POP RSI
+ .text:00000000001010aa 48 89 e2                       MOV RDX,RSP
+ .text:00000000001010ad 48 83 e4 f0                    AND RSP,-0x10
+ .text:00000000001010b1 50                             PUSH RAX
+ .text:00000000001010b2 54                             PUSH RSP
+ .text:00000000001010b3 45 31 c0                       XOR R8D,R8D
+ .text:00000000001010b6 31 c9                          XOR ECX,ECX
+ .text:00000000001010b8 48 8d 3d ca 00 00 00           LEA RDI,[0x101189]
+ .text:00000000001010bf ff 15 13 2f 00 00              CALL qword ptr [0x00103fd8]
+ .text:00000000001010c5 f4                             HLT
+
+__stdcall deregister_tm_clones()
+ .text:00000000001010d0 48 8d 3d 39 2f 00 00           LEA RDI,[0x104010]
+ .text:00000000001010d7 48 8d 05 32 2f 00 00           LEA RAX,[0x104010]
+ .text:00000000001010de 48 39 f8                       CMP RAX,RDI
+ .text:00000000001010e1 74 15                          JZ 0x001010f8
+ .text:00000000001010e3 48 8b 05 f6 2e 00 00           MOV RAX,qword ptr [0x00103fe0]
+ .text:00000000001010ea 48 85 c0                       TEST RAX,RAX
+ .text:00000000001010ed 74 09                          JZ 0x001010f8
+ .text:00000000001010ef ff e0                          JMP RAX
+ .text:00000000001010f8 c3                             RET
+
+__stdcall register_tm_clones()
+ .text:0000000000101100 48 8d 3d 09 2f 00 00           LEA RDI,[0x104010]
+ .text:0000000000101107 48 8d 35 02 2f 00 00           LEA RSI,[0x104010]
+ .text:000000000010110e 48 29 fe                       SUB RSI,RDI
+ .text:0000000000101111 48 89 f0                       MOV RAX,RSI
+ .text:0000000000101114 48 c1 ee 3f                    SHR RSI,0x3f
+ .text:0000000000101118 48 c1 f8 03                    SAR RAX,0x3
+ .text:000000000010111c 48 01 c6                       ADD RSI,RAX
+ .text:000000000010111f 48 d1 fe                       SAR RSI,0x1
+ .text:0000000000101122 74 14                          JZ 0x00101138
+ .text:0000000000101124 48 8b 05 c5 2e 00 00           MOV RAX,qword ptr [0x00103ff0]
+ .text:000000000010112b 48 85 c0                       TEST RAX,RAX
+ .text:000000000010112e 74 08                          JZ 0x00101138
+ .text:0000000000101130 ff e0                          JMP RAX
+ .text:0000000000101138 c3                             RET
+
+__stdcall __do_global_dtors_aux()
+ .text:0000000000101140 f3 0f 1e fa                    ENDBR64
+ .text:0000000000101144 80 3d c5 2e 00 00 00           CMP byte ptr [0x00104010],0x0
+ .text:000000000010114b 75 2b                          JNZ 0x00101178
+ .text:000000000010114d 55                             PUSH RBP
+ .text:000000000010114e 48 83 3d a2 2e 00 00 00        CMP qword ptr [0x00103ff8],0x0
+ .text:0000000000101156 48 89 e5                       MOV RBP,RSP
+ .text:0000000000101159 74 0c                          JZ 0x00101167
+ .text:000000000010115b 48 8b 3d a6 2e 00 00           MOV RDI,qword ptr [0x00104008]
+ .text:0000000000101162 e8 f9 fe ff ff                 CALL 0x00101060
+ .text:0000000000101167 e8 64 ff ff ff                 CALL 0x001010d0
+ .text:000000000010116c c6 05 9d 2e 00 00 01           MOV byte ptr [0x00104010],0x1
+ .text:0000000000101173 5d                             POP RBP
+ .text:0000000000101174 c3                             RET
+ .text:0000000000101178 c3                             RET
+
+__stdcall frame_dummy()
+ .text:0000000000101180 f3 0f 1e fa                    ENDBR64
+ .text:0000000000101184 e9 77 ff ff ff                 JMP 0x00101100
+
+__stdcall main()
+ .text:0000000000101189 f3 0f 1e fa                    ENDBR64
+ .text:000000000010118d 55                             PUSH RBP
+ .text:000000000010118e 48 89 e5                       MOV RBP,RSP
+ .text:0000000000101191 48 83 ec 30                    SUB RSP,0x30
+ .text:0000000000101195 64 48 8b 04 25 28 00 00 00     MOV RAX,qword ptr FS:[0x28]
+ .text:000000000010119e 48 89 45 f8                    MOV qword ptr [RBP + -0x8],RAX
+ .text:00000000001011a2 31 c0                          XOR EAX,EAX
+ .text:00000000001011a4 48 8d 05 59 0e 00 00           LEA RAX,[0x102004]
+ .text:00000000001011ab 48 89 c7                       MOV RDI,RAX
+ .text:00000000001011ae b8 00 00 00 00                 MOV EAX,0x0
+ .text:00000000001011b3 e8 c8 fe ff ff                 CALL 0x00101080
+ .text:00000000001011b8 c7 45 d4 00 00 00 00           MOV dword ptr [RBP + -0x2c],0x0
+ .text:00000000001011bf eb 37                          JMP 0x001011f8
+ .text:00000000001011c1 8b 45 d4                       MOV EAX,dword ptr [RBP + -0x2c]
+ .text:00000000001011c4 48 98                          CDQE
+ .text:00000000001011c6 8b 55 d4                       MOV EDX,dword ptr [RBP + -0x2c]
+ .text:00000000001011c9 89 54 85 e0                    MOV dword ptr [RBP + RAX*0x4 + -0x20],EDX
+ .text:00000000001011cd 48 8d 55 e0                    LEA RDX,[RBP + -0x20]
+ .text:00000000001011d1 8b 45 d4                       MOV EAX,dword ptr [RBP + -0x2c]
+ .text:00000000001011d4 48 98                          CDQE
+ .text:00000000001011d6 48 c1 e0 02                    SHL RAX,0x2
+ .text:00000000001011da 48 01 d0                       ADD RAX,RDX
+ .text:00000000001011dd 48 89 c6                       MOV RSI,RAX
+ .text:00000000001011e0 48 8d 05 30 0e 00 00           LEA RAX,[0x102017]
+ .text:00000000001011e7 48 89 c7                       MOV RDI,RAX
+ .text:00000000001011ea b8 00 00 00 00                 MOV EAX,0x0
+ .text:00000000001011ef e8 9c fe ff ff                 CALL 0x00101090
+ .text:00000000001011f4 83 45 d4 01                    ADD dword ptr [RBP + -0x2c],0x1
+ .text:00000000001011f8 83 7d d4 04                    CMP dword ptr [RBP + -0x2c],0x4
+ .text:00000000001011fc 7e c3                          JLE 0x001011c1
+ .text:00000000001011fe 48 8d 05 15 0e 00 00           LEA RAX,[0x10201a]
+ .text:0000000000101205 48 89 c7                       MOV RDI,RAX
+ .text:0000000000101208 b8 00 00 00 00                 MOV EAX,0x0
+ .text:000000000010120d e8 6e fe ff ff                 CALL 0x00101080
+ .text:0000000000101212 c7 45 d8 00 00 00 00           MOV dword ptr [RBP + -0x28],0x0
+ .text:0000000000101219 eb 7e                          JMP 0x00101299
+ .text:000000000010121b 8b 45 d8                       MOV EAX,dword ptr [RBP + -0x28]
+ .text:000000000010121e 48 98                          CDQE
+ .text:0000000000101220 8b 55 d8                       MOV EDX,dword ptr [RBP + -0x28]
+ .text:0000000000101223 89 54 85 e0                    MOV dword ptr [RBP + RAX*0x4 + -0x20],EDX
+ .text:0000000000101227 c7 45 dc 00 00 00 00           MOV dword ptr [RBP + -0x24],0x0
+ .text:000000000010122e eb 5f                          JMP 0x0010128f
+ .text:0000000000101230 8b 45 d8                       MOV EAX,dword ptr [RBP + -0x28]
+ .text:0000000000101233 0f af 45 dc                    IMUL EAX,dword ptr [RBP + -0x24]
+ .text:0000000000101237 89 c1                          MOV ECX,EAX
+ .text:0000000000101239 8b 45 d8                       MOV EAX,dword ptr [RBP + -0x28]
+ .text:000000000010123c 0f af 45 dc                    IMUL EAX,dword ptr [RBP + -0x24]
+ .text:0000000000101240 48 63 d0                       MOVSXD RDX,EAX
+ .text:0000000000101243 48 69 d2 67 66 66 66           IMUL RDX,RDX,0x66666667
+ .text:000000000010124a 48 c1 ea 20                    SHR RDX,0x20
+ .text:000000000010124e d1 fa                          SAR EDX,0x1
+ .text:0000000000101250 89 c6                          MOV ESI,EAX
+ .text:0000000000101252 c1 fe 1f                       SAR ESI,0x1f
+ .text:0000000000101255 29 f2                          SUB EDX,ESI
+ .text:0000000000101257 89 d6                          MOV ESI,EDX
+ .text:0000000000101259 c1 e6 02                       SHL ESI,0x2
+ .text:000000000010125c 01 d6                          ADD ESI,EDX
+ .text:000000000010125e 29 f0                          SUB EAX,ESI
+ .text:0000000000101260 89 c2                          MOV EDX,EAX
+ .text:0000000000101262 48 63 c1                       MOVSXD RAX,ECX
+ .text:0000000000101265 48 69 c0 67 66 66 66           IMUL RAX,RAX,0x66666667
+ .text:000000000010126c 48 c1 e8 20                    SHR RAX,0x20
+ .text:0000000000101270 d1 f8                          SAR EAX,0x1
+ .text:0000000000101272 89 ce                          MOV ESI,ECX
+ .text:0000000000101274 c1 fe 1f                       SAR ESI,0x1f
+ .text:0000000000101277 29 f0                          SUB EAX,ESI
+ .text:0000000000101279 89 c6                          MOV ESI,EAX
+ .text:000000000010127b c1 e6 02                       SHL ESI,0x2
+ .text:000000000010127e 01 c6                          ADD ESI,EAX
+ .text:0000000000101280 89 c8                          MOV EAX,ECX
+ .text:0000000000101282 29 f0                          SUB EAX,ESI
+ .text:0000000000101284 48 63 d2                       MOVSXD RDX,EDX
+ .text:0000000000101287 89 44 95 e0                    MOV dword ptr [RBP + RDX*0x4 + -0x20],EAX
+ .text:000000000010128b 83 45 dc 01                    ADD dword ptr [RBP + -0x24],0x1
+ .text:000000000010128f 83 7d dc 04                    CMP dword ptr [RBP + -0x24],0x4
+ .text:0000000000101293 7e 9b                          JLE 0x00101230
+ .text:0000000000101295 83 45 d8 01                    ADD dword ptr [RBP + -0x28],0x1
+ .text:0000000000101299 83 7d d8 04                    CMP dword ptr [RBP + -0x28],0x4
+ .text:000000000010129d 0f 8e 78 ff ff ff              JLE 0x0010121b
+ .text:00000000001012a3 b8 00 00 00 00                 MOV EAX,0x0
+ .text:00000000001012a8 48 8b 55 f8                    MOV RDX,qword ptr [RBP + -0x8]
+ .text:00000000001012ac 64 48 2b 14 25 28 00 00 00     SUB RDX,qword ptr FS:[0x28]
+ .text:00000000001012b5 74 05                          JZ 0x001012bc
+ .text:00000000001012b7 e8 b4 fd ff ff                 CALL 0x00101070
+ .text:00000000001012bc c9                             LEAVE
+ .text:00000000001012bd c3                             RET
+
+__stdcall _fini()
+ .fini:00000000001012c0 f3 0f 1e fa                    ENDBR64
+ .fini:00000000001012c4 48 83 ec 08                    SUB RSP,0x8
+ .fini:00000000001012c8 48 83 c4 08                    ADD RSP,0x8
+ .fini:00000000001012cc c3                             RET
+
+__stdcall __libc_start_main()
+
+__stdcall _ITM_deregisterTMCloneTable()
+
+__stdcall __stack_chk_fail()
+
+__stdcall printf(char * __format)
+
+__stdcall __gmon_start__()
+
+__stdcall __isoc99_scanf()
+
+__stdcall _ITM_registerTMCloneTable()
+
+__stdcall __cxa_finalize()
+
+FUNC:: _init
+#####----#########----#########----#########----#########----####
+['CCodeMarkup', '__class__', '__copy__', '__deepcopy__', '__delattr__', '__doc__', '__ensure_finalizer__', '__eq__', '__format__', '__getattribute__', '__hash__', '__init__', '__ne__', '__new__', '__reduce__', '__reduce_ex__', '__repr__', '__setattr__', '__str__', '__subclasshook__', '__unicode__', 'cancelled', 'class', 'decompileCompleted', 'decompiledFunction', 'equals', 'errorMessage', 'failedToStart', 'function', 'getCCodeMarkup', 'getClass', 'getDecompiledFunction', 'getErrorMessage', 'getFunction', 'getHighFunction', 'getHighParamID', 'hashCode', 'highFunction', 'highParamID', 'isCancelled', 'isTimedOut', 'notify', 'notifyAll', 'timedOut', 'toString', 'wait']
+ghidra.app.decompiler.DecompileResults@6fdd1bd8
+ghidra.app.decompiler.DecompiledFunction@7cda4e81
+#############################################
+
+Symbol name: ctx
+Varnode: (register, 0x38, 8)
+Forward Slice: [(register, 0x38, 8)]
+Backward Slice: [(register, 0x38, 8)]
+Backward Slice w/ PCode Ops: []
+Forward Slice w/ PCode Ops: []
+
+Symbol name: iVar1
+Varnode: (register, 0x0, 4)
+Forward Slice: [(register, 0x0, 4), (register, 0x0, 4)]
+Backward Slice: [(register, 0x0, 4)]
+Backward Slice w/ PCode Ops: [(register, 0x0, 4) CALL (ram, 0x105020, 8)]
+Forward Slice w/ PCode Ops: [ ---  RETURN (const, 0x0, 8) , (register, 0x0, 4), (register, 0x0, 4) COPY (register, 0x0, 4)]
+FUNC:: FUN_00101020
+#####----#########----#########----#########----#########----####
+['CCodeMarkup', '__class__', '__copy__', '__deepcopy__', '__delattr__', '__doc__', '__ensure_finalizer__', '__eq__', '__format__', '__getattribute__', '__hash__', '__init__', '__ne__', '__new__', '__reduce__', '__reduce_ex__', '__repr__', '__setattr__', '__str__', '__subclasshook__', '__unicode__', 'cancelled', 'class', 'decompileCompleted', 'decompiledFunction', 'equals', 'errorMessage', 'failedToStart', 'function', 'getCCodeMarkup', 'getClass', 'getDecompiledFunction', 'getErrorMessage', 'getFunction', 'getHighFunction', 'getHighParamID', 'hashCode', 'highFunction', 'highParamID', 'isCancelled', 'isTimedOut', 'notify', 'notifyAll', 'timedOut', 'toString', 'wait']
+ghidra.app.decompiler.DecompileResults@93f80ab
+ghidra.app.decompiler.DecompiledFunction@358d806e
+#############################################
+FUNC:: <EXTERNAL>::__cxa_finalize
+#####----#########----#########----#########----#########----####
+['CCodeMarkup', '__class__', '__copy__', '__deepcopy__', '__delattr__', '__doc__', '__ensure_finalizer__', '__eq__', '__format__', '__getattribute__', '__hash__', '__init__', '__ne__', '__new__', '__reduce__', '__reduce_ex__', '__repr__', '__setattr__', '__str__', '__subclasshook__', '__unicode__', 'cancelled', 'class', 'decompileCompleted', 'decompiledFunction', 'equals', 'errorMessage', 'failedToStart', 'function', 'getCCodeMarkup', 'getClass', 'getDecompiledFunction', 'getErrorMessage', 'getFunction', 'getHighFunction', 'getHighParamID', 'hashCode', 'highFunction', 'highParamID', 'isCancelled', 'isTimedOut', 'notify', 'notifyAll', 'timedOut', 'toString', 'wait']
+ghidra.app.decompiler.DecompileResults@4191ae39
+ghidra.app.decompiler.DecompiledFunction@18c6d895
+#############################################
+FUNC:: <EXTERNAL>::__stack_chk_fail
+#####----#########----#########----#########----#########----####
+['CCodeMarkup', '__class__', '__copy__', '__deepcopy__', '__delattr__', '__doc__', '__ensure_finalizer__', '__eq__', '__format__', '__getattribute__', '__hash__', '__init__', '__ne__', '__new__', '__reduce__', '__reduce_ex__', '__repr__', '__setattr__', '__str__', '__subclasshook__', '__unicode__', 'cancelled', 'class', 'decompileCompleted', 'decompiledFunction', 'equals', 'errorMessage', 'failedToStart', 'function', 'getCCodeMarkup', 'getClass', 'getDecompiledFunction', 'getErrorMessage', 'getFunction', 'getHighFunction', 'getHighParamID', 'hashCode', 'highFunction', 'highParamID', 'isCancelled', 'isTimedOut', 'notify', 'notifyAll', 'timedOut', 'toString', 'wait']
+ghidra.app.decompiler.DecompileResults@31fbf534
+ghidra.app.decompiler.DecompiledFunction@1f5781ee
+#######################WARN  Decompiling 00105000, pcode error at 00105000: Unable to disassemble EXTERNAL block location: 00105000 (DecompileCallback)  
+WARN  Decompiling 00105008, pcode error at 00105008: Unable to disassemble EXTERNAL block location: 00105008 (DecompileCallback)  
+WARN  Decompiling 00105010, pcode error at 00105010: Unable to disassemble EXTERNAL block location: 00105010 (DecompileCallback)  
+WARN  Decompiling 00105018, pcode error at 00105018: Unable to disassemble EXTERNAL block location: 00105018 (DecompileCallback)  
+######################
+FUNC:: <EXTERNAL>::printf
+#####----#########----#########----#########----#########----####
+['CCodeMarkup', '__class__', '__copy__', '__deepcopy__', '__delattr__', '__doc__', '__ensure_finalizer__', '__eq__', '__format__', '__getattribute__', '__hash__', '__init__', '__ne__', '__new__', '__reduce__', '__reduce_ex__', '__repr__', '__setattr__', '__str__', '__subclasshook__', '__unicode__', 'cancelled', 'class', 'decompileCompleted', 'decompiledFunction', 'equals', 'errorMessage', 'failedToStart', 'function', 'getCCodeMarkup', 'getClass', 'getDecompiledFunction', 'getErrorMessage', 'getFunction', 'getHighFunction', 'getHighParamID', 'hashCode', 'highFunction', 'highParamID', 'isCancelled', 'isTimedOut', 'notify', 'notifyAll', 'timedOut', 'toString', 'wait']
+ghidra.app.decompiler.DecompileResults@457af596
+ghidra.app.decompiler.DecompiledFunction@66014426
+#############################################
+
+Symbol name: iVar1
+Varnode: (register, 0x0, 4)
+Forward Slice: [(register, 0x0, 4)]
+Backward Slice: [(register, 0x0, 4)]
+Backward Slice w/ PCode Ops: [(register, 0x0, 4) CALL (ram, 0x105018, 8) , (register, 0x38, 8)]
+Forward Slice w/ PCode Ops: [ ---  RETURN (const, 0x0, 8) , (register, 0x0, 4)]
+
+Symbol name: __format
+Varnode: (register, 0x38, 8)
+Forward Slice: [(register, 0x38, 8)]
+Backward Slice: [(register, 0x38, 8)]
+Backward Slice w/ PCode Ops: []
+Forward Slice w/ PCode Ops: [(register, 0x0, 4) CALL (ram, 0x105018, 8) , (register, 0x38, 8)]
+FUNC:: <EXTERNAL>::__isoc99_scanf
+#####----#########----#########----#########----#########----####
+['CCodeMarkup', '__class__', '__copy__', '__deepcopy__', '__delattr__', '__doc__', '__ensure_finalizer__', '__eq__', '__format__', '__getattribute__', '__hash__', '__init__', '__ne__', '__new__', '__reduce__', '__reduce_ex__', '__repr__', '__setattr__', '__str__', '__subclasshook__', '__unicode__', 'cancelled', 'class', 'decompileCompleted', 'decompiledFunction', 'equals', 'errorMessage', 'failedToStart', 'function', 'getCCodeMarkup', 'getClass', 'getDecompiledFunction', 'getErrorMessage', 'getFunction', 'getHighFunction', 'getHighParamID', 'hashCode', 'highFunction', 'highParamID', 'isCancelled', 'isTimedOut', 'notify', 'notifyAll', 'timedOut', 'toString', 'wait']
+ghidra.app.decompiler.DecompileResults@80a3bea
+ghidra.app.decompiler.DecompiledFunction@64c66eb9
+#############################################
+FUNC:: _start
+#####----#########----#########----#########----#########----####
+['CCodeMarkup', '__class__', '__copy__', '__deepcopy__', '__delattr__', '__doc__', '__ensure_finalizer__', '__eq__', '__format__', '__getattribute__', '__hash__', '__init__', '__ne__', '__new__', '__reduce__', '__reduce_ex__', '__repr__', '__setattr__', '__str__', '__subclasshook__', '__unicode__', 'cancelled', 'class', 'decompileCompleted', 'decompiledFunction', 'equals', 'errorMessage', 'failedToStart', 'function', 'getCCodeMarkup', 'getClass', 'getDecompiledFunction', 'getErrorMessage', 'getFunction', 'getHighFunction', 'getHighParamID', 'hashCode', 'highFunction', 'highParamID', 'isCancelled', 'isTimedOut', 'notify', 'notifyAll', 'timedOut', 'toString', 'wait']
+ghidra.app.decompiler.DecompileResults@230ca26e
+ghidra.app.decompiler.DecompiledFunction@87248a9
+#############################################
+
+Symbol name: param_1
+<type 'exceptions.AttributeError'> ghidra_slice.py 180
+FUNC:: deregister_tm_clones
+#####----#########----#########----#########----#########----####
+['CCodeMarkup', '__class__', '__copy__', '__deepcopy__', '__delattr__', '__doc__', '__ensure_finalizer__', '__eq__', '__format__', '__getattribute__', '__hash__', '__init__', '__ne__', '__new__', '__reduce__', '__reduce_ex__', '__repr__', '__setattr__', '__str__', '__subclasshook__', '__unicode__', 'cancelled', 'class', 'decompileCompleted', 'decompiledFunction', 'equals', 'errorMessage', 'failedToStart', 'function', 'getCCodeMarkup', 'getClass', 'getDecompiledFunction', 'getErrorMessage', 'getFunction', 'getHighFunction', 'getHighParamID', 'hashCode', 'highFunction', 'highParamID', 'isCancelled', 'isTimedOut', 'notify', 'notifyAll', 'timedOut', 'toString', 'wait']
+ghidra.app.decompiler.DecompileResults@6894cd4f
+ghidra.app.decompiler.DecompiledFunction@7239f7f4
+#############################################
+FUNC:: register_tm_clones
+#####----#########----#########----#########----#########----####
+['CCodeMarkup', '__class__', '__copy__', '__deepcopy__', '__delattr__', '__doc__', '__ensure_finalizer__', '__eq__', '__format__', '__getattribute__', '__hash__', '__init__', '__ne__', '__new__', '__reduce__', '__reduce_ex__', '__repr__', '__setattr__', '__str__', '__subclasshook__', '__unicode__', 'cancelled', 'class', 'decompileCompleted', 'decompiledFunction', 'equals', 'errorMessage', 'failedToStart', 'function', 'getCCodeMarkup', 'getClass', 'getDecompiledFunction', 'getErrorMessage', 'getFunction', 'getHighFunction', 'getHighParamID', 'hashCode', 'highFunction', 'highParamID', 'isCancelled', 'isTimedOut', 'notify', 'notifyAll', 'timedOut', 'toString', 'wait']
+ghidra.app.decompiler.DecompileResults@1a23d2e3
+ghidra.app.decompiler.DecompiledFunction@78c7fa3b
+#############################################
+FUNC:: __do_global_dtors_aux
+#####----#########----#########----#########----#########----####
+['CCodeMarkup', '__class__', '__copy__', '__deepcopy__', '__delattr__', '__doc__', '__ensure_finalizer__', '__eq__', '__format__', '__getattribute__', '__hash__', '__init__', '__ne__', '__new__', '__reduce__', '__reduce_ex__', '__repr__', '__setattr__', '__str__', '__subclasshook__', '__unicode__', 'cancelled', 'class', 'decompileCompleted', 'decompiledFunction', 'equals', 'errorMessage', 'failedToStart', 'function', 'getCCodeMarkup', 'getClass', 'getDecompiledFunction', 'getErrorMessage', 'getFunction', 'getHighFunction', 'getHighParamID', 'hashCode', 'highFunction', 'highParamID', 'isCancelled', 'isTimedOut', 'notify', 'notifyAll', 'timedOut', 'toString', 'wait']
+ghidra.app.decompiler.DecompileResults@325976fe
+ghidra.app.decompiler.DecompiledFunction@792b6dd3
+#############################################
+FUNC:: frame_dummy
+#####----#########----#########----#########----#########----####
+['CCodeMarkup', '__class__', '__copy__', '__deepcopy__', '__delattr__', '__doc__', '__ensure_finalizer__', '__eq__', '__format__', '__getattribute__', '__hash__', '__init__', '__ne__', '__new__', '__reduce__', '__reduce_ex__', '__repr__', '__setattr__', '__str__', '__subclasshook__', '__unicode__', 'cancelled', 'class', 'decompileCompleted', 'decompiledFunction', 'equals', 'errorMessage', 'failedToStart', 'function', 'getCCodeMarkup', 'getClass', 'getDecompiledFunction', 'getErrorMessage', 'getFunction', 'getHighFunction', 'getHighParamID', 'hashCode', 'highFunction', 'highParamID', 'isCancelled', 'isTimedOut', 'notify', 'notifyAll', 'timedOut', 'toString', 'wait']
+ghidra.app.decompiler.DecompileResults@70bbc6b
+ghidra.app.decompiler.DecompiledFunction@25ec1cac
+#############################################
+FUNC:: main
+#####----#########----#########----#########----#########----####
+['CCodeMarkup', '__class__', '__copy__', '__deepcopy__', '__delattr__', '__doc__', '__ensure_finalizer__', '__eq__', '__format__', '__getattribute__', '__hash__', '__init__', '__ne__', '__new__', '__reduce__', '__reduce_ex__', '__repr__', '__setattr__', '__str__', '__subclasshook__', '__unicode__', 'cancelled', 'class', 'decompileCompleted', 'decompiledFunction', 'equals', 'errorMessage', 'failedToStart', 'function', 'getCCodeMarkup', 'getClass', 'getDecompiledFunction', 'getErrorMessage', 'getFunction', 'getHighFunction', 'getHighParamID', 'hashCode', 'highFunction', 'highParamID', 'isCancelled', 'isTimedOut', 'notify', 'notifyAll', 'timedOut', 'toString', 'wait']
+ghidra.app.decompiler.DecompileResults@17e880ad
+ghidra.app.decompiler.DecompiledFunction@3bdb5cec
+#############################################
+
+Symbol name: local_34
+Varnode: (stack, 0xffffffffffffffcc, 4)
+Forward Slice: [(unique, 0x3a00, 8), (register, 0x0, 8), (register, 0x0, 8), (stack, 0xffffffffffffffcc, 4), (unique, 0xbf80, 4), (stack, 0xffffffffffffffcc, 4), (unique, 0xd100, 1), (register, 0x0, 8)]
+Backward Slice: [(WARN  Decompiling 00105020, pcode error at 00105020: Unable to disassemble EXTERNAL block location: 00105020 (DecompileCallback)  
+WARN  Decompiling 00105028, pcode error at 00105028: Unable to disassemble EXTERNAL block location: 00105028 (DecompileCallback)  
+WARN  Decompiling 00105030, pcode error at 00105030: Unable to disassemble EXTERNAL block location: 00105030 (DecompileCallback)  
+WARN  Decompiling 00105038, pcode error at 00105038: Unable to disassemble EXTERNAL block location: 00105038 (DecompileCallback)  
+const, 0x0, 4), (stack, 0xffffffffffffffcc, 4)]
+Backward Slice w/ PCode Ops: [(stack, 0xffffffffffffffcc, 4) COPY (const, 0x0, 4)]
+Forward Slice w/ PCode Ops: [ ---  STORE (const, 0x1b1, 4) , (unique, 0x3a00, 8) , (stack, 0xffffffffffffffcc, 4), (unique, 0xd100, 1) INT_SLESS (stack, 0xffffffffffffffcc, 4) , (const, 0x5, 4), (unique, 0xbf80, 4) INT_ADD (stack, 0xffffffffffffffcc, 4) , (const, 0x1, 4), (register, 0x0, 8) PTRADD (unique, 0x100000e9, 8) , (register, 0x0, 8) , (const, 0x4, 8), (unique, 0x3a00, 8) PTRADD (unique, 0x100000c9, 8) , (register, 0x0, 8) , (const, 0x4, 8),  ---  CBRANCH (ram, 0x1011c1, 1) , (unique, 0xd100, 1), (stack, 0xffffffffffffffcc, 4) MULTIEQUAL (stack, 0xffffffffffffffcc, 4) , (unique, 0xbf80, 4),  ---  CALL (ram, 0x101090, 8) , (unique, 0x100000a9, 8) , (register, 0x0, 8), (register, 0x0, 8) INT_SEXT (stack, 0xffffffffffffffcc, 4), (register, 0x0, 8) INT_SEXT (stack, 0xffffffffffffffcc, 4)]
+
+Symbol name: local_30
+Varnode: (stack, 0xffffffffffffffd0, 4)
+Forward Slice: [(unique, 0xbf80, 4), (register, 0x0, 4), (register, 0x10, 8), (unique, 0xd100, 1), (register, 0x0, 4), (stack, 0xffffffffffffffd0, 4), (stack, 0xffffffffffffffd0, 4), (unique, 0x3a00, 8), (register, 0x0, 4), (register, 0x0, 8), (unique, 0x3a00, 8), (register, 0x0, 4)]
+Backward Slice: [(stack, 0xffffffffffffffd0, 4), (const, 0x0, 4)]
+Backward Slice w/ PCode Ops: [(stack, 0xffffffffffffffd0, 4) COPY (const, 0x0, 4)]
+Forward Slice w/ PCode Ops: [(register, 0x0, 4) INT_SREM (register, 0x0, 4) , (const, 0x5, 4), (unique, 0x3a00, 8) PTRADD (unique, 0x10000129, 8) , (register, 0x10, 8) , (const, 0x4, 8), (register, 0x10, 8) INT_SEXT (register, 0x0, 4), (unique, 0x3a00, 8) PTRADD (unique, 0x10000109, 8) , (register, 0x0, 8) , (const, 0x4, 8), (register, 0x0, 8) INT_SEXT (stack, 0xffffffffffffffd0, 4),  ---  STORE (const, 0x1b1, 4) , (unique, 0x3a00, 8) , (stack, 0xffffffffffffffd0, 4), (register, 0x0, 4) INT_SREM (register, 0x0, 4) , (const, 0x5, 4), (stack, 0xffffffffffffffd0, 4) MULTIEQUAL (stack, 0xffffffffffffffd0, 4) , (unique, 0xbf80, 4), (unique, 0xbf80, 4) INT_ADD (stack, 0xffffffffffffffd0, 4) , (const, 0x1, 4),  ---  STORE (const, 0x1b1, 4) , (unique, 0x3a00, 8) , (register, 0x0, 4), (register, 0x0, 4) INT_MULT (stack, 0xffffffffffffffd0, 4) , (stack, 0xffffffffffffffd4, 4), (unique, 0xd100, 1) INT_SLESS (stack, 0xffffffffffffffd0, 4) , (const, 0x5, 4), (register, 0x0, 4) INT_MULT (stack, 0xffffffffffffffd0, 4) , (stack, 0xffffffffffffffd4, 4),  ---  CBRANCH (ram, 0x10121b, 1) , (unique, 0xd100, 1)]
+
+Symbol name: local_2c
+Varnode: (stack, 0xffffffffffffffd4, 4)
+Forward Slice: [(register, 0x0, 4), (register, 0x10, 8), (unique, 0xbf80, 4), (stack, 0xffffffffffffffd4, 4), (register, 0x0, 4), (unique, 0xd100, 1), (unique, 0x3a00, 8), (stack, 0xffffffffffffffd4, 4), (register, 0x0, 4), (register, 0x0, 4)]
+Backward Slice: [(const, 0x0, 4), (stack, 0xffffffffffffffd4, 4)]
+Backward Slice w/ PCode Ops: [(stack, 0xffffffffffffffd4, 4) COPY (const, 0x0, 4)]
+Forward Slice w/ PCode Ops: [(stack, 0xffffffffffffffd4, 4) MULTIEQUAL (stack, 0xffffffffffffffd4, 4) , (unique, 0xbf80, 4), (unique, 0xd100, 1) INT_SLESS (stack, 0xffffffffffffffd4, 4) , (const, 0x5, 4),  ---  STORE (const, 0x1b1, 4) , (unique, 0x3a00, 8) , (register, 0x0, 4), (register, 0x0, 4) INT_SREM (register, 0x0, 4) , (const, 0x5, 4), (register, 0x0, 4) INT_MULT (stack, 0xffffffffffffffd0, 4) , (stack, 0xffffffffffffffd4, 4), (unique, 0xbf80, 4) INT_ADD (stack, 0xffffffffffffffd4, 4) , (const, 0x1, 4), (unique, 0x3a00, 8) PTRADD (unique, 0x10000129, 8) , (register, 0x10, 8) , (const, 0x4, 8),  ---  CBRANCH (ram, 0x101230, 1) , (unique, 0xd100, 1), (register, 0x0, 4) INT_MULT (stack, 0xffffffffffffffd0, 4) , (stack, 0xffffffffffffffd4, 4), (register, 0x10, 8) INT_SEXT (register, 0x0, 4), (register, 0x0, 4) INT_SREM (register, 0x0, 4) , (const, 0x5, 4)]
+
+Symbol name: local_28
+<type 'exceptions.AttributeError'> ghidra_slice.py 180
+FUNC:: _fini
+#####----#########----#########----#########----#########----####
+['CCodeMarkup', '__class__', '__copy__', '__deepcopy__', '__delattr__', '__doc__', '__ensure_finalizer__', '__eq__', '__format__', '__getattribute__', '__hash__', '__init__', '__ne__', '__new__', '__reduce__', '__reduce_ex__', '__repr__', '__setattr__', '__str__', '__subclasshook__', '__unicode__', 'cancelled', 'class', 'decompileCompleted', 'decompiledFunction', 'equals', 'errorMessage', 'failedToStart', 'function', 'getCCodeMarkup', 'getClass', 'getDecompiledFunction', 'getErrorMessage', 'getFunction', 'getHighFunction', 'getHighParamID', 'hashCode', 'highFunction', 'highParamID', 'isCancelled', 'isTimedOut', 'notify', 'notifyAll', 'timedOut', 'toString', 'wait']
+ghidra.app.decompiler.DecompileResults@2619e2f7
+ghidra.app.decompiler.DecompiledFunction@4744e6e4
+#############################################
+FUNC:: <EXTERNAL>::__libc_start_main
+#####----#########----#########----#########----#########----####
+['CCodeMarkup', '__class__', '__copy__', '__deepcopy__', '__delattr__', '__doc__', '__ensure_finalizer__', '__eq__', '__format__', '__getattribute__', '__hash__', '__init__', '__ne__', '__new__', '__reduce__', '__reduce_ex__', '__repr__', '__setattr__', '__str__', '__subclasshook__', '__unicode__', 'cancelled', 'class', 'decompileCompleted', 'decompiledFunction', 'equals', 'errorMessage', 'failedToStart', 'function', 'getCCodeMarkup', 'getClass', 'getDecompiledFunction', 'getErrorMessage', 'getFunction', 'getHighFunction', 'getHighParamID', 'hashCode', 'highFunction', 'highParamID', 'isCancelled', 'isTimedOut', 'notify', 'notifyAll', 'timedOut', 'toString', 'wait']
+ghidra.app.decompiler.DecompileResults@29ecec44
+ghidra.app.decompiler.DecompiledFunction@64583c7f
+#############################################
+FUNC:: _ITM_deregisterTMCloneTable
+#####----#########----#########----#########----#########----####
+['CCodeMarkup', '__class__', '__copy__', '__deepcopy__', '__delattr__', '__doc__', '__ensure_finalizer__', '__eq__', '__format__', '__getattribute__', '__hash__', '__init__', '__ne__', '__new__', '__reduce__', '__reduce_ex__', '__repr__', '__setattr__', '__str__', '__subclasshook__', '__unicode__', 'cancelled', 'class', 'decompileCompleted', 'decompiledFunction', 'equals', 'errorMessage', 'failedToStart', 'function', 'getCCodeMarkup', 'getClass', 'getDecompiledFunction', 'getErrorMessage', 'getFunction', 'getHighFunction', 'getHighParamID', 'hashCode', 'highFunction', 'highParamID', 'isCancelled', 'isTimedOut', 'notify', 'notifyAll', 'timedOut', 'toString', 'wait']
+ghidra.app.decompiler.DecompileResults@57b8f281
+ghidra.app.decompiler.DecompiledFunction@72a697cd
+#############################################
+FUNC:: <EXTERNAL>::__stack_chk_fail
+#####----#########----#########----#########----#########----####
+['CCodeMarkup', '__class__', '__copy__', '__deepcopy__', '__delattr__', '__doc__', '__ensure_finalizer__', '__eq__', '__format__', '__getattribute__', '__hash__', '__init__', '__ne__', '__new__', '__reduce__', '__reduce_ex__', '__repr__', '__setattr__', '__str__', '__subclasshook__', '__unicode__', 'cancelled', 'class', 'decompileCompleted', 'decompiledFunction', 'equals', 'errorMessage', 'failedToStart', 'function', 'getCCodeMarkup', 'getClass', 'getDecompiledFunction', 'getErrorMessage', 'getFunction', 'getHighFunction', 'getHighParamID', 'hashCode', 'highFunction', 'highParamID', 'isCancelled', 'isTimedOut', 'notify', 'notifyAll', 'timedOut', 'toString', 'wait']
+ghidra.app.decompiler.DecompileResults@68674a07
+ghidra.app.decompiler.DecompiledFunction@39187358
+#############################################
+FUNC:: <EXTERNAL>::printf
+#####----#########----#########----#########----#########----####
+['CCodeMarkup', '__class__', '__copy__', '__deepcopy__', '__delattr__', '__doc__', '__ensure_finalizer__', '__eq__', '__format__', '__getattribute__', '__hash__', '__init__', '__ne__', '__new__', '__reduce__', '__reduce_ex__', '__repr__', '__setattr__', '__str__', '__subclasshook__', '__unicode__', 'cancelled', 'class', 'decompileCompleted', 'decompiledFunction', 'equals', 'errorMessage', 'failedToStart', 'function', 'getCCodeMarkup', 'getClass', 'getDecompiledFunction', 'getErrorMessage', 'getFunction', 'getHighFunction', 'getHighParamID', 'hashCode', 'highFunction', 'highParamID', 'isCancelled', 'isTimedOut', 'notify', 'notifyAll', 'timedOut', 'toString', 'wait']
+ghidra.app.decompiler.DecompileResults@6745deee
+ghidra.app.decompiler.DecompiledFunction@69624fcc
+#############################################
+
+Symbol name: __format
+Varnode: (register, 0x38, 8)
+Forward Slice: [(register, 0x38, 8)]
+Backward Slice: [(register, 0x38, 8)]
+Backward Slice w/ PCode Ops: []
+Forward Slice w/ PCode Ops: []
+FUNC:: __gmon_start__
+#####----#########----#########----#########----#########----####
+['CCodeMarkup', '__class__', '__copy__', '__deepcopy__', '__delattr__', '__doc__', '__ensure_finalizer__', '__eq__', '__format__', '__getattribute__', '__hash__', '__init__', '__ne__', '__new__', '__reduce__', '__reduce_ex__', '__repr__', '__setattr__', '__str__', '__subclasshook__', '__unicode__', 'cancelled', 'class', 'decompileCompleted', 'decompiledFunction', 'equals', 'errorMessage', 'failedToStart', 'function', 'getCCodeMarkup', 'getClass', 'getDecompiledFunction', 'getErrorMessage', 'getFunction', 'getHighFunction', 'getHighParamID', 'hashCode', 'highFunction', 'highParamID', 'isCancelled', 'isTimedOut', 'notify', 'notifyAll', 'timedOut', 'toString', 'wait']
+ghidra.app.decompiler.DecompileResults@397dc9d
+ghidra.app.decompiler.DecompiledFunction@78f0ef0c
+#############################################
+FUNC:: <EXTERNAL>::__isoc99_scanf
+#####----#########----#########----#########----#########----####
+['CCodeMarkup', '__class__', '__copy__', '__deepcopy__', '__delattr__', '__doc__', '__ensure_finalizer__', '__eq__', '__format__', '__getattribute__', '__hash__', '__init__', '__ne__', '__new__', '__reduce__', '__reduce_ex__', '__repr__', '__setattr__', '__str__', '__subclasshook__', '__unicode__', 'cancelled', 'class', 'decompileCompleted', 'decompiledFunction', 'equals', 'errorMessage', 'failedToStart', 'function', 'getCCodeMarkup', 'getClass', 'getDecompiledFunction', 'getErrorMessage', 'getFunction', 'getHighFunction', 'getHighParamID', 'hashCode', 'highFunction', 'highParamID', 'isCancelled', 'isTimedOut', 'notify', 'notifyAll', 'timedOut', 'toString', 'wait']
+ghidra.app.decompiler.DecompileResults@8b76290
+ghidra.app.decompiler.DecompiledFunction@77c07405
+#############################################
+FUNC:: _ITM_registerTMCloneTable
+#####----#########----#########----#########----#########----####
+['CCodeMarkup', '__class__', '__copy__', '__deepcopy__', '__delattr__', '__doc__', '__ensure_finalizer__', '__eq__', '__format__', '__getattribute__', '__hash__', '__init__', '__ne__', '__new__', '__reduce__', '__reduce_ex__', '__repr__', '__setattr__', '__str__', '__subclasshook__', '__unicode__', 'cancelled', 'class', 'decompileCompleted', 'decompiledFunction', 'equals', 'errorMessage', 'failedToStart', 'function', 'getCCodeMarkup', 'getClass', 'getDecompiledFunction', 'getErrorMessage', 'getFunction', 'getHighFunction', 'getHighParamID', 'hashCode', 'highFunction', 'highParamID', 'isCancelled', 'isTimedOut', 'notify', 'notifyAll', 'timedOut', 'toString', 'wait']
+ghidra.app.decompiler.DecompileResults@f4429a9
+ghidra.app.decompiler.DecompiledFunction@7b500418
+#############################################
+FUNC:: <EXTERNAL>::__cxa_finalize
+#####----#########----#########----#########----#########----####
+['CCodeMarkup', '__class__', '__copy__', '__deepcopy__', '__delattr__', '__doc__', '__ensure_finalizer__', '__eq__', '__format__', '__getattribute__', '__hash__', '__init__', '__ne__', '__new__', '__reduce__', '__reduce_ex__', '__repr__', '__setattr__', '__str__', '__subclasshook__', '__unicode__', 'cancelled', 'class', 'decompileCompleted', 'decompiledFunction', 'equals', 'errorMessage', 'failedToStart', 'function', 'getCCodeMarkup', 'getClass', 'getDecompiledFunction', 'getErrorMessage', 'getFunction', 'getHighFunction', 'getHighParamID', 'hashCode', 'highFunction', 'highParamID', 'isCancelled', 'isTimedOut', 'notify', 'notifyAll', 'timedOut', 'toString', 'wait']
+ghidra.app.decompiler.DecompileResults@66ad87ce
+ghidra.app.decompiler.DecompiledFunction@1da63fc7
+#############################################
+INFO  ANALYZING changes made by post scripts: /home/nahid/reverse/codes/ML/data/binaries/array (HeadlessAnalyzer)  
+INFO  REPORT: Post-analysis succeeded for file: /home/nahid/reverse/codes/ML/data/binaries/array (HeadlessAnalyzer)  
+INFO  REPORT: Save succeeded for file: /array (HeadlessAnalyzer)  

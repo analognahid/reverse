@@ -62,7 +62,7 @@ def run():
     print(type(disassembled_addresses[0]))
 
     print(disassembled_addresses)
-    breakpoint()
+
 
     print("\n"*5)
     # Save to output file
