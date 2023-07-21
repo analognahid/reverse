@@ -59,8 +59,5 @@ int fake(int a , int b, int x){
     int g = a+b+d+e+f;
     return g;
 
-
-
-
 }
 
