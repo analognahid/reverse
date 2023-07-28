@@ -60,6 +60,8 @@ typedef union value_tag {
 typedef struct store_tag {
     types_t type;
     value_t value;
+    int mem_int;
+    float  mem_float;
 } store_t;
 
 void printValue(const store_t *o) {
@@ -117,6 +119,8 @@ int main() {
 
     store.type = CHAR;
     store.value.c = 'A';
+    store.mem_float =10.4;
+    store.mem_int =100;
     printValue(&store);
     store.type = FLOAT;
     store.value.f = 10.45;

@@ -7,7 +7,6 @@ void push(int number, stack **stk_ptr) {
     int pop = 10;
     unsigned int ming = 12;
 
-    
     stack *stk, *tmp;
     stk = *stk_ptr;
     tmp = malloc(sizeof(stack));
