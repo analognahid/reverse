@@ -80,15 +80,15 @@ def process_data_4_model_and_save(VALID_INSTRUCTIONS_SET ,
         #TODO*** fix NUNs! and mapping
         if type!= None and type in TYPE_MAPPING:
             inst_type_data[int(addr,16)] = type
-    print(inst_type_data)
+    # print(inst_type_data)
 
     if len(inst_type_data.keys())==0:
         return None
 
     ########################################
-    if len(VALID_INSTRUCTIONS_SET.keys())<40:
+    if len(VALID_INSTRUCTIONS_SET.keys())<48:
 
-        for target_address, target_type in inst_type_data():
+        for target_address, target_type in inst_type_data.items():
 
 
             backward_slice =""

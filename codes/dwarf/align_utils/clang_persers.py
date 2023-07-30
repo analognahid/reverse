@@ -5,7 +5,18 @@
 # FUNCTION_DECL
 # https://stackoverflow.com/questions/43460605/function-boundary-identification-using-libclang
 # https://eli.thegreenplace.net/2011/07/03/parsing-c-in-python-with-clang
+from elftools.elf.elffile import ELFFile
+from elftools.dwarf.descriptions import (
+    describe_DWARF_expr, set_global_machine_arch)
+from elftools.dwarf.locationlists import (
+    LocationEntry, LocationExpr, LocationParser)
 
+from elftools.elf.segments import Segment
+from elftools.dwarf.locationlists import LocationParser, LocationExpr
+
+from collections import defaultdict
+
+import collections, posixpath, os
 
 import clang.cindex
 from clang.cindex import CursorKind
@@ -52,43 +63,152 @@ def form_function_bound_metrix(src_bounds, src_file_name):
                
     return bounds
 
+import re
+def process_members(sourceFilePath, row ):
+    sourceFile = open(sourceFilePath, "r")
+    fileContent = sourceFile.readlines()
+    row_content =  fileContent[row-1]
 
+    pattern = r'\b[A-Za-z_][A-Za-z0-9_]*\b'
+    matches = re.findall(pattern, row_content)
+    print(matches)
+
+
+
+def check_if_basic_type(type_str):
+    basic_types = ['char' ,'int' , 'short' , 'long' , 'float' , 'double']
+    for bt in basic_types:
+        if bt in type_str:
+            return True
+    return False
+
+
+
+
+def find_parent_structure(cursor):
+    # Traverse the cursor's definition to find the parent structure
+    parent = cursor.get_definition()
+
+    while parent is not None:
+        if parent.kind == clang.cindex.CursorKind.STRUCT_DECL:
+            return parent.spelling
+        parent = parent.lexical_parent
+    return None
 
 def find_variables_per_line(source_path , line_to_function_matrix , dwarf_FUNC_PARAMS):
     srcFileName = source_path.split('/')[-1]
     idx = clang.cindex.Index.create()
     tu = idx.parse(source_path)
     var_usage_matrix = {}
+
     for f in tu.cursor.walk_preorder():
 
         #TODO keep all with type info, explore CursorKind
         #TODO function ends  }  should relate with fucntion return type
-        
-        if f.kind in [CursorKind.PARM_DECL ,CursorKind.DECL_REF_EXPR, CursorKind.VAR_DECL]  :
+        # print(f.kind , f.displayname , f)
+        # print(f.extent.start.file.name.split('/')[-1])
+        # continue
+        if f.kind in [CursorKind.MEMBER_REF_EXPR ,CursorKind.PARM_DECL ,CursorKind.DECL_REF_EXPR, CursorKind.VAR_DECL]  :
             
-            originFileName = f.extent.start.file.name.split('/')[-1]
-            
-            if srcFileName!=originFileName:
+            #TODO check if okay and find a better soultion
+            origin_file=f.extent.start.file.name.split('/')[-1]
+            if srcFileName != origin_file:
                 continue
-
-
+            var_name = f.displayname
             line = f.extent.start.line
             col =f.extent.start.column
             type_info = f.type.spelling
-            var_name = f.displayname
+
 
             if line not in var_usage_matrix:
                 var_usage_matrix[line] = {}
+
+            
+            # if check_if_basic_type(type_info)==False: #struct
+            #     if f.kind == CursorKind.DECL_REF_EXPR:
+            #         pass
+                
+
 
             if line in line_to_function_matrix:# func declaration, global variables,  might not present
                 if line_to_function_matrix[line] in dwarf_FUNC_PARAMS[source_path]:
                     #because wiredrly some function info are not in DWARF INFO
                     if var_name in dwarf_FUNC_PARAMS[source_path][line_to_function_matrix[line]]:
+                        if col in var_usage_matrix[line]:
+                            continue #means the member variable alreaday took the spot!
                         var_usage_matrix[line][col] = {
-                                        'name'       : f.displayname ,
+                                        'name'       : var_name ,
                                         'dwarf_info' : dwarf_FUNC_PARAMS[source_path][line_to_function_matrix[line]][var_name],
-                                        'type'       : f.type.spelling }
+                                        'type'       :  type_info}
+                    
+                    #struct members
+                    if f.kind==CursorKind.MEMBER_REF_EXPR:
+                        parent_struct = find_parent_structure(f)
+                        parent_struct_varname = list(f.get_tokens() )[0].spelling  
+                        if parent_struct_varname in dwarf_FUNC_PARAMS[source_path][line_to_function_matrix[line]]:
+                            parent_struct_var_location = dwarf_FUNC_PARAMS[source_path][line_to_function_matrix[line]][parent_struct_varname] ['location']
+
+                            parent_var_offset = int( parent_struct_var_location.split(':')[-1].split(')')[0])
+
+                            
+                            if parent_struct in dwarf_FUNC_PARAMS['structs']:
+                                if var_name in dwarf_FUNC_PARAMS['structs'][parent_struct]:
+                                    self_relative_offset = dwarf_FUNC_PARAMS['structs'][parent_struct][var_name]['offset']
+                                    self_dwarf = dwarf_FUNC_PARAMS['structs'][parent_struct][var_name]
+                                    self_real_offset = parent_var_offset + self_relative_offset
+                                    
+                                    ### make copy, or updating the offset value make problems
+                                    self_dwarf = self_dwarf.copy()
+                                    self_dwarf['offset'] = self_real_offset
+
+                                    print("DBG: line{}  col{} var:{} {}  {}  {}".format(line,col,var_name,self_dwarf , self_relative_offset ,self_real_offset) )
+
+                                    var_usage_matrix[line][col] = {
+                                        'name'       : var_name ,
+                                        'dwarf_info' : self_dwarf,
+                                        'type'       :  type_info}
+                                         
+    
     return var_usage_matrix
 
             
 
+def create_variable_per_line_matrix(filename ,FUNCTION_PARAMS):
+    variables_in_line_matrix_all_files = {}
+    with open(filename, 'rb') as f:
+        elffile = ELFFile(f)
+
+        if not elffile.has_dwarf_info():
+            print('  file has no DWARF info')
+            return
+        dwarfinfo = elffile.get_dwarf_info()
+        location_lists = dwarfinfo.location_lists()
+
+        # This is required for the descriptions module to correctly decode
+        # register names contained in DWARF expressions.
+        set_global_machine_arch(elffile.get_machine_arch())
+
+        loc_parser = LocationParser(location_lists)
+        section_offset = dwarfinfo.debug_info_sec.global_offset
+        # Offset of the .debug_info section in the stream
+        
+        
+        for CU in dwarfinfo.iter_CUs():
+            CU_DIR_PATH = None
+            CU_FILENAME = None
+            for attr in CU.get_top_DIE().attributes.values():#TODO fix
+#                 if attr.name == 'DW_AT_comp_dir':
+#                     CU_DIR_PATH = fix_src_path(attr.value.decode("utf-8"))
+                if attr.name == 'DW_AT_name':
+                    CU_DIR_PATH = os.path.dirname(attr.value.decode("utf-8"))
+                    CU_FILENAME = os.path.basename(attr.value.decode("utf-8"))
+
+            #########
+            cu_src_path = os.path.join(CU_DIR_PATH, CU_FILENAME)
+            cu_func_boundaries = get_function_boundaries(cu_src_path )
+            cu_src_line_to_function_matrix = form_function_bound_metrix(cu_func_boundaries , CU_FILENAME)
+            variables_in_line_matrix = find_variables_per_line(cu_src_path, cu_src_line_to_function_matrix , FUNCTION_PARAMS)
+            
+            variables_in_line_matrix_all_files[cu_src_path] = variables_in_line_matrix
+            #########
+    return variables_in_line_matrix_all_files

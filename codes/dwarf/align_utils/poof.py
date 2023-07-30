@@ -15,11 +15,12 @@ import collections
 ######### UTIL funcs related to aligning inst offset to dwarf location offset ########
 ########################################################################################
 def diff_dict(matrix):
+    matrix_diff = {}
     for i in range (len(matrix.keys()) -1):
             ith_key = [*matrix.keys()][i]
             i_plus_1th_key = [*matrix.keys()][i+1]
-            matrix[ith_key] = matrix[ith_key] -matrix[i_plus_1th_key] 
-    return matrix
+            matrix_diff[ith_key] = matrix[ith_key] -matrix[i_plus_1th_key] 
+    return matrix_diff
 
 def vars_to_types(var_list, cu_path, func ,FUNC_PARAMS):
     types=[]
@@ -134,18 +135,134 @@ def produce_address_to_lineinfo_matrix(bin_path , MIN_ADDRESS, MAX_ADDRESS):
 
 
 
+# Program to find most frequent
+# element in a list
+def most_frequent(List):
+    return max(set(List), key = List.count)
+
+def find_offset(VALID_INSTRUCTIONS_SET ,  func_data ,variables_in_line,cu_path):
+
+    offset_list = []
+    for line_col, line_addresses in func_data.items():
+        line = int(line_col.split('_')[0])
+
+        #################### PROCESS ADDRESS LIST ##############################
+
+        inst_matrix = {  }
+
+        for address in line_addresses:
+            address_hex = hex(address)
+            inst = VALID_INSTRUCTIONS_SET[address]
+
+            disp = None
+            if len(inst.operands) > 0 :
+                oc=-1
+                for o in inst.operands:
+                    oc += 1
+                    if o.type == CS_OP_MEM:
+                        if o.value.mem.disp != 0:
+                            disp = o.value.mem.disp
+
+                            if disp not in inst_matrix.values() and disp<1000: ### displacements are usually negative
+                                inst_matrix[address_hex]=disp
+
+        inst_matrix = dict(sorted(inst_matrix.items(), key=lambda x: x[1] , reverse=True))
+
+
+
+        #######################  PROCESS SRC VARIABLES #############################
+        if line in variables_in_line[cu_path]: #ALL LINES SHOULD BE VALID, should not check
+            var_list = variables_in_line[cu_path][line]
+
+            var_matrix = {} 
+            
+
+            for col,var in var_list.items():
+
+                if 'location' in var['dwarf_info'] :
+                    if 'offset' not in var['dwarf_info'] : #not a struct member 
+                        if ('DW_OP_fbreg' in var['dwarf_info']['location']): #TODO, use regex.
+                            var_matrix[var['name']] = int(var['dwarf_info']['location'].split(':')[-1][:-1])
+                    else:#member
+                        var_matrix[var['name']] = var['dwarf_info']['offset']
+            var_matrix = dict (sorted(var_matrix.items(), key=lambda x: x[1] , reverse=True))
+
+
+            ########################################
+            ############# Compare & Align  ################
+            ########################################
+            inst_matrix_len = len(inst_matrix.items())
+            var_matrix_len  = len( var_matrix.items())
+            
+            
+            print('line:{}  var:s{}  ins:{}'.format(line,var_matrix,inst_matrix))
+            
+            #TODO
+            # rule 1: they have single inst and single var, so just match
+            if inst_matrix_len==1 and var_matrix_len==1:
+
+                single_offset = list(var_matrix.values() ) [0] - list(inst_matrix.values())[0]
+                offset_list.append(single_offset)
+                # print('DBG  MATCHED Single!>>>>>>>>:   ', single_offset  )
+
+            #TODO
+            # rule 2: if one have 1 item and another have 1+ item, can match
+            #         only with coloumn alignment
+            if 1 in [inst_matrix_len,var_matrix_len] and \
+                    abs(inst_matrix_len-var_matrix_len)>0:
+                continue
+
+            #TODO
+            # rule 3: if there are multiple longest matches
+            pass
+
+
+
+
+            inst_matrix_diff = diff_dict(inst_matrix)
+
+            var_matrix_diff = diff_dict(var_matrix)
+
+
+            match = SequenceMatcher(isjunk = None, 
+                                    a=list(var_matrix_diff.values()), 
+                                    b=list(inst_matrix_diff.values()),
+                                    autojunk=True).find_longest_match(alo=0, 
+                                        ahi=len(var_matrix_diff.values()), blo=0, 
+                                        bhi=len(inst_matrix_diff.values()))
+
+            if match.size>0:#found matching seq
+
+                multi_offset = list(var_matrix.values() ) [match.a] - list(inst_matrix.values())[match.b] 
+                offset_list.append(multi_offset)
+
+
+    if len(offset_list)>0:
+        return most_frequent(offset_list)
+    else :
+        return None 
+
+    
 
 def do_magic(VALID_INSTRUCTIONS_SET, FUNC_PARAMS,line_to_address_matrix ,variables_in_line):
     all_inst_to_type = {}
     for cu_path, all_func_data in line_to_address_matrix.items():
         for func, func_data in all_func_data.items():
+            print("x  x   "*20)
+            calculated_offset = find_offset(VALID_INSTRUCTIONS_SET ,  func_data ,variables_in_line,cu_path)
+            
+            print('DBG:  calculated offset: ',calculated_offset)
+
+            if calculated_offset == None:
+                continue
+
             for line_col, line_addresses in func_data.items():
                 line = int(line_col.split('_')[0])
 
                 #################### PROCESS ADDRESS LIST ##############################
 
                 inst_matrix = {  }
-                twin_instructions = {}
+
                 for address in line_addresses:
                     address_hex = hex(address)
                     inst = VALID_INSTRUCTIONS_SET[address]
@@ -159,17 +276,9 @@ def do_magic(VALID_INSTRUCTIONS_SET, FUNC_PARAMS,line_to_address_matrix ,variabl
                             if o.type == CS_OP_MEM:
                                 if o.value.mem.disp != 0:
                                     disp = o.value.mem.disp
-
-                                    if disp not in inst_matrix.values():
-                                        inst_matrix[address_hex]=disp
-                                    else:
-
-                                        twin_hex = list(inst_matrix.keys())[list(inst_matrix.values()).index(disp)] 
-                                        if twin_hex not in twin_instructions:
-                                            twin_instructions[twin_hex] = [address_hex]
-                                        else:
-                                            twin_instructions[twin_hex].append(address_hex)
-                                        #TODO twin inst
+                                    
+                                    inst_matrix[address_hex]=disp
+  
                 inst_matrix = dict(sorted(inst_matrix.items(), key=lambda x: x[1] , reverse=True))
 
 
@@ -183,71 +292,34 @@ def do_magic(VALID_INSTRUCTIONS_SET, FUNC_PARAMS,line_to_address_matrix ,variabl
                     for col,var in var_list.items():
 
                         if 'location' in var['dwarf_info'] :
-                            if ('DW_OP_fbreg' in var['dwarf_info']['location']): #TODO, use regex.
-                                var_matrix[var['name']] = int(var['dwarf_info']['location'].split(':')[-1][:-1])
+                            if 'offset' not in var['dwarf_info'] : #not a struct member 
+                                if ('DW_OP_fbreg' in var['dwarf_info']['location']): #TODO, use regex.
+                                    var_matrix[var['name']] = int(var['dwarf_info']['location'].split(':')[-1][:-1])
+                            else:#member
+                                var_matrix[var['name']] = var['dwarf_info']['offset']
+
+
 
                     var_matrix = dict (sorted(var_matrix.items(), key=lambda x: x[1] , reverse=True))
 
 
-                    ########################################
-                    ############# Compare & Align  ################
-                    ########################################
-                    inst_matrix_len = len(inst_matrix.items())
-                    var_matrix_len  = len( var_matrix.items())
-                    
-                    
-                    
-                    #TODO
-                    # rule 1: they have single inst and single var, so just match
-                    if inst_matrix_len==1 and var_matrix_len==1:
-
-                        types = vars_to_types(list(var_matrix.keys()), cu_path, func ,FUNC_PARAMS)
-                        insts = list(inst_matrix.keys())
-
-                        inst_to_type = assign_twin_instructions_types(insts,types,twin_instructions)
-#                         all_inst_to_type = all_inst_to_type | inst_to_type
-                        all_inst_to_type = {**all_inst_to_type , **inst_to_type}
-        
-
-                    #TODO
-                    # rule 2: if one have 1 item and another have 1+ item, can match
-                    #         only with coloumn alignment
-                    if 1 in [inst_matrix_len,var_matrix_len] and \
-                            abs(inst_matrix_len-var_matrix_len)>0:
-                        continue
-
-                    #TODO
-                    # rule 3: if there are multiple longest matches
-                    pass
 
 
 
 
-                    inst_matrix = diff_dict(inst_matrix)
 
-                    var_matrix = diff_dict(var_matrix)
-
-
-                    match = SequenceMatcher(isjunk = None, 
-                                            a=list(var_matrix.values()), 
-                                            b=list(inst_matrix.values()),
-                                            autojunk=True).find_longest_match(alo=0, ahi=len(var_matrix.values()), blo=0, bhi=len(inst_matrix.values()))
-
-                    if match.size>0:#found matching seq
-#                         print("MATCHED!",match,var_matrix.keys() ,inst_matrix.keys() )
-
-                        var_matches  = list(var_matrix.keys()) [match.a:(match.a+match.size)+1]
-                        inst_matches = list(inst_matrix.keys())[match.b:(match.b+match.size)+1]
-
-#                         print('var_matches: ',var_matches , ' INST matches:',inst_matches)
-
-                        ### assign types
-                        types = vars_to_types(var_matches, cu_path, func,FUNC_PARAMS)
-#                         print('inst_matches: ', inst_matches, '\n types', types )
-
-                        ### handle twin,
-                        inst_to_type = assign_twin_instructions_types(inst_matches,types,twin_instructions)
-#                         all_inst_to_type = all_inst_to_type | inst_to_type
-                        all_inst_to_type = {**all_inst_to_type , **inst_to_type}
                         
+                    ###########################  DO MATCH   ######################
+
+                    print("DBG:  line: " ,line, "   inst_matrix: ",inst_matrix , "   var_matrix  ",var_matrix)
+
+                    for inst_address, inst_offset in inst_matrix.items():
+                        for var_name, var_offset in var_matrix.items():
+                            if ( var_offset - inst_offset ) == calculated_offset:
+                                #TODO type for members
+                                all_inst_to_type[inst_address] = FUNC_PARAMS[cu_path][func][var_name]['type']
+                                # print( "   {}:> {}".format(inst_address , FUNC_PARAMS[cu_path][func][var_name]['type'])  )
+
+
+         
     return all_inst_to_type 

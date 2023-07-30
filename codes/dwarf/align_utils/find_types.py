@@ -47,8 +47,6 @@ def get_type_name(CU, offset):
                 return "array_"+get_type_name(CU, _attr.value) 
     
 
-    
-#     print("DBG: get_type_name",die.attributes.values())
     elif die.tag == 'DW_TAG_base_type':
         for attr in die.attributes.values():
             if attr.name== "DW_AT_name":
@@ -256,24 +254,30 @@ def parse_dwarf_to_get_func_params(filename, SRC_N_BIN_PATH):
                         member_name     = None
                         member_type     = None
                         member_location = None
+                        member_offset   = None
                         
-
                         for attr in DIE.attributes.values():
                             if attr.name == "DW_AT_name":
                                 member_name = attr.value.decode("utf-8")
                             if attr.name == 'DW_AT_type':
                                 member_type = get_type_name(CU,attr.value)
                             if attr.name == 'DW_AT_data_member_location':
+                               
                                 if loc_parser.attribute_has_location(attr, CU['version']):
+                                    
                                     loc = loc_parser.parse_from_attribute(attr,CU['version'])
+
                                     if isinstance(loc, LocationExpr):
                                         loc_str = describe_DWARF_expr(loc.loc_expr,dwarfinfo.structs, CU.cu_offset)
-                                        print(loc_str)
                                         member_location = loc_str
-
+                                        member_offset = int( (loc_str.split(':')[-1]).split(')')[0])
+                                elif type(attr.value)== int:
+                                        member_location = attr.value 
+                                        member_offset = attr.value
                         if struct_name!= None:
                             FUNC_PARAMS_DICT['structs'] [struct_name] [member_name] = {'type':member_type,
-                                                                                  'location':member_location
+                                                                                  'location':member_location,
+                                                                                  'offset':member_offset
                                                                                   }
                 ###############################################
                 #############  parsing  Function DIEs ends ################
