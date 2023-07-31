@@ -144,10 +144,11 @@ def find_variables_per_line(source_path , line_to_function_matrix , dwarf_FUNC_P
                     #struct members
                     if f.kind==CursorKind.MEMBER_REF_EXPR:
                         parent_struct = find_parent_structure(f)
-                        parent_struct_varname = list(f.get_tokens() )[0].spelling  
+                        all_tokens = [i.spelling for i in list(f.get_tokens() )]
+                        all_tokens_str = ''.join(all_tokens)
+                        parent_struct_varname = all_tokens[0]
                         if parent_struct_varname in dwarf_FUNC_PARAMS[source_path][line_to_function_matrix[line]]:
                             parent_struct_var_location = dwarf_FUNC_PARAMS[source_path][line_to_function_matrix[line]][parent_struct_varname] ['location']
-
                             parent_var_offset = int( parent_struct_var_location.split(':')[-1].split(')')[0])
 
                             
@@ -160,13 +161,16 @@ def find_variables_per_line(source_path , line_to_function_matrix , dwarf_FUNC_P
                                     ### make copy, or updating the offset value make problems
                                     self_dwarf = self_dwarf.copy()
                                     self_dwarf['offset'] = self_real_offset
-
-                                    print("DBG: line{}  col{} var:{} {}  {}  {}".format(line,col,var_name,self_dwarf , self_relative_offset ,self_real_offset) )
+                                    self_dwarf['kind']   ='struct_member'
 
                                     var_usage_matrix[line][col] = {
-                                        'name'       : var_name ,
+                                        'name'       : all_tokens_str , #like obj.mem1
                                         'dwarf_info' : self_dwarf,
                                         'type'       :  type_info}
+                                    #also put the member info in the FUNC_PARAMS 
+                                    # for later use in function context during aligning
+                                    dwarf_FUNC_PARAMS[source_path][line_to_function_matrix[line]][all_tokens_str] = self_dwarf
+
                                          
     
     return var_usage_matrix

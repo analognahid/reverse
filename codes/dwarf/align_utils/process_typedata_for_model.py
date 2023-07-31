@@ -13,35 +13,35 @@ import random, pickle
 import numpy as np
 
 
+from timer_utils import *
 
 
+# import errno
+# import os
+# import signal
+# import functools
 
-import errno
-import os
-import signal
-import functools
+# class TimeoutError(Exception):
+#     pass
 
-class TimeoutError(Exception):
-    pass
+# def timeout(seconds=10, error_message=os.strerror(errno.ETIME)):
+#     def decorator(func):
+#         def _handle_timeout(signum, frame):
+#             raise TimeoutError(error_message)
 
-def timeout(seconds=10, error_message=os.strerror(errno.ETIME)):
-    def decorator(func):
-        def _handle_timeout(signum, frame):
-            raise TimeoutError(error_message)
+#         @functools.wraps(func)
+#         def wrapper(*args, **kwargs):
+#             signal.signal(signal.SIGALRM, _handle_timeout)
+#             signal.alarm(seconds)
+#             try:
+#                 result = func(*args, **kwargs)
+#             finally:
+#                 signal.alarm(0)
+#             return result
 
-        @functools.wraps(func)
-        def wrapper(*args, **kwargs):
-            signal.signal(signal.SIGALRM, _handle_timeout)
-            signal.alarm(seconds)
-            try:
-                result = func(*args, **kwargs)
-            finally:
-                signal.alarm(0)
-            return result
+#         return wrapper
 
-        return wrapper
-
-    return decorator
+#     return decorator
 
 
 
@@ -50,11 +50,19 @@ def timeout(seconds=10, error_message=os.strerror(errno.ETIME)):
 MAX_TOKEN_SIZE = 512
 MAX_INST_SIZE = 50
 #TODO make better mapping 
-TYPE_MAPPING ={'int':0, '*int':1,'**int':2, 
-               'char':3, '*char':4,'**char':5,
-               'double':6, '*double':7,'**double':8,
-               'float':9, '*float':10,'**float':11,
-                }
+
+TYPE_MAPPING ={'int': 0, '*structure': 1, 'array_char': 2, '*char': 3, '*int': 4, 
+               'array_int': 5, 'char': 6, 'double': 7, '**char': 8, 'unsigned int': 9,
+                 'long int': 10, 'float': 11, 'long unsigned int': 12, 'structure': 13, 
+                 'const': 14, '*const': 15, 'long long unsigned int': 16, None: 17,
+                   'unsigned char': 18, 'long long int': 19, '*unsigned char': 20, 
+                   '*float': 21, '**int': 22, '*double': 23, '**structure': 24, '*union': 25, 
+                   'short unsigned int': 26, 'enumeration': 27, '*array_int': 28, 
+                   'array_double': 29, '*array_float': 30, 'array_structure': 31, 
+                   'array_*char': 32, 'short int': 33, 'array_float': 34, '*unsigned int': 35, 
+                   'union': 36, '*array_char': 37, '*array_const': 38, 
+                   'array_unsigned char': 39, 'signed char': 40, 'array_long int': 41,
+                     '*enumeration': 42}
 # tokenizer  = BertTokenizer.from_pretrained("./../ML/multytask-tokenizer")
 DUMP_PATH = '/home/nahid/dataset/instructions_and_type_data/'
 #TODO make the input slice length maximum
@@ -142,7 +150,7 @@ def process_data_4_model_and_save(VALID_INSTRUCTIONS_SET ,
 
                 model_input_list.append([backward_slice , target_slice, forward_slice] )
                 model_label_list.append(inst_type_data[target_address])
-        
+    
     
     ##save pkl
     with open(pkl_path+'.pkl', 'wb') as file:

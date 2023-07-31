@@ -195,8 +195,7 @@ def find_offset(VALID_INSTRUCTIONS_SET ,  func_data ,variables_in_line,cu_path):
             var_matrix_len  = len( var_matrix.items())
             
             
-            print('line:{}  var:s{}  ins:{}'.format(line,var_matrix,inst_matrix))
-            
+
             #TODO
             # rule 1: they have single inst and single var, so just match
             if inst_matrix_len==1 and var_matrix_len==1:
@@ -248,14 +247,12 @@ def do_magic(VALID_INSTRUCTIONS_SET, FUNC_PARAMS,line_to_address_matrix ,variabl
     all_inst_to_type = {}
     for cu_path, all_func_data in line_to_address_matrix.items():
         for func, func_data in all_func_data.items():
-            print("x  x   "*20)
             calculated_offset = find_offset(VALID_INSTRUCTIONS_SET ,  func_data ,variables_in_line,cu_path)
             
             print('DBG:  calculated offset: ',calculated_offset)
 
             if calculated_offset == None:
                 continue
-
             for line_col, line_addresses in func_data.items():
                 line = int(line_col.split('_')[0])
 
@@ -282,9 +279,9 @@ def do_magic(VALID_INSTRUCTIONS_SET, FUNC_PARAMS,line_to_address_matrix ,variabl
                 inst_matrix = dict(sorted(inst_matrix.items(), key=lambda x: x[1] , reverse=True))
 
 
-
                 #######################  PROCESS SRC VARIABLES #############################
                 if line in variables_in_line[cu_path]: #ALL LINES SHOULD BE VALID, should not check
+                    
                     var_list = variables_in_line[cu_path][line]
                     var_matrix = {} 
                     
@@ -303,22 +300,18 @@ def do_magic(VALID_INSTRUCTIONS_SET, FUNC_PARAMS,line_to_address_matrix ,variabl
                     var_matrix = dict (sorted(var_matrix.items(), key=lambda x: x[1] , reverse=True))
 
 
-
-
-
-
-
                         
                     ###########################  DO MATCH   ######################
 
-                    print("DBG:  line: " ,line, "   inst_matrix: ",inst_matrix , "   var_matrix  ",var_matrix)
+                    # print("\n\nDBG:  line: " ,line, "   inst_matrix: ",inst_matrix , "   var_matrix  ",var_matrix)
 
                     for inst_address, inst_offset in inst_matrix.items():
                         for var_name, var_offset in var_matrix.items():
                             if ( var_offset - inst_offset ) == calculated_offset:
                                 #TODO type for members
+                                # print( "&&   {}:> {}".format(inst_address , var_name) ,FUNC_PARAMS  )
                                 all_inst_to_type[inst_address] = FUNC_PARAMS[cu_path][func][var_name]['type']
-                                # print( "   {}:> {}".format(inst_address , FUNC_PARAMS[cu_path][func][var_name]['type'])  )
+                                
 
 
          
