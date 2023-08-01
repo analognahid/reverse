@@ -229,7 +229,6 @@ def process_and_save(binary_path):
         ###################################################################################
         process_data_4_model_and_save(VALID_INSTRUCTIONS_SET , connected_addrs_and_program_slice,inst_type_info,unique_pkl_file_name)
         
-        
     except Exception as e:#TODO, solve the most frequent errors
         exc_type, exc_obj, exc_tb = sys.exc_info()
         fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
@@ -239,6 +238,7 @@ def process_and_save(binary_path):
         error_log.write(' analysed_pkl_path: '+ analysed_pkl_path + '\n')
         error_log.write(str(exc_type) +" fname: "+fname + " lineno: "+ str(exc_tb.tb_lineno) )
     counter+=1
+    
     
     
 

@@ -54,15 +54,14 @@ MAX_INST_SIZE = 50
 TYPE_MAPPING ={'int': 0, '*structure': 1, 'array_char': 2, '*char': 3, '*int': 4, 
                'array_int': 5, 'char': 6, 'double': 7, '**char': 8, 'unsigned int': 9,
                  'long int': 10, 'float': 11, 'long unsigned int': 12, 'structure': 13, 
-                 'const': 14, '*const': 15, 'long long unsigned int': 16, None: 17,
+                 'const': 14, '*const': 15, 'long long unsigned int': 16, '*enumeration': 17,
                    'unsigned char': 18, 'long long int': 19, '*unsigned char': 20, 
                    '*float': 21, '**int': 22, '*double': 23, '**structure': 24, '*union': 25, 
                    'short unsigned int': 26, 'enumeration': 27, '*array_int': 28, 
                    'array_double': 29, '*array_float': 30, 'array_structure': 31, 
                    'array_*char': 32, 'short int': 33, 'array_float': 34, '*unsigned int': 35, 
                    'union': 36, '*array_char': 37, '*array_const': 38, 
-                   'array_unsigned char': 39, 'signed char': 40, 'array_long int': 41,
-                     '*enumeration': 42}
+                   'array_unsigned char': 39, 'signed char': 40, 'array_long int': 41}
 # tokenizer  = BertTokenizer.from_pretrained("./../ML/multytask-tokenizer")
 DUMP_PATH = '/home/nahid/dataset/instructions_and_type_data/'
 #TODO make the input slice length maximum
