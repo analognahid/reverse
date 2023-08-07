@@ -1,13 +1,13 @@
 
 import sys,os, pickle
 
-import torch.nn as nn
-from transformers import BertModel, BertTokenizer
-from transformers import BertForMaskedLM
-from torch.utils.data import DataLoader, Dataset
+# import torch.nn as nn
+# from transformers import BertModel, BertTokenizer
+# from transformers import BertForMaskedLM
+# from torch.utils.data import DataLoader, Dataset
 
-from transformers import AdamW
-from tqdm import tqdm  # for our progress bar
+# from transformers import AdamW
+# from tqdm import tqdm  # for our progress bar
 import random, pickle
 
 import numpy as np
