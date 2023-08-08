@@ -63,8 +63,8 @@ TYPE_MAPPING ={'int': 0, '*structure': 1, 'array_char': 2, '*char': 3, '*int': 4
                    'union': 36, '*array_char': 37, '*array_const': 38, 
                    'array_unsigned char': 39, 'signed char': 40, 'array_long int': 41}
 # tokenizer  = BertTokenizer.from_pretrained("./../ML/multytask-tokenizer")
-DUMP_PATH = '/home/nahid/dataset/instructions_and_type_data/'
-#TODO make the input slice length maximum
+DUMP_PATH = '/hdd0/nahid/instructions_and_type_data_10k/'
+#TODO make the input slice length maximumpwd
 #TODO make function body single input, need function boundaries
 
 

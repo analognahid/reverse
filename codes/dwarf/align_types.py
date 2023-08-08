@@ -53,25 +53,18 @@ from illustrate_utils import *
 from poof import *
 
 ANALYSIS_DATA_PATH = '/hdd0/nahid/analysis_output_10k/files/'
-SRC_N_BIN_PATH = '/hdd0/nahid/clones_10k'
-ILLUSTRATION_LOG_PATH =  '/hdd0/nahid/illustration_10k'
+SRC_N_BIN_PATH = '/hdd0/nahid/clones_10k/'
+ILLUSTRATION_LOG_PATH =  '/hdd0/nahid/illustration_10k/'
 TYPE_DATA_SAVE_PATH = '/hdd0/nahid/instructions_and_type_data_10k/'
 
 
 
-ELF_FILE_PATHS = find_elf_files(SRC_N_BIN_PATH)
 
-with open('ELF_FILE_PATHS.pkl', 'wb') as file:
-    pickle.dump(ELF_FILE_PATHS, file)
-
-# Open the file in binary mode
-with open('ELF_FILE_PATHS.pkl', 'rb') as file:
-    # Call load method to deserialze
-    ELF_FILE_PATHS = pickle.load(file)
-    
-print(len(ELF_FILE_PATHS))
-
-
+all_files_path = []
+for path, subdirs, files in os.walk(SRC_N_BIN_PATH):
+    for name in files:
+        file_path = os.path.join(path, name)
+        all_files_path.append(file_path)
 
 
 ALL_TYPEDATA_COUNT = {}
@@ -84,28 +77,33 @@ def count_type_data(inst_type_data):
 
         
 error_log = open("error.log", "w")
-counter = 0
 
 
 
 def process_and_save(binary_path):
-#     if binary_path not in ['/home/nahid/dataset/clones/Princexz_____alx-low_level_programming/0x0E-structures_typedef/3-main_elf_file_']:
-#         continue
-        
-        
-    unique_path = binary_path.split('clones')[1]
-    unique_pkl_file_name=(hashlib.md5(unique_path.encode())).hexdigest()
+    
+    if is_elf_file(binary_path)== False:
+        return
+    if check_dwarf_ok(binary_path) == False:
+        return
+
+    unique_path = binary_path.split('clones_10k')[1][1:]
+    github_path = unique_path.split('/')[0]
+
+    unique_pkl_file_name=github_path + '_____'+(hashlib.md5(unique_path.encode())).hexdigest()
+
+
+
     analysed_pkl_path = os.path.join( ANALYSIS_DATA_PATH ,unique_pkl_file_name+'.pkl')
     
     if os.path.isfile(analysed_pkl_path) == False:#no analysis file present
+        print("no analysis file ")
         return
 
     binFileName = os.path.basename(binary_path)
     
-
-    
-    if check_dwarf_ok(binary_path)== False:
-        return
+    # if check_dwarf_ok(binary_path)== False:
+    #     return
     
     print(" *_* "*10)
     print('Processing file:', binary_path)
@@ -154,11 +152,10 @@ def process_and_save(binary_path):
         error_log.write('\n\n')
         error_log.write(' analysed_pkl_path: '+ analysed_pkl_path + '\n')
         error_log.write(str(exc_type) +" fname: "+fname + " lineno: "+ str(exc_tb.tb_lineno) )
-    counter+=1
     
     
     
-
+    
 
 
 import multiprocessing
@@ -168,9 +165,9 @@ if __name__ == "__main__":  # Allows for the safe importing of the main module
     number_processes = multiprocessing.cpu_count()-2
     pool = multiprocessing.Pool(number_processes)
 
-    results = pool.map_async(process_and_save, ELF_FILE_PATHS)
+    results = pool.map_async(process_and_save, all_files_path)
     pool.close()
-    pool.join()
+    pool.join(timeout=200)
 
     print(" DONE ALL SUCCESSFULLY "*50)
     print("SUBHAN'ALLAH")

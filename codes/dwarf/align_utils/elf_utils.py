@@ -22,28 +22,27 @@ def find_elf_files( dir_path):
 
     return file_paths
 
+
 def check_dwarf_ok(filePath):
     with open(filePath, 'rb') as f:
-        try:
-            
-            elffile = ELFFile( f )
-            if not elffile.has_dwarf_info():
-                print('  file has no DWARF info')
-                return False
-            dwarfinfo = elffile.get_dwarf_info()
+        elffile = ELFFile( f )
 
+        if not elffile.has_dwarf_info():
+            print('  file has no DWARF info')
+            return False
+        dwarfinfo = elffile.get_dwarf_info()
         
+        try:
             if len(list(dwarfinfo.iter_CUs()))==0:
                 return False
             for CU in dwarfinfo.iter_CUs():
                 CU_DIR_PATH = None
                 CU_FILENAME = None
                 for attr in CU.get_top_DIE().attributes.values():
-#                     if attr.name == 'DW_AT_comp_dir':
-#                         CU_DIR_PATH = fix_src_path(attr.value.decode("utf-8"))
+                    if attr.name == 'DW_AT_comp_dir':
+                        CU_DIR_PATH = (attr.value.decode("utf-8"))
                     if attr.name == 'DW_AT_name':
-                        CU_DIR_PATH = os.path.dirname(attr.value.decode("utf-8"))
-                        CU_FILENAME = os.path.basename(attr.value.decode("utf-8"))
+                        CU_FILENAME = (attr.value.decode("utf-8"))
                 if CU_DIR_PATH==None or CU_FILENAME==None:
                     return False
                 line_program = dwarfinfo.line_program_for_CU(CU)
@@ -53,11 +52,6 @@ def check_dwarf_ok(filePath):
             return True
                 
         except Exception as e:
-            exc_type, exc_obj, exc_tb = sys.exc_info()
-            fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
-            print(exc_type, fname, exc_tb.tb_lineno)
-            print(traceback.format_exc())
-
             return False
     
 
