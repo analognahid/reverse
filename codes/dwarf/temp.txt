@@ -1,0 +1,6 @@
+An X.509 certificate containing the public signing key will be installed to
+  /usr/share/nvidia/nvidia-modsign-crt-3B0483BD.der. The SHA1 fingerprint of this certificate is:
+  3B:04:83:BD:8B:B2:9F:0B:AA:99:A3:23:24:3B:56:F1:D4:F0:C9:46.
+
+  This certificate must be added to a key database which is trusted by your kernel in order for the kernel to be able 
+  to verify the module signature.

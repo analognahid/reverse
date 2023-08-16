@@ -167,7 +167,7 @@ if __name__ == "__main__":  # Allows for the safe importing of the main module
 
     results = pool.map_async(process_and_save, all_files_path)
     pool.close()
-    pool.join(timeout=200)
+    pool.join()
 
     print(" DONE ALL SUCCESSFULLY "*50)
     print("SUBHAN'ALLAH")
