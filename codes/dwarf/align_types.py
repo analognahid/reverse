@@ -35,9 +35,10 @@ from capstone.x86 import *
 import collections
 
 import clang.cindex
+# clang.cindex.Config.set_library_path('/usr/bin')  # Set the path to your Clang library
+
 from clang.cindex import CursorKind
 import traceback, sys, magic, hashlib
-
 
 sys.path.insert(0,'./align_utils')
 from process_typedata_for_model import *
@@ -52,19 +53,31 @@ from illustrate_utils import *
 # from var_and_instruction_realtions_utls import *
 from poof import *
 
-ANALYSIS_DATA_PATH = '/hdd0/nahid/analysis_output_10k/files/'
-SRC_N_BIN_PATH = '/hdd0/nahid/clones_10k/'
-ILLUSTRATION_LOG_PATH =  '/hdd0/nahid/illustration_10k/'
-TYPE_DATA_SAVE_PATH = '/hdd0/nahid/instructions_and_type_data_10k/'
+ANALYSIS_DATA_PATH = '/ssd/nahid/analysis_data_100k/files/'
+SRC_N_BIN_PATH = '/ssd/nahid/clones_100k'
+ILLUSTRATION_LOG_PATH =  '/ssd/nahid/illustration_100k/'
+TYPE_DATA_SAVE_PATH = '/ssd/nahid/instructions_and_type_data_100k/'
 
 
 
 
-all_files_path = []
-for path, subdirs, files in os.walk(SRC_N_BIN_PATH):
-    for name in files:
-        file_path = os.path.join(path, name)
-        all_files_path.append(file_path)
+# all_files_path = []
+# for path, subdirs, files in os.walk(SRC_N_BIN_PATH):
+#     for name in files:
+#         file_path = os.path.join(path, name)
+#         all_files_path.append(file_path)
+with open('/home/tools/nahid/100k_file_paths.pkl', 'rb') as file:
+      
+    # Call load method to deserialze
+    all_files_path = pickle.load(file)
+
+filtered_files = []
+
+for bp in all_files_path:
+    if 'elf_file' in bp:
+        bp = bp.replace('/mnt/e29c5b78-847e-4795-9a3c-5fa6666a7feb/nahid/', '/ssd/nahid/')
+        filtered_files.append(bp)
+all_files_path = filtered_files
 
 
 ALL_TYPEDATA_COUNT = {}
@@ -82,17 +95,23 @@ error_log = open("error.log", "w")
 
 def process_and_save(binary_path):
     
-    if is_elf_file(binary_path)== False:
-        return
-    if check_dwarf_ok(binary_path) == False:
-        return
+    # if is_elf_file(binary_path)== False:
+    #     return
+    # if check_dwarf_ok(binary_path) == False:
+    #     return
 
-    unique_path = binary_path.split('clones_10k')[1][1:]
+
+
+    unique_path = binary_path.split('clones_100k')[1][1:]
     github_path = unique_path.split('/')[0]
 
     unique_pkl_file_name=github_path + '_____'+(hashlib.md5(unique_path.encode())).hexdigest()
 
-
+        ###################
+    ##########  check if allrady done
+    if os.path.isfile(os.path.join(TYPE_DATA_SAVE_PATH ,unique_pkl_file_name+'.pkl')) ==True:
+        return
+    ######################
 
     analysed_pkl_path = os.path.join( ANALYSIS_DATA_PATH ,unique_pkl_file_name+'.pkl')
     
@@ -115,11 +134,13 @@ def process_and_save(binary_path):
     with (open(analysed_pkl_path , "rb")) as openfile:
         bb_data , ins_data , tool_addresses_list = pickle.load(openfile)
     
+    print("DBG: ",bb_data , ins_data , tool_addresses_list)
+
     try:
         VALID_INSTRUCTIONS_SET = get_valid_instructions(binary_path,tool_addresses_list,min_address=MIN_ADDRESS, max_address=MAX_ADDRESS)
         connected_addrs_and_program_slice = process_graphs(ins_data,MIN_ADDRESS,MAX_ADDRESS,VALID_INSTRUCTIONS_SET,bb_data)
 
-
+        
     ##########################################################
     ################ CREATE HELPER DATA STRUCTURES   #########
     ##########################################################
@@ -142,7 +163,10 @@ def process_and_save(binary_path):
         write_illustrated_file(binFileName ,lineinfo_address_subprogram_complete , inst_type_info,VALID_INSTRUCTIONS_SET,ILLUSTRATION_LOG_PATH)
         
         ###################################################################################
+
+        
         process_data_4_model_and_save(VALID_INSTRUCTIONS_SET , connected_addrs_and_program_slice,inst_type_info,unique_pkl_file_name)
+        
         
     except Exception as e:#TODO, solve the most frequent errors
         exc_type, exc_obj, exc_tb = sys.exc_info()
@@ -162,9 +186,11 @@ import multiprocessing
 
 if __name__ == "__main__":  # Allows for the safe importing of the main module
     print("There are {} CPUs on this machine".format( multiprocessing.cpu_count()))
-    number_processes = multiprocessing.cpu_count()-2
+    number_processes = 3 #multiprocessing.cpu_count()-2
     pool = multiprocessing.Pool(number_processes)
 
+    print(' TOTAL JOBS: @@@ ',len(all_files_path))
+    all_files_path.reverse()
     results = pool.map_async(process_and_save, all_files_path)
     pool.close()
     pool.join()

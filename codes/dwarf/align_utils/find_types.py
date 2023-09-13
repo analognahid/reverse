@@ -87,7 +87,7 @@ def show_loclist(loclist, dwarfinfo, indent, cu_offset):
     return '\n'.join(indent + s for s in d)
 
 def fix_src_path(cu_path,SRC_N_BIN_PATH):#TODO reduce global var usage
-    key='/clones/'
+    key='/clones_100k/'
     replacing_str = cu_path[: (cu_path.find(key)+len(key))]
     cu_path = cu_path.replace(replacing_str , SRC_N_BIN_PATH)
     return cu_path

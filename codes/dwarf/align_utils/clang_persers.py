@@ -25,6 +25,7 @@ def get_function_boundaries(source_path): #TODO does not perse disabled Source c
     
     function_boundary_by_name = {}
     idx = clang.cindex.Index.create()
+    print("######",source_path)
     tu = idx.parse(source_path)
 
     for f in tu.cursor.walk_preorder():

@@ -14,7 +14,7 @@ def is_elf_file(file_path):
     return 'ELF' in file_type
 
 
-root    ='/hdd0/nahid/clones_10k/'
+root    ='/ssd/nahid/clones_100k/'
 
 manager = multiprocessing.Manager()
 Global = manager.Namespace()

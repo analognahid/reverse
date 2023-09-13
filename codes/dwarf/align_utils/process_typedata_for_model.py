@@ -63,7 +63,7 @@ TYPE_MAPPING ={'int': 0, '*structure': 1, 'array_char': 2, '*char': 3, '*int': 4
                    'union': 36, '*array_char': 37, '*array_const': 38, 
                    'array_unsigned char': 39, 'signed char': 40, 'array_long int': 41}
 # tokenizer  = BertTokenizer.from_pretrained("./../ML/multytask-tokenizer")
-DUMP_PATH = '/hdd0/nahid/instructions_and_type_data_10k/'
+DUMP_PATH = '/ssd/nahid/instructions_and_type_data_100k/'
 #TODO make the input slice length maximumpwd
 #TODO make function body single input, need function boundaries
 
@@ -76,9 +76,11 @@ def process_data_4_model_and_save(VALID_INSTRUCTIONS_SET ,
 
     pkl_path = os.path.join(DUMP_PATH ,unique_pkl_file_name)
     
+    print('xing')
     if os.path.isfile(pkl_path):
         return
 
+    print('TING')
     model_input_list = []
     model_label_list = []
     inst_type_data = {}
@@ -88,10 +90,11 @@ def process_data_4_model_and_save(VALID_INSTRUCTIONS_SET ,
         if type!= None and type in TYPE_MAPPING:
             inst_type_data[int(addr,16)] = type
     # print(inst_type_data)
-
+    print("TING 0")
     if len(inst_type_data.keys())==0:
         return None
 
+    print('TING2')
     ########################################
     if len(VALID_INSTRUCTIONS_SET.keys())<48:
 
@@ -150,7 +153,9 @@ def process_data_4_model_and_save(VALID_INSTRUCTIONS_SET ,
                 model_input_list.append([backward_slice , target_slice, forward_slice] )
                 model_label_list.append(inst_type_data[target_address])
     
-    
+    print('TING4')
     ##save pkl
     with open(pkl_path+'.pkl', 'wb') as file:
         pickle.dump([model_input_list,model_label_list], file)
+    
+    print("SAVED!")
