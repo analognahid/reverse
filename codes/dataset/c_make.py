@@ -14,7 +14,7 @@ def is_elf_file(file_path):
     return 'ELF' in file_type
 
 
-root    ='/ssd/nahid/clones_100k/'
+root    ='/ssd/nahid/clones_100k_trimmed_dwarf4'
 
 
 manager = multiprocessing.Manager()
@@ -36,7 +36,7 @@ def compile(src_file_path):
     # src_file_name = os.path.basename(src_file_path)
     src_dir_path, src_file_name = os.path.split(os.path.abspath(src_file_path))
     compiler = ' gcc '
-    flags = ' -g -O0  '#-ffunction-sections -fdata-sections
+    flags = ' -gdwarf-4 -O0  '#-ffunction-sections -fdata-sections
     elf_output_name = src_file_name.split('.')[0] +"_elf_file_g_O0" #TODO make better
 
     elf_output_path = os.path.join(src_dir_path, elf_output_name)
