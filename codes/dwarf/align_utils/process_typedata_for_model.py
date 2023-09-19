@@ -51,19 +51,42 @@ MAX_TOKEN_SIZE = 512
 MAX_INST_SIZE = 50
 #TODO make better mapping 
 
-TYPE_MAPPING ={'int': 0, '*structure': 1, 'array_char': 2, '*char': 3, '*int': 4, 
-               'array_int': 5, 'char': 6, 'double': 7, '**char': 8, 'unsigned int': 9,
-                 'long int': 10, 'float': 11, 'long unsigned int': 12, 'structure': 13, 
-                 'const': 14, '*const': 15, 'long long unsigned int': 16, '*enumeration': 17,
-                   'unsigned char': 18, 'long long int': 19, '*unsigned char': 20, 
-                   '*float': 21, '**int': 22, '*double': 23, '**structure': 24, '*union': 25, 
-                   'short unsigned int': 26, 'enumeration': 27, '*array_int': 28, 
-                   'array_double': 29, '*array_float': 30, 'array_structure': 31, 
-                   'array_*char': 32, 'short int': 33, 'array_float': 34, '*unsigned int': 35, 
-                   'union': 36, '*array_char': 37, '*array_const': 38, 
-                   'array_unsigned char': 39, 'signed char': 40, 'array_long int': 41}
+# TYPE_MAPPING ={'int': 0, '*structure': 1, 'array_char': 2, '*char': 3, '*int': 4, 
+#                'array_int': 5, 'char': 6, 'double': 7, '**char': 8, 'unsigned int': 9,
+#                  'long int': 10, 'float': 11, 'long unsigned int': 12, 'structure': 13, 
+#                  'const': 14, '*const': 15, 'long long unsigned int': 16, '*enumeration': 17,
+#                    'unsigned char': 18, 'long long int': 19, '*unsigned char': 20, 
+#                    '*float': 21, '**int': 22, '*double': 23, '**structure': 24, '*union': 25, 
+#                    'short unsigned int': 26, 'enumeration': 27, '*array_int': 28, 
+#                    'array_double': 29, '*array_float': 30, 'array_structure': 31, 
+#                    'array_*char': 32, 'short int': 33, 'array_float': 34, '*unsigned int': 35, 
+#                    'union': 36, '*array_char': 37, '*array_const': 38, 
+#                    'array_unsigned char': 39, 'signed char': 40, 'array_long int': 41}
+
+
+
+# TYPE_MAPPING ={
+    
+# 'int': 0, '*int': 1, '**int': 1,  '*array_int': 1, 'array_int': 2, 'long int': 3,  'array_long int': 4, 'short int': 10, 'long long int': 7, 
+# 'unsigned int': 3, 'short unsigned int': 8, 'long unsigned int': 5, '*unsigned int': ,  'long long unsigned int': 6,
+ 
+
+
+#  'structure': 11, '*structure': 11, '**structure': 12, 'array_structure': 13, 
+
+# 'char': 14, 'array_char': 15, '*char': 16, '**char': 16,  'array_*char': 16, '*array_char': 16,  'unsigned char': 17, 
+# '*unsigned char': 18,  'array_unsigned char': 19, 'signed char': 40,
+
+# 'double': 20,  '*double': 21, 'array_double': 22, 
+# 'float': 23, '*float': 24,'*array_float': 24,  'array_float': 25,
+# 'const': 14, '*const': 15,  '*array_const': 38, 
+
+# '*enumeration': 17, 'enumeration': 27,
+# '*union': 25, 'union': 36,  
+# }
+
 # tokenizer  = BertTokenizer.from_pretrained("./../ML/multytask-tokenizer")
-DUMP_PATH = '/ssd/nahid/instructions_and_type_data_100k/'
+DUMP_PATH = '/media/raisul/nahid_personal/instructions_and_type_data_100k/'
 #TODO make the input slice length maximumpwd
 #TODO make function body single input, need function boundaries
 
@@ -76,25 +99,21 @@ def process_data_4_model_and_save(VALID_INSTRUCTIONS_SET ,
 
     pkl_path = os.path.join(DUMP_PATH ,unique_pkl_file_name)
     
-    print('xing')
     if os.path.isfile(pkl_path):
         return
 
-    print('TING')
     model_input_list = []
     model_label_list = []
     inst_type_data = {}
 
     for addr, type in inst_type_info.items():
         #TODO*** fix NUNs! and mapping
-        if type!= None and type in TYPE_MAPPING:
+        if type!= None :#and type in TYPE_MAPPING:
             inst_type_data[int(addr,16)] = type
     # print(inst_type_data)
-    print("TING 0")
     if len(inst_type_data.keys())==0:
         return None
 
-    print('TING2')
     ########################################
     if len(VALID_INSTRUCTIONS_SET.keys())<48:
 
@@ -152,8 +171,7 @@ def process_data_4_model_and_save(VALID_INSTRUCTIONS_SET ,
 
                 model_input_list.append([backward_slice , target_slice, forward_slice] )
                 model_label_list.append(inst_type_data[target_address])
-    
-    print('TING4')
+
     ##save pkl
     with open(pkl_path+'.pkl', 'wb') as file:
         pickle.dump([model_input_list,model_label_list], file)

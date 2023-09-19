@@ -14,7 +14,7 @@ def is_elf_file(file_path):
     return 'ELF' in file_type
 
 
-root    ='/ssd/nahid/clones_100k_trimmed_dwarf4'
+root    ='/media/raisul/nahid_personal/clones_100k_trimmed_drarf4/'
 
 
 manager = multiprocessing.Manager()
@@ -37,7 +37,7 @@ def compile(src_file_path):
     src_dir_path, src_file_name = os.path.split(os.path.abspath(src_file_path))
     compiler = ' gcc '
     flags = ' -gdwarf-4 -O0  '#-ffunction-sections -fdata-sections
-    elf_output_name = src_file_name.split('.')[0] +"_elf_file_g_O0" #TODO make better
+    elf_output_name = src_file_name.split('.')[0] +"_elf_file_gdwarf4_O0" #TODO make better
 
     elf_output_path = os.path.join(src_dir_path, elf_output_name)
 
@@ -99,20 +99,20 @@ for path, subdirs, files in os.walk(root):
 if __name__ == "__main__":  # Allows for the safe importing of the main module
     print("There are {} CPUs on this machine".format( multiprocessing.cpu_count()))
     number_processes = multiprocessing.cpu_count()-2
-    # pool = multiprocessing.Pool(number_processes)
-    # results = pool.map_async(compile, all_c_paths)
-    # pool.close()
-    # pool.join()
+    pool = multiprocessing.Pool(number_processes)
+    results = pool.map_async(compile, all_c_paths)
+    pool.close()
+    pool.join()
 
-    newPool = multiprocessing.Pool(number_processes)
-    new_results = newPool.map_async(make, all_make_dir_paths)
-    newPool.close()
-    newPool.join()
-
-
+    # newPool = multiprocessing.Pool(number_processes)
+    # new_results = newPool.map_async(make, all_make_dir_paths)
+    # newPool.close()
+    # newPool.join()
 
 
-    print('Global.total_c_compile',Global.total_c_compile)
-    print('Global.total_make', Global.total_make)
+
+
+    # print('Global.total_c_compile',Global.total_c_compile)
+    # print('Global.total_make', Global.total_make)
 
     #c files 478699

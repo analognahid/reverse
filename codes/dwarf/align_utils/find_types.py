@@ -11,6 +11,10 @@ from elftools.dwarf.locationlists import LocationParser, LocationExpr
 
 from dwarf_utils import *
 
+
+CU_OLD_PATH = '/ssd/nahid/clones_100k'
+CU_NEW_PATH = '/media/raisul/nahid_personal/clones_100k'
+
 def get_DIE_at_offset(CU, offset):
         for die in CU.iter_DIEs():
             if die.offset == CU.cu_offset+offset:
@@ -21,8 +25,13 @@ def get_DIE_at_offset(CU, offset):
 ##TODO FIX CONSTANT TYPE
 def get_type_name(CU, offset):
     die = get_DIE_at_offset(CU, offset)
-    if die.tag == 'DW_TAG_const_type':
-        return "const"
+    if die.tag == 'DW_TAG_const_type': #just ignore const, we dont care
+        for _attr in die.attributes.values():
+            if _attr.name== "DW_AT_type":
+                return get_type_name(CU, _attr.value)
+
+        # return "const"
+
     
     if die.tag == 'DW_TAG_pointer_type' :
         for _attr in die.attributes.values():
@@ -98,6 +107,9 @@ def fix_src_path(cu_path,SRC_N_BIN_PATH):#TODO reduce global var usage
 #############  contains all the dwarf info about func perams, varts etc ####
 ####################################################################################
 def parse_dwarf_to_get_func_params(filename, SRC_N_BIN_PATH):
+
+    global CU_OLD_PATH , CU_NEW_PATH 
+
     FUNC_PARAMS_DICT = {}
     FUNC_PARAMS_DICT['uesrdef_datastructs'] = {}
     FUNC_PARAMS_DICT['structs'] = {}
@@ -135,10 +147,13 @@ def parse_dwarf_to_get_func_params(filename, SRC_N_BIN_PATH):
                     CU_DIR_PATH = fix_src_path(attr.value.decode("utf-8") , SRC_N_BIN_PATH)
                 if attr.name == 'DW_AT_name'    :
                     CU_FILENAME = (attr.value.decode("utf-8"))
-            line_program = dwarfinfo.line_program_for_CU(CU)
 
-         
+            CU_DIR_PATH = CU_DIR_PATH.replace(CU_OLD_PATH , CU_NEW_PATH)
+            CU_FILENAME = CU_FILENAME.replace(CU_OLD_PATH , CU_NEW_PATH)
+
+            line_program = dwarfinfo.line_program_for_CU(CU)
             CU_dictionary_key = os.path.join(CU_DIR_PATH, CU_FILENAME)
+
             if CU_dictionary_key not in FUNC_PARAMS_DICT:
                 FUNC_PARAMS_DICT[CU_dictionary_key] = {}
             
@@ -233,7 +248,6 @@ def parse_dwarf_to_get_func_params(filename, SRC_N_BIN_PATH):
 
                     
                 if DIE.tag =='DW_TAG_global_variable':
-                    print("DBG# DW_TAG_global_variable")
                     pass #TODO
                 
                 if DIE.tag in ['DW_TAG_structure_type' , 'DW_TAG_union_type' , 'DW_TAG_enumeration_type']:
@@ -291,5 +305,6 @@ def parse_dwarf_to_get_func_params(filename, SRC_N_BIN_PATH):
                 if DIE.has_children:
                     die_depth += 1
     
+    print(FUNC_PARAMS_DICT)
     
     return FUNC_PARAMS_DICT

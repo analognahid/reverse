@@ -10,10 +10,17 @@ import matplotlib.pyplot
 from difflib import SequenceMatcher
 from capstone import *
 from capstone.x86 import *
+import capstone
 import collections
 ############################################################## #######################
 ######### UTIL funcs related to aligning inst offset to dwarf location offset ########
 ########################################################################################
+
+CU_OLD_PATH = '/ssd/nahid/clones_100k'
+CU_NEW_PATH = '/media/raisul/nahid_personal/clones_100k'
+
+
+
 def diff_dict(matrix):
     matrix_diff = {}
     for i in range (len(matrix.keys()) -1):
@@ -70,6 +77,9 @@ def assign_twin_instructions_types(addr_list, type_list, twin_dict):
 
             
 def produce_address_to_lineinfo_matrix(bin_path , MIN_ADDRESS, MAX_ADDRESS):
+
+    global CU_OLD_PATH , CU_NEW_PATH 
+
     lineinfo_address_subprogram = {}
     with open(bin_path, 'rb') as f:
         elffile = ELFFile(f)
@@ -97,7 +107,9 @@ def produce_address_to_lineinfo_matrix(bin_path , MIN_ADDRESS, MAX_ADDRESS):
                 print('  DWARF info is missing a line program for this CU')
                 continue
 
-            
+
+            CU_DIR_PATH = CU_DIR_PATH.replace(CU_OLD_PATH , CU_NEW_PATH)
+            CU_FILENAME = CU_FILENAME.replace(CU_OLD_PATH , CU_NEW_PATH)
             cu_file_path  = os.path.join(CU_DIR_PATH, CU_FILENAME)
             
             bounds_matrix = form_function_bound_metrix( get_function_boundaries(cu_file_path)  , CU_FILENAME)
@@ -155,11 +167,13 @@ def find_offset(VALID_INSTRUCTIONS_SET ,  func_data ,variables_in_line,cu_path):
             inst = VALID_INSTRUCTIONS_SET[address]
 
             disp = None
+
             if len(inst.operands) > 0 :
                 oc=-1
                 for o in inst.operands:
                     oc += 1
-                    if o.type == CS_OP_MEM:
+                    # print('DBG here fix', o.type ,o)
+                    if o.type == 3:#capstone.CS_OP_MEM: #TODO potensial BUG!!
                         if o.value.mem.disp != 0:
                             disp = o.value.mem.disp
 
@@ -167,8 +181,6 @@ def find_offset(VALID_INSTRUCTIONS_SET ,  func_data ,variables_in_line,cu_path):
                                 inst_matrix[address_hex]=disp
 
         inst_matrix = dict(sorted(inst_matrix.items(), key=lambda x: x[1] , reverse=True))
-
-
 
         #######################  PROCESS SRC VARIABLES #############################
         if line in variables_in_line[cu_path]: #ALL LINES SHOULD BE VALID, should not check
@@ -222,7 +234,6 @@ def find_offset(VALID_INSTRUCTIONS_SET ,  func_data ,variables_in_line,cu_path):
 
             var_matrix_diff = diff_dict(var_matrix)
 
-
             match = SequenceMatcher(isjunk = None, 
                                     a=list(var_matrix_diff.values()), 
                                     b=list(inst_matrix_diff.values()),
@@ -231,7 +242,6 @@ def find_offset(VALID_INSTRUCTIONS_SET ,  func_data ,variables_in_line,cu_path):
                                         bhi=len(inst_matrix_diff.values()))
 
             if match.size>0:#found matching seq
-
                 multi_offset = list(var_matrix.values() ) [match.a] - list(inst_matrix.values())[match.b] 
                 offset_list.append(multi_offset)
 
@@ -247,9 +257,10 @@ def do_magic(VALID_INSTRUCTIONS_SET, FUNC_PARAMS,line_to_address_matrix ,variabl
     all_inst_to_type = {}
     for cu_path, all_func_data in line_to_address_matrix.items():
         for func, func_data in all_func_data.items():
+
+
             calculated_offset = find_offset(VALID_INSTRUCTIONS_SET ,  func_data ,variables_in_line,cu_path)
-            
-            print('DBG:  calculated offset: ',calculated_offset)
+            print('DBG: calculated_offset',calculated_offset)
 
             if calculated_offset == None:
                 continue
@@ -270,7 +281,7 @@ def do_magic(VALID_INSTRUCTIONS_SET, FUNC_PARAMS,line_to_address_matrix ,variabl
                         oc=-1
                         for o in inst.operands:
                             oc += 1
-                            if o.type == CS_OP_MEM:
+                            if o.type == 3: #capstone.CS_OP_MEM: #TODO potensial BUG
                                 if o.value.mem.disp != 0:
                                     disp = o.value.mem.disp
                                     
@@ -303,7 +314,6 @@ def do_magic(VALID_INSTRUCTIONS_SET, FUNC_PARAMS,line_to_address_matrix ,variabl
                         
                     ###########################  DO MATCH   ######################
 
-                    # print("\n\nDBG:  line: " ,line, "   inst_matrix: ",inst_matrix , "   var_matrix  ",var_matrix)
 
                     for inst_address, inst_offset in inst_matrix.items():
                         for var_name, var_offset in var_matrix.items():
