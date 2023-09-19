@@ -53,11 +53,11 @@ from illustrate_utils import *
 # from var_and_instruction_realtions_utls import *
 from poof import *
 
-ANALYSIS_DATA_PATH = '/ssd/nahid/analysis_data_100k/files/'
-SRC_N_BIN_PATH = '/ssd/nahid/clones_100k'
-ILLUSTRATION_LOG_PATH =  '/ssd/nahid/illustration_100k/'
-TYPE_DATA_SAVE_PATH = '/ssd/nahid/instructions_and_type_data_100k/'
 
+ANALYSIS_DATA_PATH    = '/media/raisul/nahid_personal/analysis_data_100k/files/'
+SRC_N_BIN_PATH        = '/media/raisul/nahid_personal/clones_100k/'
+ILLUSTRATION_LOG_PATH = "/media/raisul/nahid_personal/illustration_100k/"
+TYPE_DATA_SAVE_PATH   = '/media/raisul/nahid_personal/instructions_and_type_data_100k/'
 
 
 
@@ -66,7 +66,7 @@ TYPE_DATA_SAVE_PATH = '/ssd/nahid/instructions_and_type_data_100k/'
 #     for name in files:
 #         file_path = os.path.join(path, name)
 #         all_files_path.append(file_path)
-with open('/home/tools/nahid/100k_file_paths.pkl', 'rb') as file:
+with open('all_file_path.pkl', 'rb') as file:
       
     # Call load method to deserialze
     all_files_path = pickle.load(file)
@@ -75,9 +75,10 @@ filtered_files = []
 
 for bp in all_files_path:
     if 'elf_file' in bp:
-        bp = bp.replace('/mnt/e29c5b78-847e-4795-9a3c-5fa6666a7feb/nahid/', '/ssd/nahid/')
+        bp = bp.replace('/ssd/nahid/', '/media/raisul/nahid_personal/')
         filtered_files.append(bp)
 all_files_path = filtered_files
+
 
 
 ALL_TYPEDATA_COUNT = {}
@@ -134,7 +135,7 @@ def process_and_save(binary_path):
     with (open(analysed_pkl_path , "rb")) as openfile:
         bb_data , ins_data , tool_addresses_list = pickle.load(openfile)
     
-    print("DBG: ",bb_data , ins_data , tool_addresses_list)
+    # print("DBG: ",bb_data , ins_data , tool_addresses_list)
 
     try:
         VALID_INSTRUCTIONS_SET = get_valid_instructions(binary_path,tool_addresses_list,min_address=MIN_ADDRESS, max_address=MAX_ADDRESS)
@@ -159,6 +160,8 @@ def process_and_save(binary_path):
         line_to_address_matrix = build_line_to_relatedAddresses_matrix(lineinfo_address_subprogram_complete,VALID_INSTRUCTIONS_SET)
 
         inst_type_info = do_magic(VALID_INSTRUCTIONS_SET, FUNC_PARAMS,line_to_address_matrix ,variables_in_line)
+        
+        print('DBG INST TYPE: ',inst_type_info)
         count_type_data(inst_type_info)
         write_illustrated_file(binFileName ,lineinfo_address_subprogram_complete , inst_type_info,VALID_INSTRUCTIONS_SET,ILLUSTRATION_LOG_PATH)
         
@@ -186,7 +189,7 @@ import multiprocessing
 
 if __name__ == "__main__":  # Allows for the safe importing of the main module
     print("There are {} CPUs on this machine".format( multiprocessing.cpu_count()))
-    number_processes = 3 #multiprocessing.cpu_count()-2
+    number_processes = multiprocessing.cpu_count()-5
     pool = multiprocessing.Pool(number_processes)
 
     print(' TOTAL JOBS: @@@ ',len(all_files_path))
@@ -196,4 +199,4 @@ if __name__ == "__main__":  # Allows for the safe importing of the main module
     pool.join()
 
     print(" DONE ALL SUCCESSFULLY "*50)
-    print("SUBHAN'ALLAH")
+    print("SUBHAnALLAH")

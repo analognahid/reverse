@@ -21,6 +21,9 @@ import collections, posixpath, os
 import clang.cindex
 from clang.cindex import CursorKind
 
+CU_OLD_PATH = '/ssd/nahid/clones_100k'
+CU_NEW_PATH = '/media/raisul/nahid_personal/clones_100k'
+
 def get_function_boundaries(source_path): #TODO does not perse disabled Source code,not needed anyway
     
     function_boundary_by_name = {}
@@ -179,6 +182,9 @@ def find_variables_per_line(source_path , line_to_function_matrix , dwarf_FUNC_P
             
 
 def create_variable_per_line_matrix(filename ,FUNCTION_PARAMS):
+
+
+    global CU_OLD_PATH,CU_NEW_PATH
     variables_in_line_matrix_all_files = {}
     with open(filename, 'rb') as f:
         elffile = ELFFile(f)
@@ -208,6 +214,8 @@ def create_variable_per_line_matrix(filename ,FUNCTION_PARAMS):
                     CU_DIR_PATH = os.path.dirname(attr.value.decode("utf-8"))
                     CU_FILENAME = os.path.basename(attr.value.decode("utf-8"))
 
+            CU_DIR_PATH = CU_DIR_PATH.replace(CU_OLD_PATH , CU_NEW_PATH)
+            CU_FILENAME = CU_FILENAME.replace(CU_OLD_PATH , CU_NEW_PATH)
             #########
             cu_src_path = os.path.join(CU_DIR_PATH, CU_FILENAME)
             cu_func_boundaries = get_function_boundaries(cu_src_path )
