@@ -1,6 +1,6 @@
 import json
 import sys
-import os
+import os, pickle
 
 
 def get_data_type_info(f, var, is_arg, count):
@@ -56,7 +56,7 @@ def get_data_type_info(f, var, is_arg, count):
     return f
 
 
-# output_dir = getScriptArgs()[0]
+output_path = str(getScriptArgs()[0])
 
 filepath = str(getProgramFile())
 filename = filepath.split('/')[-1]
@@ -86,6 +86,10 @@ while function is not None:
 
     function = getFunctionAfter(function)
 
-print('######', d)
+print('\n\n######'*10, d)
 # with open(os.path.join(output_dir, filename + '_stacks'), 'w') as f:
 #     f.write(json.dumps(d))
+
+with open(output_path, 'wb') as file:
+
+    pickle.dump(d, file)

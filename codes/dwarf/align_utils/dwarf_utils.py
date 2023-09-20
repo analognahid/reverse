@@ -8,8 +8,6 @@ import posixpath
 
 
 def lpe_filename(line_program, file_index, CU):
-    
-    
     die_dict = {}                    
     for attr in CU.get_top_DIE().attributes.values():
         die_dict[attr.name] = attr
@@ -17,14 +15,15 @@ def lpe_filename(line_program, file_index, CU):
     
     compilation_command = die_dict['DW_AT_producer'].value.decode("utf-8")
     
-    if 'clang' in compilation_command.lower():
+    #TODO fix the COMPILER_SUBSTRACT
+    if 'clang' in compilation_command.lower() or 'gdwarf-4' in compilation_command.lower():
         COMPILER_SUBSTRACT = 1
     elif 'gnu' in compilation_command.lower():
         COMPILER_SUBSTRACT = 0
+    
     lp_header = line_program.header
     file_entries = lp_header["file_entry"]
 #     print(COMPILER_SUBSTRACT, compilation_command)
-    
     # File and directory indices are 1-indexed.
     file_entry = file_entries[file_index -COMPILER_SUBSTRACT]
     dir_index = file_entry["dir_index"]

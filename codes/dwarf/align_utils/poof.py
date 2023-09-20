@@ -16,10 +16,11 @@ import collections
 ######### UTIL funcs related to aligning inst offset to dwarf location offset ########
 ########################################################################################
 
-CU_OLD_PATH = '/ssd/nahid/clones_100k'
-CU_NEW_PATH = '/media/raisul/nahid_personal/clones_100k'
+# CU_OLD_PATH = '/ssd/nahid/clones_100k'
+# CU_NEW_PATH = '/media/raisul/nahid_personal/clones_100k'
 
-
+CU_OLD_PATH = '/ssd/nahid/clones_100k_trimmed_dwarf4'
+CU_NEW_PATH = '/ssd/nahid/clones_100k_trimmed_dwarf4'
 
 def diff_dict(matrix):
     matrix_diff = {}

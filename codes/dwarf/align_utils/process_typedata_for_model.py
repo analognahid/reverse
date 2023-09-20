@@ -16,6 +16,8 @@ import numpy as np
 from timer_utils import *
 
 
+DUMP_PATH ='/ssd/nahid/dwarf4/instructions_and_type_data_100k/'
+
 # import errno
 # import os
 # import signal
@@ -86,7 +88,8 @@ MAX_INST_SIZE = 50
 # }
 
 # tokenizer  = BertTokenizer.from_pretrained("./../ML/multytask-tokenizer")
-DUMP_PATH = '/media/raisul/nahid_personal/instructions_and_type_data_100k/'
+# DUMP_PATH = '/media/raisul/nahid_personal/instructions_and_type_data_100k/'
+
 #TODO make the input slice length maximumpwd
 #TODO make function body single input, need function boundaries
 

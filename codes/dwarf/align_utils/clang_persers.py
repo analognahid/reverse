@@ -21,8 +21,8 @@ import collections, posixpath, os
 import clang.cindex
 from clang.cindex import CursorKind
 
-CU_OLD_PATH = '/ssd/nahid/clones_100k'
-CU_NEW_PATH = '/media/raisul/nahid_personal/clones_100k'
+CU_OLD_PATH = '/ssd/nahid/clones_100k_trimmed_dwarf4'
+CU_NEW_PATH = '/ssd/nahid/clones_100k_trimmed_dwarf4'
 
 def get_function_boundaries(source_path): #TODO does not perse disabled Source code,not needed anyway
     

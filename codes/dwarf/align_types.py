@@ -35,7 +35,6 @@ from capstone.x86 import *
 import collections
 
 import clang.cindex
-# clang.cindex.Config.set_library_path('/usr/bin')  # Set the path to your Clang library
 
 from clang.cindex import CursorKind
 import traceback, sys, magic, hashlib
@@ -54,30 +53,33 @@ from illustrate_utils import *
 from poof import *
 
 
-ANALYSIS_DATA_PATH    = '/media/raisul/nahid_personal/analysis_data_100k/files/'
-SRC_N_BIN_PATH        = '/media/raisul/nahid_personal/clones_100k/'
-ILLUSTRATION_LOG_PATH = "/media/raisul/nahid_personal/illustration_100k/"
-TYPE_DATA_SAVE_PATH   = '/media/raisul/nahid_personal/instructions_and_type_data_100k/'
+ANALYSIS_DATA_PATH    = '/ssd/nahid/dwarf4/analysis_data_100k/files/'
+SRC_N_BIN_PATH        = '/ssd/nahid/clones_100k_trimmed_dwarf4/'
+ILLUSTRATION_LOG_PATH = "/ssd/nahid/dwarf4/illustration_100k/"
+TYPE_DATA_SAVE_PATH   = '/ssd/nahid/dwarf4/instructions_and_type_data_100k/'
 
 
-
-# all_files_path = []
-# for path, subdirs, files in os.walk(SRC_N_BIN_PATH):
-#     for name in files:
-#         file_path = os.path.join(path, name)
-#         all_files_path.append(file_path)
-with open('all_file_path.pkl', 'rb') as file:
-      
-    # Call load method to deserialze
-    all_files_path = pickle.load(file)
 
 filtered_files = []
+for path, subdirs, files in os.walk(SRC_N_BIN_PATH):
+    # if len(filtered_files)>10:
+    #     break
+    for name in files:
 
-for bp in all_files_path:
-    if 'elf_file' in bp:
-        bp = bp.replace('/ssd/nahid/', '/media/raisul/nahid_personal/')
-        filtered_files.append(bp)
-all_files_path = filtered_files
+        if '_elf_file_gdwarf4_O0' not in name:
+            continue
+
+        file_path = os.path.join(path, name)
+        
+        if is_elf_file(file_path)== False:
+            continue
+        if check_dwarf_ok(file_path) == False:
+            continue
+        # print(os.path.getsize(binary_path))
+        # if os.path.getsize(file_path)>(30*1024):
+        #     continue
+
+        filtered_files.append(file_path)
 
 
 
@@ -103,7 +105,7 @@ def process_and_save(binary_path):
 
 
 
-    unique_path = binary_path.split('clones_100k')[1][1:]
+    unique_path = binary_path.split('clones_100k_trimmed_dwarf4')[1][1:]
     github_path = unique_path.split('/')[0]
 
     unique_pkl_file_name=github_path + '_____'+(hashlib.md5(unique_path.encode())).hexdigest()
@@ -192,9 +194,8 @@ if __name__ == "__main__":  # Allows for the safe importing of the main module
     number_processes = multiprocessing.cpu_count()-5
     pool = multiprocessing.Pool(number_processes)
 
-    print(' TOTAL JOBS: @@@ ',len(all_files_path))
-    all_files_path.reverse()
-    results = pool.map_async(process_and_save, all_files_path)
+
+    results = pool.map_async(process_and_save, filtered_files)
     pool.close()
     pool.join()
 
