@@ -14,7 +14,7 @@ def is_elf_file(file_path):
     return 'ELF' in file_type
 
 
-root    ='/media/raisul/nahid_personal/clones_100k_trimmed_drarf4/'
+root    ='/media/raisul/nahid_personal/clones_100k/'
 
 
 manager = multiprocessing.Manager()
@@ -41,6 +41,8 @@ def compile(src_file_path):
 
     elf_output_path = os.path.join(src_dir_path, elf_output_name)
 
+    if os.path.isfile(elf_output_path):
+          return
 
     command = compiler + flags + '-o '+ elf_output_path +' '+ src_file_path
     process = subprocess.Popen(command, shell=True)
@@ -98,7 +100,7 @@ for path, subdirs, files in os.walk(root):
 
 if __name__ == "__main__":  # Allows for the safe importing of the main module
     print("There are {} CPUs on this machine".format( multiprocessing.cpu_count()))
-    number_processes = multiprocessing.cpu_count()-2
+    number_processes = multiprocessing.cpu_count()-15
     pool = multiprocessing.Pool(number_processes)
     results = pool.map_async(compile, all_c_paths)
     pool.close()
