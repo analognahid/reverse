@@ -12,8 +12,11 @@ from elftools.dwarf.locationlists import LocationParser, LocationExpr
 from dwarf_utils import *
 
 
-CU_OLD_PATH = '/ssd/nahid/clones_100k'
-CU_NEW_PATH = '/media/raisul/nahid_personal/clones_100k'
+# CU_OLD_PATH = '/ssd/nahid/clones_100k'
+# CU_NEW_PATH = '/media/raisul/nahid_personal/clones_100k'
+CU_OLD_PATH = '/ssd/nahid/clones_100k_trimmed_dwarf4'
+CU_NEW_PATH = '/ssd/nahid/clones_100k_trimmed_dwarf4'
+
 
 def get_DIE_at_offset(CU, offset):
         for die in CU.iter_DIEs():
