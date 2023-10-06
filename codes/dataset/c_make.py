@@ -36,8 +36,8 @@ def compile(src_file_path):
     # src_file_name = os.path.basename(src_file_path)
     src_dir_path, src_file_name = os.path.split(os.path.abspath(src_file_path))
     compiler = ' gcc '
-    flags = ' -gdwarf-4 -O0  '#-ffunction-sections -fdata-sections
-    elf_output_name = src_file_name.split('.')[0] +"_elf_file_gdwarf4_O0" #TODO make better
+    flags = ' -gdwarf-4 -O3  '#-ffunction-sections -fdata-sections
+    elf_output_name = src_file_name.split('.')[0] +"_elf_file_gdwarf4_O3" #TODO make better
 
     elf_output_path = os.path.join(src_dir_path, elf_output_name)
 
@@ -100,7 +100,7 @@ for path, subdirs, files in os.walk(root):
 
 if __name__ == "__main__":  # Allows for the safe importing of the main module
     print("There are {} CPUs on this machine".format( multiprocessing.cpu_count()))
-    number_processes = multiprocessing.cpu_count()-15
+    number_processes = multiprocessing.cpu_count()-10
     pool = multiprocessing.Pool(number_processes)
     results = pool.map_async(compile, all_c_paths)
     pool.close()

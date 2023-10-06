@@ -1,1 +1,12 @@
-{"unk_token": "[UNK]", "sep_token": "[SEP]", "pad_token": "[PAD]", "cls_token": "[CLS]", "mask_token": "[MASK]", "additional_special_tokens": ["[MASK]", "[EOI]", "[LOOK]"]}
+{
+  "additional_special_tokens": [
+    "[MASK]",
+    "[EOI]",
+    "[LOOK]"
+  ],
+  "cls_token": "[CLS]",
+  "mask_token": "[MASK]",
+  "pad_token": "[PAD]",
+  "sep_token": "[SEP]",
+  "unk_token": "[UNK]"
+}

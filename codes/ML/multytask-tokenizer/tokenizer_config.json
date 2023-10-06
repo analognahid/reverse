@@ -1,1 +1,18 @@
-{"do_lower_case": true, "unk_token": "[UNK]", "sep_token": "[SEP]", "pad_token": "[PAD]", "cls_token": "[CLS]", "mask_token": "[MASK]", "tokenize_chinese_chars": true, "strip_accents": null, "model_max_length": 512, "special_tokens_map_file": null, "name_or_path": "bert-base-uncased", "additional_special_tokens": ["[MASK]", "[EOI]", "[LOOK]"], "tokenizer_class": "BertTokenizer"}
+{
+  "additional_special_tokens": [
+    "[MASK]",
+    "[EOI]",
+    "[LOOK]"
+  ],
+  "clean_up_tokenization_spaces": true,
+  "cls_token": "[CLS]",
+  "do_lower_case": true,
+  "mask_token": "[MASK]",
+  "model_max_length": 512,
+  "pad_token": "[PAD]",
+  "sep_token": "[SEP]",
+  "strip_accents": null,
+  "tokenize_chinese_chars": true,
+  "tokenizer_class": "BertTokenizer",
+  "unk_token": "[UNK]"
+}
