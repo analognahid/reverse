@@ -53,35 +53,39 @@ from illustrate_utils import *
 from poof import *
 
 
-ANALYSIS_DATA_PATH    = '/ssd/nahid/dwarf4/analysis_data_100k/files/'
-SRC_N_BIN_PATH        = '/ssd/nahid/clones_100k_trimmed_dwarf4/'
-ILLUSTRATION_LOG_PATH = "/ssd/nahid/dwarf4/illustration_100k/"
-TYPE_DATA_SAVE_PATH   = '/ssd/nahid/dwarf4/instructions_and_type_data_100k/'
+ANALYSIS_DATA_PATH    = '/media/raisul/nahid_personal/analysis_data_all/gdwarf4_O2/files'
+SRC_N_BIN_PATH        = '/media/raisul/nahid_personal/clones_100k/'
+ILLUSTRATION_LOG_PATH = "/media/raisul/nahid_personal/optimizations/O2_d4/illustration_100k/"
+TYPE_DATA_SAVE_PATH   = '/media/raisul/nahid_personal/optimizations/O2_d4/instructions_and_type_data_100k/'
 
 
 
 filtered_files = []
-for path, subdirs, files in os.walk(SRC_N_BIN_PATH):
-    # if len(filtered_files)>10:
-    #     break
-    for name in files:
+# for path, subdirs, files in os.walk(SRC_N_BIN_PATH):
+#     # if len(filtered_files)>10000:
+#     #     break
+#     for name in files:
 
-        if '_elf_file_gdwarf4_O0' not in name:
-            continue
+#         if '_elf_file_gdwarf4_O2' not in name:
+#             continue
 
-        file_path = os.path.join(path, name)
+#         file_path = os.path.join(path, name)
         
-        if is_elf_file(file_path)== False:
-            continue
-        if check_dwarf_ok(file_path) == False:
-            continue
-        # print(os.path.getsize(binary_path))
-        # if os.path.getsize(file_path)>(30*1024):
-        #     continue
-
-        filtered_files.append(file_path)
+#         if is_elf_file(file_path)== False:
+#             continue
+#         if check_dwarf_ok(file_path) == False:
+#             continue
 
 
+#         filtered_files.append(file_path)
+
+# with open('_elf_file_gdwarf4_O2_paths.ignore.pkl', 'wb') as f:
+#     pickle.dump(filtered_files , f)
+    
+with open('_elf_file_gdwarf4_O2_paths.ignore.pkl', 'rb') as file: 
+    filtered_files  = pickle.load(file)  
+print('DBG len of all bins >> ',len(filtered_files))
+# filtered_files = filtered_files[:50]
 
 ALL_TYPEDATA_COUNT = {}
 def count_type_data(inst_type_data):
@@ -98,14 +102,9 @@ error_log = open("error.log", "w")
 
 def process_and_save(binary_path):
     
-    # if is_elf_file(binary_path)== False:
-    #     return
-    # if check_dwarf_ok(binary_path) == False:
-    #     return
 
 
-
-    unique_path = binary_path.split('clones_100k_trimmed_dwarf4')[1][1:]
+    unique_path = binary_path.split('clones_100k')[1][1:]
     github_path = unique_path.split('/')[0]
 
     unique_pkl_file_name=github_path + '_____'+(hashlib.md5(unique_path.encode())).hexdigest()
@@ -119,7 +118,9 @@ def process_and_save(binary_path):
     analysed_pkl_path = os.path.join( ANALYSIS_DATA_PATH ,unique_pkl_file_name+'.pkl')
     
     if os.path.isfile(analysed_pkl_path) == False:#no analysis file present
-        print("no analysis file ")
+        # print("no analysis file ")
+        #TODO log
+        pass
         return
 
     binFileName = os.path.basename(binary_path)
@@ -183,15 +184,12 @@ def process_and_save(binary_path):
         error_log.write(str(exc_type) +" fname: "+fname + " lineno: "+ str(exc_tb.tb_lineno) )
     
     
-    
-    
-
 
 import multiprocessing
 
 if __name__ == "__main__":  # Allows for the safe importing of the main module
     print("There are {} CPUs on this machine".format( multiprocessing.cpu_count()))
-    number_processes = multiprocessing.cpu_count()-5
+    number_processes = multiprocessing.cpu_count()-16
     pool = multiprocessing.Pool(number_processes)
 
 

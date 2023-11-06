@@ -6,17 +6,18 @@ from elftools.dwarf.locationlists import (
 import posixpath
 import sys,os,pickle
 from elftools.elf.segments import Segment
-from elftools.dwarf.locationlists import LocationParser, LocationExpr
+# from elftools.dwarf.locationlists import LocationParser, LocationExpr
 
-
+import traceback, sys
 from dwarf_utils import *
 
 
 # CU_OLD_PATH = '/ssd/nahid/clones_100k'
 # CU_NEW_PATH = '/media/raisul/nahid_personal/clones_100k'
-CU_OLD_PATH = '/ssd/nahid/clones_100k_trimmed_dwarf4'
-CU_NEW_PATH = '/ssd/nahid/clones_100k_trimmed_dwarf4'
-
+# CU_OLD_PATH = '/ssd/nahid/clones_100k_trimmed_dwarf4'
+# CU_NEW_PATH = '/ssd/nahid/clones_100k_trimmed_dwarf4'
+CU_OLD_PATH = ''
+CU_NEW_PATH = ''
 
 def get_DIE_at_offset(CU, offset):
         for die in CU.iter_DIEs():
@@ -215,6 +216,10 @@ def parse_dwarf_to_get_func_params(filename, SRC_N_BIN_PATH):
                         
                         for attr in DIE.attributes.values():
                             die_dict[attr.name] = attr
+
+                            #todo test debug
+                            if attr.name=='DW_AT_location':
+                                loc_parser.parse_from_attribute(attr,CU['version'])
                         
                         PARAM_name = die_dict['DW_AT_name'].value.decode("utf-8")
                         
@@ -232,22 +237,21 @@ def parse_dwarf_to_get_func_params(filename, SRC_N_BIN_PATH):
                                 loc = loc_parser.parse_from_attribute(die_dict['DW_AT_location'],
                                                                       CU['version'])
                                 
-#                                 print(CU_dictionary_key,FUNC_name,PARAM_name)
+                                
                                 if isinstance(loc, LocationExpr):
                                     loc_info_str = describe_DWARF_expr(loc.loc_expr, dwarfinfo.structs, CU.cu_offset)
                                     offset_temp = (loc_info_str.split('-')[-1]).split(')')[0]
 #                                     print('1a ',loc_info_str, offset_temp)
 #                                     print('1b ', PARAM_name,loc_info_str, int(offset_temp)-LOCATION_SUBSTRACT_FACTOR)
                                     FUNC_PARAMS_DICT[CU_dictionary_key][FUNC_name][PARAM_name]["location"]= loc_info_str
-
                                 elif isinstance(loc, list):
 #                                     print(PARAM_name,show_loclist(loc,dwarfinfo,'      ', CU.cu_offset))
                                     FUNC_PARAMS_DICT[CU_dictionary_key][FUNC_name][PARAM_name]["location"]= show_loclist(loc,
                                                        dwarfinfo,'      ', CU.cu_offset)
                             except:
 
-                                print("ERROR",DIE)
-                                pass
+                                print("DBG ERROR",DIE)
+                                print(traceback.format_exc())
 
                     
                 if DIE.tag =='DW_TAG_global_variable':

@@ -11,12 +11,12 @@ import sys,os, pickle
 import random, pickle
 
 import numpy as np
-
+import math
 
 from timer_utils import *
 
 
-DUMP_PATH ='/ssd/nahid/dwarf4/instructions_and_type_data_100k/'
+# DUMP_PATH ='/ssd/nahid/dwarf4/instructions_and_type_data_100k/'
 
 # import errno
 # import os
@@ -49,57 +49,22 @@ DUMP_PATH ='/ssd/nahid/dwarf4/instructions_and_type_data_100k/'
 
 
 ######################################
-MAX_TOKEN_SIZE = 512
-MAX_INST_SIZE = 50
+
 #TODO make better mapping 
 
-# TYPE_MAPPING ={'int': 0, '*structure': 1, 'array_char': 2, '*char': 3, '*int': 4, 
-#                'array_int': 5, 'char': 6, 'double': 7, '**char': 8, 'unsigned int': 9,
-#                  'long int': 10, 'float': 11, 'long unsigned int': 12, 'structure': 13, 
-#                  'const': 14, '*const': 15, 'long long unsigned int': 16, '*enumeration': 17,
-#                    'unsigned char': 18, 'long long int': 19, '*unsigned char': 20, 
-#                    '*float': 21, '**int': 22, '*double': 23, '**structure': 24, '*union': 25, 
-#                    'short unsigned int': 26, 'enumeration': 27, '*array_int': 28, 
-#                    'array_double': 29, '*array_float': 30, 'array_structure': 31, 
-#                    'array_*char': 32, 'short int': 33, 'array_float': 34, '*unsigned int': 35, 
-#                    'union': 36, '*array_char': 37, '*array_const': 38, 
-#                    'array_unsigned char': 39, 'signed char': 40, 'array_long int': 41}
-
-
-
-# TYPE_MAPPING ={
-    
-# 'int': 0, '*int': 1, '**int': 1,  '*array_int': 1, 'array_int': 2, 'long int': 3,  'array_long int': 4, 'short int': 10, 'long long int': 7, 
-# 'unsigned int': 3, 'short unsigned int': 8, 'long unsigned int': 5, '*unsigned int': ,  'long long unsigned int': 6,
- 
-
-
-#  'structure': 11, '*structure': 11, '**structure': 12, 'array_structure': 13, 
-
-# 'char': 14, 'array_char': 15, '*char': 16, '**char': 16,  'array_*char': 16, '*array_char': 16,  'unsigned char': 17, 
-# '*unsigned char': 18,  'array_unsigned char': 19, 'signed char': 40,
-
-# 'double': 20,  '*double': 21, 'array_double': 22, 
-# 'float': 23, '*float': 24,'*array_float': 24,  'array_float': 25,
-# 'const': 14, '*const': 15,  '*array_const': 38, 
-
-# '*enumeration': 17, 'enumeration': 27,
-# '*union': 25, 'union': 36,  
-# }
 
 # tokenizer  = BertTokenizer.from_pretrained("./../ML/multytask-tokenizer")
-# DUMP_PATH = '/media/raisul/nahid_personal/instructions_and_type_data_100k/'
+DUMP_PATH = '/media/raisul/nahid_personal/optimizations/O2_d4/instructions_and_type_data_100k'
 
 #TODO make the input slice length maximumpwd
 #TODO make function body single input, need function boundaries
-
 
 @timeout(15)
 def process_data_4_model_and_save(VALID_INSTRUCTIONS_SET ,
                                    connected_addrs_and_program_slice,
                                    inst_type_info,
                                    unique_pkl_file_name):
-
+    MAX_INST_WINDOW = 48
     pkl_path = os.path.join(DUMP_PATH ,unique_pkl_file_name)
     
     if os.path.isfile(pkl_path):
@@ -118,7 +83,7 @@ def process_data_4_model_and_save(VALID_INSTRUCTIONS_SET ,
         return None
 
     ########################################
-    if len(VALID_INSTRUCTIONS_SET.keys())<48:
+    if len(VALID_INSTRUCTIONS_SET.keys())<MAX_INST_WINDOW:
 
         for target_address, target_type in inst_type_data.items():
 
@@ -131,6 +96,7 @@ def process_data_4_model_and_save(VALID_INSTRUCTIONS_SET ,
                 inst_str = '{} {} {} [EOI]'.format(str(hex(addr)), inst.mnemonic , inst.op_str ) 
                 if target_address == addr:
                     target_slice  =  "[LOOK]" +inst_str + "[LOOK]"  
+                    target_done = True
                     continue
                 if target_done==False:
                     backward_slice = backward_slice + inst_str
@@ -141,39 +107,95 @@ def process_data_4_model_and_save(VALID_INSTRUCTIONS_SET ,
 
             model_input_list.append([backward_slice, target_slice , forward_slice])
             model_label_list.append( target_type)
+
+
+##########TODO TEMP NO SLICE
 #######################################
-    else:
+    else:# does not take the whole function
+        
+        funct_address_set = list(VALID_INSTRUCTIONS_SET.keys())
+        already_seen = []
         for C in connected_addrs_and_program_slice:
             
             connected_comp = C['connected_comp']
             program_slice  = C['program_slice']
 
-            common_addrs = list(set(connected_comp).intersection(inst_type_data.keys()))
-            
-            if len(common_addrs)<1:
-                continue
 
+            common_addrs = list(set(connected_comp).intersection(inst_type_data.keys()))
+
+            #TODO handle small slices. make complex decisions
+            if len(program_slice) <MAX_INST_WINDOW:
+                comp_left_index = funct_address_set.index(common_addrs[0])
+                comp_right_index  = funct_address_set.index(common_addrs[-1])
+
+                
+                counter = 0
+                while len(program_slice)<MAX_INST_WINDOW:
+                    counter +=1
+
+                    if counter%2==0 and (comp_left_index-1)>=0:
+                        program_slice.insert( 0 , funct_address_set[comp_left_index-1])
+                        comp_left_index = comp_left_index -1
+
+                    elif counter%2==1 and (comp_right_index+1)< len(funct_address_set):
+                        program_slice.append(  funct_address_set[comp_right_index+1])
+                        comp_right_index= comp_right_index +1
+                    # else:
+                    #     print('dbg ', len(funct_address_set) ,  comp_right_index , comp_left_index , counter)
+                    #     print("DBG !!!!!! not okay!!"*10)
+                    #     break
+                if len(program_slice)<MAX_INST_WINDOW:
+                    print('dbg ', len(funct_address_set) ,  comp_right_index , comp_left_index , counter)
+                    print("DBG !!!!!! not okay!!"*10)
+
+            
+               
 
             for target_address  in common_addrs:
+                if target_address in already_seen:
+                    already_seen.append(target_address)
+                    continue
+                #handle larger program slices
+                target_program_slice = []
+                if len(program_slice)>MAX_INST_WINDOW:
 
+                    target_index = program_slice.index(target_address)
+                    left_slots = math.ceil(MAX_INST_WINDOW/2)
+                    right_slots = math.floor(MAX_INST_WINDOW/2)
+
+                    if target_index-left_slots>=0 and target_index+right_slots<len(program_slice):
+                        target_program_slice = program_slice[ (target_index-left_slots): target_index+right_slots]
+                    elif target_index-left_slots<0:
+                        target_program_slice = program_slice[:MAX_INST_WINDOW]
+                    elif target_index+right_slots>=len(program_slice):
+                        target_program_slice = program_slice[-MAX_INST_WINDOW:]
+                    else:
+                        print(" DBG ERR2"*100)
+                        raise ValueError
+                else:
+                    target_program_slice = program_slice
                 backward_slice =""
                 target_slice = None
                 forward_slice =""
                 target_done = False
-                for slice_addr in program_slice:
+
+
+                for slice_addr in target_program_slice:
                     inst = VALID_INSTRUCTIONS_SET[slice_addr]
                     inst_str = '{} {} {} [EOI]'.format(str(hex(slice_addr)), inst.mnemonic , inst.op_str ) 
                     if target_address == slice_addr:
                         target_slice  =  "[LOOK]" +inst_str + "[LOOK]" 
+                        target_done = True
                         continue
 
                     if target_done==False:
                         backward_slice= backward_slice + inst_str
                     else:
                         forward_slice = forward_slice + inst_str
-
+                
                 model_input_list.append([backward_slice , target_slice, forward_slice] )
                 model_label_list.append(inst_type_data[target_address])
+
 
     ##save pkl
     with open(pkl_path+'.pkl', 'wb') as file:

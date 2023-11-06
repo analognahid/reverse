@@ -16,11 +16,14 @@ import collections
 ######### UTIL funcs related to aligning inst offset to dwarf location offset ########
 ########################################################################################
 
+CU_OLD_PATH = ''
+CU_NEW_PATH = ''
+
 # CU_OLD_PATH = '/ssd/nahid/clones_100k'
 # CU_NEW_PATH = '/media/raisul/nahid_personal/clones_100k'
 
-CU_OLD_PATH = '/ssd/nahid/clones_100k_trimmed_dwarf4'
-CU_NEW_PATH = '/ssd/nahid/clones_100k_trimmed_dwarf4'
+# CU_OLD_PATH = '/ssd/nahid/clones_100k_trimmed_dwarf4'
+# CU_NEW_PATH = '/ssd/nahid/clones_100k_trimmed_dwarf4'
 
 def diff_dict(matrix):
     matrix_diff = {}
@@ -250,6 +253,9 @@ def find_offset(VALID_INSTRUCTIONS_SET ,  func_data ,variables_in_line,cu_path):
     if len(offset_list)>0:
         return most_frequent(offset_list)
     else :
+
+        # print('VALID_INSTRUCTIONS_SET: ',VALID_INSTRUCTIONS_SET)
+        print('DBG cu_path',cu_path, func_data)
         return None 
 
     
