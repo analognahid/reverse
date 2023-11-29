@@ -114,73 +114,74 @@ def find_variables_per_line(source_path , line_to_function_matrix , dwarf_FUNC_P
 
         #TODO keep all with type info, explore CursorKind
         #TODO function ends  }  should relate with fucntion return type
-        # print(f.kind , f.displayname , f)
-        # print(f.extent.start.file.name.split('/')[-1])
-        # continue
-        if f.kind in [CursorKind.MEMBER_REF_EXPR ,CursorKind.PARM_DECL ,CursorKind.DECL_REF_EXPR, CursorKind.VAR_DECL]  :
-            
-            #TODO check if okay and find a better soultion
-            origin_file=f.extent.start.file.name.split('/')[-1]
-            if srcFileName != origin_file:
-                continue
-            var_name = f.displayname
-            line = f.extent.start.line
-            col =f.extent.start.column
-            type_info = f.type.spelling
-
-
-            if line not in var_usage_matrix:
-                var_usage_matrix[line] = {}
-
-            
-            # if check_if_basic_type(type_info)==False: #struct
-            #     if f.kind == CursorKind.DECL_REF_EXPR:
-            #         pass
+        try:
                 
+            if f.kind in [CursorKind.MEMBER_REF_EXPR ,CursorKind.PARM_DECL ,CursorKind.DECL_REF_EXPR, CursorKind.VAR_DECL]  :
+                
+                #TODO check if okay and find a better soultion
+                origin_file=f.extent.start.file.name.split('/')[-1]
+                if srcFileName != origin_file:
+                    continue
+                var_name = f.displayname
+                line = f.extent.start.line
+                col =f.extent.start.column
+                type_info = f.type.spelling
 
 
-            if line in line_to_function_matrix:# func declaration, global variables,  might not present
-                if line_to_function_matrix[line] in dwarf_FUNC_PARAMS[source_path]:
-                    #because wiredrly some function info are not in DWARF INFO
-                    if var_name in dwarf_FUNC_PARAMS[source_path][line_to_function_matrix[line]]:
-                        if col in var_usage_matrix[line]:
-                            continue #means the member variable alreaday took the spot!
-                        var_usage_matrix[line][col] = {
-                                        'name'       : var_name ,
-                                        'dwarf_info' : dwarf_FUNC_PARAMS[source_path][line_to_function_matrix[line]][var_name],
-                                        'type'       :  type_info}
+                if line not in var_usage_matrix:
+                    var_usage_matrix[line] = {}
+
+                
+                # if check_if_basic_type(type_info)==False: #struct
+                #     if f.kind == CursorKind.DECL_REF_EXPR:
+                #         pass
                     
-                    #struct members
-                    if f.kind==CursorKind.MEMBER_REF_EXPR:
-                        parent_struct = find_parent_structure(f)
-                        all_tokens = [i.spelling for i in list(f.get_tokens() )]
-                        all_tokens_str = ''.join(all_tokens)
-                        parent_struct_varname = all_tokens[0]
-                        if parent_struct_varname in dwarf_FUNC_PARAMS[source_path][line_to_function_matrix[line]]:
-                            parent_struct_var_location = dwarf_FUNC_PARAMS[source_path][line_to_function_matrix[line]][parent_struct_varname] ['location']
-                            parent_var_offset = int( parent_struct_var_location.split(':')[-1].split(')')[0])
 
-                            
-                            if parent_struct in dwarf_FUNC_PARAMS['structs']:
-                                if var_name in dwarf_FUNC_PARAMS['structs'][parent_struct]:
-                                    self_relative_offset = dwarf_FUNC_PARAMS['structs'][parent_struct][var_name]['offset']
-                                    self_dwarf = dwarf_FUNC_PARAMS['structs'][parent_struct][var_name]
-                                    self_real_offset = parent_var_offset + self_relative_offset
-                                    
-                                    ### make copy, or updating the offset value make problems
-                                    self_dwarf = self_dwarf.copy()
-                                    self_dwarf['offset'] = self_real_offset
-                                    self_dwarf['kind']   ='struct_member'
 
-                                    var_usage_matrix[line][col] = {
-                                        'name'       : all_tokens_str , #like obj.mem1
-                                        'dwarf_info' : self_dwarf,
-                                        'type'       :  type_info}
-                                    #also put the member info in the FUNC_PARAMS 
-                                    # for later use in function context during aligning
-                                    dwarf_FUNC_PARAMS[source_path][line_to_function_matrix[line]][all_tokens_str] = self_dwarf
+                if line in line_to_function_matrix:# func declaration, global variables,  might not present
+                    if line_to_function_matrix[line] in dwarf_FUNC_PARAMS[source_path]:
+                        #because wiredrly some function info are not in DWARF INFO
+                        if var_name in dwarf_FUNC_PARAMS[source_path][line_to_function_matrix[line]]:
+                            if col in var_usage_matrix[line]:
+                                continue #means the member variable alreaday took the spot!
+                            var_usage_matrix[line][col] = {
+                                            'name'       : var_name ,
+                                            'dwarf_info' : dwarf_FUNC_PARAMS[source_path][line_to_function_matrix[line]][var_name],
+                                            'type'       :  type_info}
+                        
+                        #struct members
+                        if f.kind==CursorKind.MEMBER_REF_EXPR:
+                            parent_struct = find_parent_structure(f)
+                            all_tokens = [i.spelling for i in list(f.get_tokens() )]
+                            all_tokens_str = ''.join(all_tokens)
+                            parent_struct_varname = all_tokens[0]
+                            if parent_struct_varname in dwarf_FUNC_PARAMS[source_path][line_to_function_matrix[line]]:
+                                parent_struct_var_location = dwarf_FUNC_PARAMS[source_path][line_to_function_matrix[line]][parent_struct_varname] ['location']
+                                parent_var_offset = int( parent_struct_var_location.split(':')[-1].split(')')[0])
 
-                                         
+                                
+                                if parent_struct in dwarf_FUNC_PARAMS['structs']:
+                                    if var_name in dwarf_FUNC_PARAMS['structs'][parent_struct]:
+                                        self_relative_offset = dwarf_FUNC_PARAMS['structs'][parent_struct][var_name]['offset']
+                                        self_dwarf = dwarf_FUNC_PARAMS['structs'][parent_struct][var_name]
+                                        self_real_offset = parent_var_offset + self_relative_offset
+                                        
+                                        ### make copy, or updating the offset value make problems
+                                        self_dwarf = self_dwarf.copy()
+                                        self_dwarf['offset'] = self_real_offset
+                                        self_dwarf['kind']   ='struct_member'
+
+                                        var_usage_matrix[line][col] = {
+                                            'name'       : all_tokens_str , #like obj.mem1
+                                            'dwarf_info' : self_dwarf,
+                                            'type'       :  type_info}
+                                        #also put the member info in the FUNC_PARAMS 
+                                        # for later use in function context during aligning
+                                        dwarf_FUNC_PARAMS[source_path][line_to_function_matrix[line]][all_tokens_str] = self_dwarf
+        except Exception as e:
+            print("DBG : error 8348")
+            continue
+                                            
     
     return var_usage_matrix
 

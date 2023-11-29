@@ -39,8 +39,8 @@ def compile(src_file_path):
     # src_file_name = os.path.basename(src_file_path)
     src_dir_path, src_file_name = os.path.split(os.path.abspath(src_file_path))
     compiler = ' gcc '
-    flags = ' -gdwarf-4 -O2  '#-ffunction-sections -fdata-sections
-    elf_output_name = src_file_name.split('.')[0] +"_elf_file_gdwarf4_O2" #TODO make better
+    flags = ' -gdwarf-4 -O1  '#-ffunction-sections -fdata-sections
+    elf_output_name = src_file_name.split('.')[0] +"_elf_file_gdwarf4_O1" #TODO make better_elf_file_gdwarf4_O1
 
     elf_output_path = os.path.join(src_dir_path, elf_output_name)
 
@@ -103,14 +103,14 @@ all_make_dir_paths = []
     
 with open('c_files_n_projs.ignore.pkl', 'rb') as file:
     all_c_paths,all_make_dir_paths  = pickle.load(file)  
-# all_c_paths.reverse()
+all_c_paths.reverse()
 
 
 
 
 if __name__ == "__main__":  # Allows for the safe importing of the main module
     print("There are {} CPUs on this machine".format( multiprocessing.cpu_count()))
-    number_processes = multiprocessing.cpu_count()-3
+    number_processes = multiprocessing.cpu_count()-4
     pool = multiprocessing.Pool(number_processes)
     results = pool.map_async(compile, all_c_paths)
     pool.close()

@@ -49,15 +49,17 @@ from timer_utils import *
 from elf_utils import *
 from dependency_utils import *
 from illustrate_utils import *
+from ghidra_perser import *
 # from var_and_instruction_realtions_utls import *
 from poof import *
 
-
-ANALYSIS_DATA_PATH    = '/media/raisul/nahid_personal/analysis_data_all/gdwarf4_O2/files'
+import random
+ANALYSIS_DATA_PATH    = '/media/raisul/nahid_personal/analysis_data_all/gdwarf4_O3/files/'
 SRC_N_BIN_PATH        = '/media/raisul/nahid_personal/clones_100k/'
-ILLUSTRATION_LOG_PATH = "/media/raisul/nahid_personal/optimizations/O2_d4/illustration_100k/"
-TYPE_DATA_SAVE_PATH   = '/media/raisul/nahid_personal/optimizations/O2_d4/instructions_and_type_data_100k/'
-
+ILLUSTRATION_LOG_PATH = "/media/raisul/nahid_personal/optimizations/O3_d4_mix/illustration_100k/"
+TYPE_DATA_SAVE_PATH   = '/media/raisul/nahid_personal/optimizations/O3_d4_mix/instructions_and_type_data_100k/'
+GHIDRA_DATA_PATH = '/media/raisul/nahid_personal/dwarf4/ghidra_types/d4_03/'
+# DUMP_PATH = '/media/raisul/nahid_personal/optimizations/O2_d4/instructions_and_type_data_100k'
 
 
 filtered_files = []
@@ -79,14 +81,20 @@ filtered_files = []
 
 #         filtered_files.append(file_path)
 
+
 # with open('_elf_file_gdwarf4_O2_paths.ignore.pkl', 'wb') as f:
 #     pickle.dump(filtered_files , f)
     
-with open('_elf_file_gdwarf4_O2_paths.ignore.pkl', 'rb') as file: 
+# with open('_elf_file_gdwarf4_O2_paths.ignore.pkl', 'rb') as file: 
+#     filtered_files  = pickle.load(file)  
+
+# 
+with open('/home/raisul/reverse/codes/dataset/_elf_file_gdwarf4_O3.ignore.pkl', 'rb') as file: 
     filtered_files  = pickle.load(file)  
+
 print('DBG len of all bins >> ',len(filtered_files))
 # filtered_files = filtered_files[:50]
-
+filtered_files.reverse()
 ALL_TYPEDATA_COUNT = {}
 def count_type_data(inst_type_data):
     types = list(inst_type_data.values())
@@ -119,8 +127,6 @@ def process_and_save(binary_path):
     
     if os.path.isfile(analysed_pkl_path) == False:#no analysis file present
         # print("no analysis file ")
-        #TODO log
-        pass
         return
 
     binFileName = os.path.basename(binary_path)
@@ -164,15 +170,40 @@ def process_and_save(binary_path):
 
         inst_type_info = do_magic(VALID_INSTRUCTIONS_SET, FUNC_PARAMS,line_to_address_matrix ,variables_in_line)
         
+
+        #TODO hack. just using the ghidra types, 
+        inst_type_info={}
+        #### TODO remove this
+
         print('DBG INST TYPE: ',inst_type_info)
         count_type_data(inst_type_info)
-        write_illustrated_file(binFileName ,lineinfo_address_subprogram_complete , inst_type_info,VALID_INSTRUCTIONS_SET,ILLUSTRATION_LOG_PATH)
-        
-        ###################################################################################
 
+        if len(list( inst_type_info.keys()))>0:
+            print("DBG inst_type_info## " , inst_type_info)
+        ghidra_inst_type_info = get_ghidra_types(unique_pkl_file_name, binary_path , GHIDRA_DATA_PATH)
+
+
+
+        #merge ghidra types and our script types
+        if ghidra_inst_type_info is not None:
+
+            print("DBG   inst_type_info  b4               ",inst_type_info)
+            dbg_hex_ghidra_inst_type_info = {}
+            for int_addr, type_str in ghidra_inst_type_info.items():    
+                hex_addr = str(hex(int_addr))
+                dbg_hex_ghidra_inst_type_info[hex_addr] = type_str
+                if hex_addr not in inst_type_info:
+                    inst_type_info[hex_addr] = type_str
+                    
+
+            print("DBG   dbg_hex_ghidra_inst_type_info    ",dbg_hex_ghidra_inst_type_info)
+            print("DBG   inst_type_info  after            ",inst_type_info)
+
+
+
+        process_data_4_model_and_save(VALID_INSTRUCTIONS_SET , connected_addrs_and_program_slice,inst_type_info,unique_pkl_file_name,TYPE_DATA_SAVE_PATH)
         
-        process_data_4_model_and_save(VALID_INSTRUCTIONS_SET , connected_addrs_and_program_slice,inst_type_info,unique_pkl_file_name)
-        
+        write_illustrated_file(binFileName ,lineinfo_address_subprogram_complete , inst_type_info,VALID_INSTRUCTIONS_SET,ILLUSTRATION_LOG_PATH)
         
     except Exception as e:#TODO, solve the most frequent errors
         exc_type, exc_obj, exc_tb = sys.exc_info()
@@ -189,9 +220,10 @@ import multiprocessing
 
 if __name__ == "__main__":  # Allows for the safe importing of the main module
     print("There are {} CPUs on this machine".format( multiprocessing.cpu_count()))
-    number_processes = multiprocessing.cpu_count()-16
+    number_processes = multiprocessing.cpu_count()#-5
     pool = multiprocessing.Pool(number_processes)
 
+    random.shuffle(filtered_files)
 
     results = pool.map_async(process_and_save, filtered_files)
     pool.close()

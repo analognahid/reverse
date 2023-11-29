@@ -158,104 +158,109 @@ def most_frequent(List):
 
 def find_offset(VALID_INSTRUCTIONS_SET ,  func_data ,variables_in_line,cu_path):
 
+    
     offset_list = []
-    for line_col, line_addresses in func_data.items():
-        line = int(line_col.split('_')[0])
+    try:
 
-        #################### PROCESS ADDRESS LIST ##############################
+        for line_col, line_addresses in func_data.items():
+            line = int(line_col.split('_')[0])
 
-        inst_matrix = {  }
+            #################### PROCESS ADDRESS LIST ##############################
 
-        for address in line_addresses:
-            address_hex = hex(address)
-            inst = VALID_INSTRUCTIONS_SET[address]
+            inst_matrix = {  }
 
-            disp = None
+            for address in line_addresses:
+                address_hex = hex(address)
+                inst = VALID_INSTRUCTIONS_SET[address]
 
-            if len(inst.operands) > 0 :
-                oc=-1
-                for o in inst.operands:
-                    oc += 1
-                    # print('DBG here fix', o.type ,o)
-                    if o.type == 3:#capstone.CS_OP_MEM: #TODO potensial BUG!!
-                        if o.value.mem.disp != 0:
-                            disp = o.value.mem.disp
+                disp = None
 
-                            if disp not in inst_matrix.values() and disp<1000: ### displacements are usually negative
-                                inst_matrix[address_hex]=disp
+                if len(inst.operands) > 0 :
+                    oc=-1
+                    for o in inst.operands:
+                        oc += 1
+                        # print('DBG here fix', o.type ,o)
+                        if o.type == 3:#capstone.CS_OP_MEM: #TODO potensial BUG!!
+                            if o.value.mem.disp != 0:
+                                disp = o.value.mem.disp
 
-        inst_matrix = dict(sorted(inst_matrix.items(), key=lambda x: x[1] , reverse=True))
+                                if disp not in inst_matrix.values() and disp<1000: ### displacements are usually negative
+                                    inst_matrix[address_hex]=disp
 
-        #######################  PROCESS SRC VARIABLES #############################
-        if line in variables_in_line[cu_path]: #ALL LINES SHOULD BE VALID, should not check
-            var_list = variables_in_line[cu_path][line]
+            inst_matrix = dict(sorted(inst_matrix.items(), key=lambda x: x[1] , reverse=True))
 
-            var_matrix = {} 
-            
+            #######################  PROCESS SRC VARIABLES #############################
+            if line in variables_in_line[cu_path]: #ALL LINES SHOULD BE VALID, should not check
+                var_list = variables_in_line[cu_path][line]
 
-            for col,var in var_list.items():
+                var_matrix = {} 
+                
 
-                if 'location' in var['dwarf_info'] :
-                    if 'offset' not in var['dwarf_info'] : #not a struct member 
-                        if ('DW_OP_fbreg' in var['dwarf_info']['location']): #TODO, use regex.
-                            var_matrix[var['name']] = int(var['dwarf_info']['location'].split(':')[-1][:-1])
-                    else:#member
-                        var_matrix[var['name']] = var['dwarf_info']['offset']
-            var_matrix = dict (sorted(var_matrix.items(), key=lambda x: x[1] , reverse=True))
+                for col,var in var_list.items():
 
-
-            ########################################
-            ############# Compare & Align  ################
-            ########################################
-            inst_matrix_len = len(inst_matrix.items())
-            var_matrix_len  = len( var_matrix.items())
-            
-            
-
-            #TODO
-            # rule 1: they have single inst and single var, so just match
-            if inst_matrix_len==1 and var_matrix_len==1:
-
-                single_offset = list(var_matrix.values() ) [0] - list(inst_matrix.values())[0]
-                offset_list.append(single_offset)
-                # print('DBG  MATCHED Single!>>>>>>>>:   ', single_offset  )
-
-            #TODO
-            # rule 2: if one have 1 item and another have 1+ item, can match
-            #         only with coloumn alignment
-            if 1 in [inst_matrix_len,var_matrix_len] and \
-                    abs(inst_matrix_len-var_matrix_len)>0:
-                continue
-
-            #TODO
-            # rule 3: if there are multiple longest matches
-            pass
+                    if 'location' in var['dwarf_info'] :
+                        if 'offset' not in var['dwarf_info'] : #not a struct member 
+                            if ('DW_OP_fbreg' in var['dwarf_info']['location']): #TODO, use regex.
+                                var_matrix[var['name']] = int(var['dwarf_info']['location'].split(':')[-1][:-1])
+                        else:#member
+                            var_matrix[var['name']] = var['dwarf_info']['offset']
+                var_matrix = dict (sorted(var_matrix.items(), key=lambda x: x[1] , reverse=True))
 
 
+                ########################################
+                ############# Compare & Align  ################
+                ########################################
+                inst_matrix_len = len(inst_matrix.items())
+                var_matrix_len  = len( var_matrix.items())
+                
+                
+
+                #TODO
+                # rule 1: they have single inst and single var, so just match
+                if inst_matrix_len==1 and var_matrix_len==1:
+
+                    single_offset = list(var_matrix.values() ) [0] - list(inst_matrix.values())[0]
+                    offset_list.append(single_offset)
+                    # print('DBG  MATCHED Single!>>>>>>>>:   ', single_offset  )
+
+                #TODO
+                # rule 2: if one have 1 item and another have 1+ item, can match
+                #         only with coloumn alignment
+                if 1 in [inst_matrix_len,var_matrix_len] and \
+                        abs(inst_matrix_len-var_matrix_len)>0:
+                    continue
+
+                #TODO
+                # rule 3: if there are multiple longest matches
+                pass
 
 
-            inst_matrix_diff = diff_dict(inst_matrix)
-
-            var_matrix_diff = diff_dict(var_matrix)
-
-            match = SequenceMatcher(isjunk = None, 
-                                    a=list(var_matrix_diff.values()), 
-                                    b=list(inst_matrix_diff.values()),
-                                    autojunk=True).find_longest_match(alo=0, 
-                                        ahi=len(var_matrix_diff.values()), blo=0, 
-                                        bhi=len(inst_matrix_diff.values()))
-
-            if match.size>0:#found matching seq
-                multi_offset = list(var_matrix.values() ) [match.a] - list(inst_matrix.values())[match.b] 
-                offset_list.append(multi_offset)
 
 
+                inst_matrix_diff = diff_dict(inst_matrix)
+
+                var_matrix_diff = diff_dict(var_matrix)
+
+                match = SequenceMatcher(isjunk = None, 
+                                        a=list(var_matrix_diff.values()), 
+                                        b=list(inst_matrix_diff.values()),
+                                        autojunk=True).find_longest_match(alo=0, 
+                                            ahi=len(var_matrix_diff.values()), blo=0, 
+                                            bhi=len(inst_matrix_diff.values()))
+
+                if match.size>0:#found matching seq
+                    multi_offset = list(var_matrix.values() ) [match.a] - list(inst_matrix.values())[match.b] 
+                    offset_list.append(multi_offset)
+
+    except Exception as e:
+        print("DBG error 6372")
+        
     if len(offset_list)>0:
         return most_frequent(offset_list)
     else :
 
         # print('VALID_INSTRUCTIONS_SET: ',VALID_INSTRUCTIONS_SET)
-        print('DBG cu_path',cu_path, func_data)
+        # print('DBG cu_path',cu_path, func_data)
         return None 
 
     
@@ -271,64 +276,67 @@ def do_magic(VALID_INSTRUCTIONS_SET, FUNC_PARAMS,line_to_address_matrix ,variabl
 
             if calculated_offset == None:
                 continue
-            for line_col, line_addresses in func_data.items():
-                line = int(line_col.split('_')[0])
+            try:
+                for line_col, line_addresses in func_data.items():
+                    line = int(line_col.split('_')[0])
 
-                #################### PROCESS ADDRESS LIST ##############################
+                    #################### PROCESS ADDRESS LIST ##############################
 
-                inst_matrix = {  }
+                    inst_matrix = {  }
 
-                for address in line_addresses:
-                    address_hex = hex(address)
-                    inst = VALID_INSTRUCTIONS_SET[address]
-                    instrctionCode = (address_hex+":\t"+ inst.mnemonic+" "+inst.op_str).ljust(45)
-
-                    disp = None
-                    if len(inst.operands) > 0 :
-                        oc=-1
-                        for o in inst.operands:
-                            oc += 1
-                            if o.type == 3: #capstone.CS_OP_MEM: #TODO potensial BUG
-                                if o.value.mem.disp != 0:
-                                    disp = o.value.mem.disp
-                                    
-                                    inst_matrix[address_hex]=disp
-  
-                inst_matrix = dict(sorted(inst_matrix.items(), key=lambda x: x[1] , reverse=True))
-
-
-                #######################  PROCESS SRC VARIABLES #############################
-                if line in variables_in_line[cu_path]: #ALL LINES SHOULD BE VALID, should not check
                     
-                    var_list = variables_in_line[cu_path][line]
-                    var_matrix = {} 
+                    for address in line_addresses:
+                        address_hex = hex(address)
+                        inst = VALID_INSTRUCTIONS_SET[address]
+                        instrctionCode = (address_hex+":\t"+ inst.mnemonic+" "+inst.op_str).ljust(45)
+
+                        disp = None
+                        if len(inst.operands) > 0 :
+                            oc=-1
+                            for o in inst.operands:
+                                oc += 1
+                                if o.type == 3: #capstone.CS_OP_MEM: #TODO potensial BUG
+                                    if o.value.mem.disp != 0:
+                                        disp = o.value.mem.disp
+                                        
+                                        inst_matrix[address_hex]=disp
+
+                    inst_matrix = dict(sorted(inst_matrix.items(), key=lambda x: x[1] , reverse=True))
                     
-                    
-                    for col,var in var_list.items():
-
-                        if 'location' in var['dwarf_info'] :
-                            if 'offset' not in var['dwarf_info'] : #not a struct member 
-                                if ('DW_OP_fbreg' in var['dwarf_info']['location']): #TODO, use regex.
-                                    var_matrix[var['name']] = int(var['dwarf_info']['location'].split(':')[-1][:-1])
-                            else:#member
-                                var_matrix[var['name']] = var['dwarf_info']['offset']
-
-
-
-                    var_matrix = dict (sorted(var_matrix.items(), key=lambda x: x[1] , reverse=True))
-
-
+                    #######################  PROCESS SRC VARIABLES #############################
+                    if line in variables_in_line[cu_path]: #ALL LINES SHOULD BE VALID, should not check
                         
-                    ###########################  DO MATCH   ######################
+                        var_list = variables_in_line[cu_path][line]
+                        var_matrix = {} 
+                        
+                        
+                        for col,var in var_list.items():
+
+                            if 'location' in var['dwarf_info'] :
+                                if 'offset' not in var['dwarf_info'] : #not a struct member 
+                                    if ('DW_OP_fbreg' in var['dwarf_info']['location']): #TODO, use regex.
+                                        var_matrix[var['name']] = int(var['dwarf_info']['location'].split(':')[-1][:-1])
+                                else:#member
+                                    var_matrix[var['name']] = var['dwarf_info']['offset']
 
 
-                    for inst_address, inst_offset in inst_matrix.items():
-                        for var_name, var_offset in var_matrix.items():
-                            if ( var_offset - inst_offset ) == calculated_offset:
-                                #TODO type for members
-                                # print( "&&   {}:> {}".format(inst_address , var_name) ,FUNC_PARAMS  )
-                                all_inst_to_type[inst_address] = FUNC_PARAMS[cu_path][func][var_name]['type']
-                                
+
+                        var_matrix = dict (sorted(var_matrix.items(), key=lambda x: x[1] , reverse=True))
+
+
+                            
+                        ###########################  DO MATCH   ######################
+
+
+                        for inst_address, inst_offset in inst_matrix.items():
+                            for var_name, var_offset in var_matrix.items():
+                                if ( var_offset - inst_offset ) == calculated_offset:
+                                    #TODO type for members
+                                    # print( "&&   {}:> {}".format(inst_address , var_name) ,FUNC_PARAMS  )
+                                    all_inst_to_type[inst_address] = FUNC_PARAMS[cu_path][func][var_name]['type']
+            except Exception as e:
+                print("DBG error 435435")
+                continue  
 
 
          

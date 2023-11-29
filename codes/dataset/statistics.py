@@ -18,13 +18,11 @@ SRC_N_BIN_PATH    ='/media/raisul/nahid_personal/clones_100k/'
 
 filtered_files = []
 for path, subdirs, files in os.walk(SRC_N_BIN_PATH):
-    # if len(filtered_files)>1000000:
-    #     break
-    if len(filtered_files)%3000==0:
-        print(' DBG ->: ',len(filtered_files))
+
+    print(' DBG ->: ',len(filtered_files))
     for name in files:
 
-        if '_elf_file_gdwarf5_O3' not in name:
+        if '_elf_file_gdwarf4_O1' not in name:
             continue
 
         file_path = os.path.join(path, name)
@@ -37,9 +35,9 @@ for path, subdirs, files in os.walk(SRC_N_BIN_PATH):
 print(' DBG: ',len(filtered_files))
 
 
-with open('_elf_file_gdwarf5_O3.ignore.pkl', 'wb') as f:
+with open('_elf_file_gdwarf4_O1.ignore.pkl', 'wb') as f:
     pickle.dump(filtered_files , f)
     
-with open('_elf_file_gdwarf5_O3.ignore.pkl', 'rb') as file:
+with open('_elf_file_gdwarf4_O1.ignore.pkl', 'rb') as file:
     filtered_files  = pickle.load(file)  
-filtered_files.reverse()
+print(len(filtered_files))

@@ -9,14 +9,13 @@ import sys,os, pickle
 # from transformers import AdamW
 # from tqdm import tqdm  # for our progress bar
 import random, pickle
-
+import json
 import numpy as np
 import math
 
 from timer_utils import *
 
 
-# DUMP_PATH ='/ssd/nahid/dwarf4/instructions_and_type_data_100k/'
 
 # import errno
 # import os
@@ -53,8 +52,14 @@ from timer_utils import *
 #TODO make better mapping 
 
 
+
+
+
+
+
+
 # tokenizer  = BertTokenizer.from_pretrained("./../ML/multytask-tokenizer")
-DUMP_PATH = '/media/raisul/nahid_personal/optimizations/O2_d4/instructions_and_type_data_100k'
+# DUMP_PATH = '/media/raisul/nahid_personal/optimizations/O2_d4/instructions_and_type_data_100k'
 
 #TODO make the input slice length maximumpwd
 #TODO make function body single input, need function boundaries
@@ -62,8 +67,24 @@ DUMP_PATH = '/media/raisul/nahid_personal/optimizations/O2_d4/instructions_and_t
 @timeout(15)
 def process_data_4_model_and_save(VALID_INSTRUCTIONS_SET ,
                                    connected_addrs_and_program_slice,
-                                   inst_type_info,
-                                   unique_pkl_file_name):
+                                   inst_type_info, unique_pkl_file_name , DUMP_PATH):
+    
+    # if ghidra_inst_type_info is not None:
+
+    #     print("DBG   inst_type_info  b4               ",inst_type_info)
+    #     dbg_hex_ghidra_inst_type_info = {}
+    #     for int_addr, type_str in ghidra_inst_type_info.items():    
+    #         hex_addr = str(hex(int_addr))
+    #         dbg_hex_ghidra_inst_type_info[hex_addr] = type_str
+    #         if hex_addr not in inst_type_info:
+    #             inst_type_info[hex_addr] = type_str
+                
+
+    #     print("DBG   dbg_hex_ghidra_inst_type_info    ",dbg_hex_ghidra_inst_type_info)
+    #     print("DBG   inst_type_info  after            ",inst_type_info)
+        
+
+
     MAX_INST_WINDOW = 48
     pkl_path = os.path.join(DUMP_PATH ,unique_pkl_file_name)
     
@@ -123,8 +144,12 @@ def process_data_4_model_and_save(VALID_INSTRUCTIONS_SET ,
 
             common_addrs = list(set(connected_comp).intersection(inst_type_data.keys()))
 
+            if len(common_addrs)==0:
+                continue
+            
             #TODO handle small slices. make complex decisions
             if len(program_slice) <MAX_INST_WINDOW:
+
                 comp_left_index = funct_address_set.index(common_addrs[0])
                 comp_right_index  = funct_address_set.index(common_addrs[-1])
 
