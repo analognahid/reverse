@@ -54,11 +54,11 @@ from ghidra_perser import *
 from poof import *
 
 import random
-ANALYSIS_DATA_PATH    = '/media/raisul/nahid_personal/analysis_data_all/gdwarf4_O3/files/'
+ANALYSIS_DATA_PATH    = '/media/raisul/nahid_personal/analysis_data_all/gdwarf4_O2/files/'
 SRC_N_BIN_PATH        = '/media/raisul/nahid_personal/clones_100k/'
-ILLUSTRATION_LOG_PATH = "/media/raisul/nahid_personal/optimizations/O3_d4_mix/illustration_100k/"
-TYPE_DATA_SAVE_PATH   = '/media/raisul/nahid_personal/optimizations/O3_d4_mix/instructions_and_type_data_100k/'
-GHIDRA_DATA_PATH = '/media/raisul/nahid_personal/dwarf4/ghidra_types/d4_03/'
+ILLUSTRATION_LOG_PATH = "/media/raisul/nahid_personal/optimizations/O2_ghidra/illustration_100k/"
+TYPE_DATA_SAVE_PATH   = '/media/raisul/nahid_personal/optimizations/O2_ghidra/instructions_and_type_data_100k_mix/'
+GHIDRA_DATA_PATH = '/media/raisul/nahid_personal/dwarf4/ghidra_types/analysis_data_state_format_100k_dwarf4_O2/'
 # DUMP_PATH = '/media/raisul/nahid_personal/optimizations/O2_d4/instructions_and_type_data_100k'
 
 
@@ -89,12 +89,13 @@ filtered_files = []
 #     filtered_files  = pickle.load(file)  
 
 # 
-with open('/home/raisul/reverse/codes/dataset/_elf_file_gdwarf4_O3.ignore.pkl', 'rb') as file: 
+
+with open('/home/raisul/stateformer/_elf_file_gdwarf4_O2.ignore_latest.pkl', 'rb') as file: 
     filtered_files  = pickle.load(file)  
 
 print('DBG len of all bins >> ',len(filtered_files))
 # filtered_files = filtered_files[:50]
-filtered_files.reverse()
+# filtered_files.reverse()
 ALL_TYPEDATA_COUNT = {}
 def count_type_data(inst_type_data):
     types = list(inst_type_data.values())
@@ -220,7 +221,7 @@ import multiprocessing
 
 if __name__ == "__main__":  # Allows for the safe importing of the main module
     print("There are {} CPUs on this machine".format( multiprocessing.cpu_count()))
-    number_processes = multiprocessing.cpu_count()#-5
+    number_processes = multiprocessing.cpu_count()-10#-4#-5
     pool = multiprocessing.Pool(number_processes)
 
     random.shuffle(filtered_files)
