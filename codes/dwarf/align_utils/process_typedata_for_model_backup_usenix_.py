@@ -56,39 +56,7 @@ from timer_utils import *
 
 
 
-def just_sliding_window(VALID_INSTRUCTIONS_SET,target_address,MAX_INST_WINDOW):
 
-    slide = []
-
-    funct_address_set = list(VALID_INSTRUCTIONS_SET.keys())
-    target_index = funct_address_set.index(target_address)
-    
-    slide.append(target_address)
-
-    offset = 1
-    while( len(slide) < MAX_INST_WINDOW):
-
-        if target_index - offset >=0:
-            slide.insert(0, funct_address_set[target_index - offset])
-
-        if target_index + offset< len(funct_address_set) and len(slide) < MAX_INST_WINDOW:
-            slide.append(funct_address_set[target_index + offset])
-
-
-    for slice_addr in slide:
-        inst = VALID_INSTRUCTIONS_SET[slice_addr]
-        inst_str = '{} {} {} [EOI]'.format(str(hex(slice_addr)), inst.mnemonic , inst.op_str ) 
-        if target_address == slice_addr:
-            target_slice  =  "[LOOK]" +inst_str + "[LOOK]" 
-            target_done = True
-            continue
-
-        if target_done==False:
-            backward_slice= backward_slice + inst_str
-        else:
-            forward_slice = forward_slice + inst_str
-    
-    return [backward_slice , target_slice, forward_slice] , slide
 
 # tokenizer  = BertTokenizer.from_pretrained("./../ML/multytask-tokenizer")
 # DUMP_PATH = '/media/raisul/nahid_personal/optimizations/O2_d4/instructions_and_type_data_100k'
@@ -137,8 +105,6 @@ def process_data_4_model_and_save(VALID_INSTRUCTIONS_SET ,
 
     ########################################
     if len(VALID_INSTRUCTIONS_SET.keys())<MAX_INST_WINDOW:
-        #DBG TODO change!!!!!!!!!!!!!!!!!!!!
-        return
 
         for target_address, target_type in inst_type_data.items():
 
@@ -208,12 +174,12 @@ def process_data_4_model_and_save(VALID_INSTRUCTIONS_SET ,
                     print("DBG !!!!!! not okay!!"*10)
 
             
+               
+
             for target_address  in common_addrs:
                 if target_address in already_seen:
+                    already_seen.append(target_address)
                     continue
-                already_seen.append(target_address)
-
-
                 #handle larger program slices
                 target_program_slice = []
                 if len(program_slice)>MAX_INST_WINDOW:
